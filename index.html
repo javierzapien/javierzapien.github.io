@@ -59,11 +59,11 @@
     }
 
     /* ══════════ CONTENT GRID ══════════
-       Columns: bio+nav | image | contact | clock
+       Columns: bio+nav | image | clock
     ══════════════════════════════════════════ */
     .content-grid {
       display: grid;
-      grid-template-columns: 1.8fr 1.3fr 0.7fr 0.5fr;
+      grid-template-columns: 1.8fr 2fr 0.5fr;
       border-bottom: 1px solid var(--fg);
       min-height: 580px;
     }
@@ -73,9 +73,8 @@
       border-right: 1px solid var(--fg);
     }
     .col:last-child { border-right: none; }
-    .col-img     { padding: 0; }
-    .col-contact { padding: 28px 20px; }
-    .col-clock   { padding: 28px 20px; }
+    .col-img   { padding: 0; }
+    .col-clock { padding: 28px 20px; }
 
     /* ── Col 1: bio + nav ── */
     .bio-text {
@@ -353,19 +352,11 @@
   <!-- COL 2: imagen -->
   <div class="col col-img">
     <div class="img-area">
-      <div class="img-placeholder">
-        [ ILUSTRACIÓN ]<br>AGREGAR IMAGEN
-      </div>
+      <img src="illustration.png" alt="Ilustración" style="mix-blend-mode:multiply;" />
     </div>
   </div>
 
-  <!-- COL 3: contacto -->
-  <div class="col col-contact">
-    <p class="contact-label">CONTACTO</p>
-    <p class="contact-value">HOLA.JAVIERZAPIEN<br>@GMAIL.COM</p>
-  </div>
-
-  <!-- COL 4: reloj dubai -->
+  <!-- COL 3: reloj dubai -->
   <div class="col col-clock">
     <p class="clock-label">HORA LOCAL</p>
     <p class="clock-time" id="clock-time">--:--:--</p>
