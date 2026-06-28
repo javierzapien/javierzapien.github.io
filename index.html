@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JAVIER ZAPIEN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --mono: 'DM Mono', 'Courier New', monospace;
+      --bg: #ffffff;
+      --fg: #111111;
+      --dim: #999999;
+      --line: #e0e0e0;
+      --yellow: #f5c518;
+      --yellow-d: #d4a900;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--mono);
+      overflow: hidden;
+      text-transform: uppercase;
+    }
+
+    /* ── CANVAS ── */
+    #desktop {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ── ASCII NOISE LAYER ── */
+    #noise {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .noise-glyph {
+      position: absolute;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: #111;
+      white-space: pre;
+      line-height: 1.3;
+      opacity: 0;
+      user-select: none;
+    }
+
+    /* ── HEADER ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      margin-bottom: 52px;
+      opacity: 0;
+      animation: fadeUp .7s ease forwards .1s;
+    }
+
+    .hero-name {
+      font-size: clamp(28px, 5vw, 56px);
+      font-weight: 300;
+      letter-spacing: .18em;
+      line-height: 1;
+      color: var(--fg);
+    }
+
+    .hero-sub {
+      margin-top: 14px;
+      font-size: 10px;
+      letter-spacing: .32em;
+      color: var(--dim);
+      font-weight: 300;
+    }
+
+    /* ── ICONS ROW ── */
+    .icons {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      gap: 60px;
+      align-items: flex-end;
+      opacity: 0;
+      animation: fadeUp .7s ease forwards .4s;
+    }
+
+    .icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .icon:hover .icon-body  { transform: translateY(-5px); }
+    .icon:active .icon-body { transform: scale(.94); }
+
+    .icon-body {
+      transition: transform .15s ease;
+    }
+
+    /* ── FOLDER ICON (svg-in-css) ── */
+    .folder-shape {
+      width: 72px;
+      height: 60px;
+      position: relative;
+    }
+
+    .folder-shape::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 72px; height: 50px;
+      background: var(--yellow);
+      border-radius: 3px 3px 4px 4px;
+      box-shadow: inset 0 -3px 0 var(--yellow-d);
+    }
+
+    .folder-shape::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 30px; height: 14px;
+      background: var(--yellow);
+      border-radius: 4px 4px 0 0;
+    }
+
+    /* private folder grey */
+    .folder--grey .folder-shape::after,
+    .folder--grey .folder-shape::before { background: #d0d0d0; }
+    .folder--grey .folder-shape::after  { box-shadow: inset 0 -3px 0 #b0b0b0; }
+
+    .folder-lock {
+      position: absolute;
+      bottom: 10px; left: 50%;
+      transform: translateX(-50%);
+      font-size: 18px;
+      z-index: 2;
+    }
+
+    /* ── TXT FILE ICON ── */
+    .file-shape {
+      width: 56px;
+      height: 68px;
+      background: #fff;
+      border: 1.5px solid #ccc;
+      border-radius: 2px 6px 2px 2px;
+      position: relative;
+    }
+
+    /* folded corner */
+    .file-shape::before {
+      content: '';
+      position: absolute;
+      top: -1px; right: -1px;
+      width: 16px; height: 16px;
+      background: var(--bg);
+      border-bottom: 1.5px solid #ccc;
+      border-left: 1.5px solid #ccc;
+      border-radius: 0 0 0 2px;
+    }
+
+    /* lines inside file */
+    .file-shape::after {
+      content: '— — —\A— — — —\A— —';
+      white-space: pre;
+      position: absolute;
+      bottom: 12px; left: 8px;
+      font-size: 7px;
+      color: #ccc;
+      letter-spacing: .1em;
+      line-height: 1.8;
+    }
+
+    .file-label-tag {
+      position: absolute;
+      bottom: 6px; left: 0; right: 0;
+      text-align: center;
+      font-size: 7px;
+      color: #aaa;
+      letter-spacing: .1em;
+    }
+
+    /* ── ICON LABEL ── */
+    .icon-label {
+      font-size: 10px;
+      letter-spacing: .12em;
+      color: var(--fg);
+      font-weight: 400;
+      text-align: center;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      position: absolute;
+      bottom: 22px;
+      left: 0; right: 0;
+      text-align: center;
+      font-size: 9px;
+      letter-spacing: .22em;
+      color: var(--dim);
+      z-index: 1;
+      opacity: 0;
+      animation: fadeUp .7s ease forwards .8s;
+    }
+
+    /* ═══════════════════════════════════ TERMINAL PANEL ═══ */
+    .term-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(6px);
+      z-index: 200;
+      overflow-y: auto;
+    }
+
+    .term-overlay.active { display: block; }
+
+    .term-panel {
+      max-width: 820px;
+      width: calc(100% - 48px);
+      margin: 48px auto 60px;
+      animation: termIn .25s ease;
+    }
+
+    /* command bar */
+    .term-cmd {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--fg);
+      margin-bottom: 32px;
+    }
+
+    .term-prompt {
+      font-size: 11px;
+      letter-spacing: .1em;
+      color: var(--dim);
+      font-weight: 300;
+      white-space: nowrap;
+    }
+
+    .term-cmd-text {
+      font-size: 13px;
+      letter-spacing: .08em;
+      color: var(--fg);
+      font-weight: 400;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 13px;
+      background: var(--fg);
+      animation: blink .9s step-end infinite;
+      flex-shrink: 0;
+    }
+
+    .term-close {
+      margin-left: auto;
+      font-size: 10px;
+      letter-spacing: .18em;
+      color: var(--dim);
+      cursor: pointer;
+      border: 1px solid var(--line);
+      padding: 4px 10px;
+      transition: border-color .15s, color .15s;
+      flex-shrink: 0;
+    }
+    .term-close:hover { border-color: var(--fg); color: var(--fg); }
+
+    /* content area (hidden until typed) */
+    .term-content {
+      opacity: 0;
+      transition: opacity .3s ease;
+    }
+    .term-content.visible { opacity: 1; }
+
+    /* ── ABOUT CONTENT ── */
+    .about-bio {
+      font-size: 13px;
+      line-height: 2;
+      color: #333;
+      font-weight: 300;
+      max-width: 620px;
+      margin-bottom: 36px;
+      letter-spacing: .03em;
+    }
+
+    .about-divider {
+      border: none;
+      border-top: 1px solid var(--line);
+      margin: 28px 0;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    @media (max-width: 560px) { .about-grid { grid-template-columns: 1fr; } }
+
+    .about-block {
+      padding: 20px 24px 20px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .about-block:nth-child(even) { padding-left: 24px; border-left: 1px solid var(--line); }
+
+    .about-block h3 {
+      font-size: 9px;
+      letter-spacing: .28em;
+      color: var(--dim);
+      font-weight: 400;
+      margin-bottom: 10px;
+    }
+
+    .about-block p,
+    .about-block li {
+      font-size: 12px;
+      line-height: 1.9;
+      color: #333;
+      font-weight: 300;
+      list-style: none;
+    }
+
+    .about-block li::before { content: '/ '; color: #ccc; }
+
+    /* ── PORTFOLIO CONTENT ── */
+    .port-header {
+      font-size: 9px;
+      letter-spacing: .28em;
+      color: var(--dim);
+      font-weight: 400;
+      margin-bottom: 0;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .project-list { }
+
+    .project-row {
+      display: grid;
+      grid-template-columns: 28px 72px 1fr 140px;
+      gap: 16px;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+      cursor: pointer;
+      transition: background .12s;
+    }
+
+    .project-row:hover { background: #f8f8f8; }
+    .project-row:hover .project-row-num { color: var(--fg); }
+
+    .project-row-num {
+      font-size: 10px;
+      color: #ccc;
+      font-weight: 300;
+      transition: color .12s;
+    }
+
+    .project-row-thumb {
+      width: 72px;
+      height: 52px;
+      background: #f0f0f0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .project-row-thumb pre {
+      font-size: 3.5px;
+      line-height: 1.1;
+      white-space: pre;
+      color: #888;
+      pointer-events: none;
+    }
+
+    .project-row-name {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--fg);
+      letter-spacing: .06em;
+    }
+
+    .project-row-name span {
+      display: block;
+      font-size: 10px;
+      font-weight: 300;
+      color: var(--dim);
+      letter-spacing: .04em;
+      margin-top: 3px;
+      font-style: italic;
+      text-transform: none;
+    }
+
+    .project-row-tag {
+      font-size: 9px;
+      letter-spacing: .14em;
+      color: #bbb;
+      font-weight: 300;
+      text-align: right;
+    }
+
+    @media (max-width: 560px) {
+      .project-row { grid-template-columns: 20px 1fr; }
+      .project-row-thumb, .project-row-tag { display: none; }
+    }
+
+    /* ── PROJECT DETAIL ── */
+    .proj-header-wrap {
+      margin-bottom: 0;
+      overflow: hidden;
+    }
+
+    .proj-svg-title {
+      width: 100%;
+      display: block;
+      overflow: visible;
+    }
+
+    .proj-divider {
+      border: none;
+      border-top: 1px solid var(--fg);
+      margin: 0 0 0 0;
+    }
+
+    /* 2-col layout: narrow text | wide photo grid */
+    .proj-body {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 0;
+      align-items: start;
+      min-height: 70vh;
+    }
+
+    @media (max-width: 680px) {
+      .proj-body { grid-template-columns: 1fr; }
+    }
+
+    /* LEFT: text */
+    .proj-text-col {
+      padding: 28px 28px 40px 0;
+      border-right: 1px solid var(--line);
+    }
+
+    .proj-meta-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: .08em;
+    }
+
+    .proj-meta-line span:first-child { color: var(--dim); }
+    .proj-meta-line span:last-child  { color: var(--fg); }
+
+    .proj-desc {
+      font-size: 11px;
+      line-height: 1.95;
+      color: #444;
+      font-weight: 300;
+      letter-spacing: .03em;
+      margin-top: 24px;
+    }
+
+    /* RIGHT: modular image grid */
+    .proj-img-col {
+      padding-left: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-auto-rows: 200px;
+      gap: 8px;
+      padding: 20px 0 20px 20px;
+    }
+
+    .proj-img {
+      background: #f0f0f0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* tall images span 2 rows */
+    .proj-img.tall { grid-row: span 2; }
+
+    .proj-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .proj-img-placeholder {
+      font-size: 9px;
+      line-height: 1.3;
+      white-space: pre;
+      color: #ccc;
+      user-select: none;
+      text-align: center;
+    }
+
+    /* ── PRIVATE CONTENT ── */
+    .joke-block {
+      padding: 8px 0 40px;
+    }
+
+    .joke-pre {
+      font-size: clamp(8px, 1.4vw, 13px);
+      line-height: 1.35;
+      white-space: pre;
+      color: #111;
+      margin-bottom: 32px;
+      font-weight: 300;
+    }
+
+    .joke-title {
+      font-size: 14px;
+      letter-spacing: .12em;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    .joke-body {
+      font-size: 12px;
+      line-height: 2.1;
+      color: #444;
+      font-weight: 300;
+      max-width: 500px;
+      margin-bottom: 28px;
+      letter-spacing: .04em;
+    }
+
+    .joke-stamp {
+      display: inline-block;
+      border: 2px solid #d00;
+      color: #d00;
+      font-size: 11px;
+      letter-spacing: .22em;
+      padding: 6px 16px;
+      transform: rotate(-3deg);
+      font-weight: 500;
+    }
+
+    .joke-footer {
+      margin-top: 32px;
+      font-size: 9px;
+      color: #ccc;
+      letter-spacing: .18em;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes termIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    @keyframes glitch {
+      0%   { opacity: var(--o); }
+      48%  { opacity: var(--o); }
+      50%  { opacity: 0; }
+      52%  { opacity: var(--o); }
+      100% { opacity: var(--o); }
+    }
+
+    @keyframes drift {
+      0%   { transform: translateY(0); }
+      50%  { transform: translateY(-6px); }
+      100% { transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════ DESKTOP ══════════════════════════════ -->
+<div id="desktop">
+
+  <div id="noise"></div>
+
+  <div class="hero">
+    <h1 class="hero-name">JAVIER ZAPIEN</h1>
+    <p class="hero-sub">GRAPHIC DESIGNER &amp; ART DIRECTOR &nbsp;·&nbsp; DUBAI, UAE &nbsp;·&nbsp; MÉXICO</p>
+  </div>
+
+  <div class="icons">
+
+    <!-- ACERCA.TXT -->
+    <div class="icon" onclick="openTerm('about')">
+      <div class="icon-body">
+        <div class="file-shape">
+          <span class="file-label-tag">.TXT</span>
+        </div>
+      </div>
+      <span class="icon-label">ACERCA.TXT</span>
+    </div>
+
+    <!-- PORTAFOLIO/ -->
+    <div class="icon" onclick="openTerm('portfolio')">
+      <div class="icon-body">
+        <div class="folder-shape"></div>
+      </div>
+      <span class="icon-label">PORTAFOLIO/</span>
+    </div>
+
+    <!-- PRIVADA/ -->
+    <div class="icon folder--grey" onclick="openTerm('private')">
+      <div class="icon-body">
+        <div class="folder-shape">
+          <span class="folder-lock">🔒</span>
+        </div>
+      </div>
+      <span class="icon-label">PRIVADA/</span>
+    </div>
+
+  </div>
+
+  <p class="footer">© 2026 &nbsp;·&nbsp; HOLA.JAVIERZAPIEN@GMAIL.COM &nbsp;·&nbsp; [ESC] PARA CERRAR</p>
+</div>
+
+
+<!-- ══════════════════════════════ TERM: ABOUT ══════════════════════════ -->
+<div class="term-overlay" id="term-about">
+  <div class="term-panel">
+    <div class="term-cmd">
+      <span class="term-prompt">$</span>
+      <span class="term-cmd-text">CAT ACERCA.TXT</span>
+      <span class="cursor" id="cur-about"></span>
+      <span class="term-close" onclick="closeTerm('about')">[ESC]</span>
+    </div>
+    <div class="term-content" id="content-about">
+
+      <p class="about-bio">
+        DISEÑADOR GRÁFICO Y DIRECTOR DE ARTE CON SEDE EN DUBAI, EMIRATOS ÁRABES UNIDOS,
+        CON RAÍCES EN MÉXICO. 11 AÑOS DE EXPERIENCIA TRABAJANDO EN BRANDING, PACKAGING,
+        TIPOGRAFÍA E ILUSTRACIÓN — DESDE EL CONCEPTO HASTA LA EJECUCIÓN.<br><br>
+        HE COLABORADO CON ESTUDIOS Y CLIENTES EN MÉXICO, AMÉRICA LATINA Y MEDIO ORIENTE,
+        APORTANDO UNA PERSPECTIVA INTERCULTURAL A CADA PROYECTO. ME ATRAE EL TRABAJO QUE
+        EXIGE CONCEPTOS SÓLIDOS Y DEJA UNA IMPRESIÓN DURADERA.
+      </p>
+
+      <hr class="about-divider" />
+
+      <div class="about-grid">
+        <div class="about-block">
+          <h3>DISCIPLINAS</h3>
+          <ul>
+            <li>BRANDING &amp; IDENTIDAD VISUAL</li>
+            <li>PACKAGING &amp; DISEÑO DE PRODUCTO</li>
+            <li>TIPOGRAFÍA</li>
+            <li>ILUSTRACIÓN</li>
+            <li>DIRECCIÓN DE ARTE</li>
+          </ul>
+        </div>
+        <div class="about-block">
+          <h3>PRESENCIA</h3>
+          <ul>
+            <li>DUBAI, UAE</li>
+            <li>MÉXICO</li>
+            <li>AMÉRICA LATINA</li>
+            <li>MEDIO ORIENTE</li>
+          </ul>
+        </div>
+        <div class="about-block">
+          <h3>CONTACTO</h3>
+          <p>HOLA.JAVIERZAPIEN@GMAIL.COM</p>
+        </div>
+        <div class="about-block">
+          <h3>EXPERIENCIA</h3>
+          <p>11 AÑOS EN LA INDUSTRIA</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════ TERM: PORTFOLIO ══════════════════════ -->
+<div class="term-overlay" id="term-portfolio">
+  <div class="term-panel">
+    <div class="term-cmd">
+      <span class="term-prompt">$</span>
+      <span class="term-cmd-text">LS -LA PORTAFOLIO/</span>
+      <span class="cursor" id="cur-portfolio"></span>
+      <span class="term-close" onclick="closeTerm('portfolio')">[ESC]</span>
+    </div>
+    <div class="term-content" id="content-portfolio">
+
+      <p class="port-header">TOTAL &nbsp;6 &nbsp;·&nbsp; BRANDING · PACKAGING · ART DIRECTION &nbsp;·&nbsp; 2026</p>
+
+      <div class="project-list">
+
+        <div class="project-row" onclick="openProject('llano-colorado')">
+          <span class="project-row-num">01</span>
+          <div class="project-row-thumb"><pre>
+ _
+| |  __ _ _ __   ___
+| | / _` | '_ \ / _ \
+| || (_| | | | | (_) |
+|_| \__,_|_| |_|\___/
+COLORADO</pre></div>
+          <div class="project-row-name">LLANO COLORADO<span>Branding, Baja California</span></div>
+          <span class="project-row-tag">IDENTIDAD · TIPOGRAFÍA</span>
+        </div>
+
+        <div class="project-row" onclick="openProject('desterrados')">
+          <span class="project-row-num">02</span>
+          <div class="project-row-thumb"><pre>
+|  _ \| __>
+|  | ||  >\
+|____/|___>
+TAQUERIA</pre></div>
+          <div class="project-row-name">DESTERRADOS<span>Branding &amp; Ilustración</span></div>
+          <span class="project-row-tag">SISTEMA VISUAL · TAQUERÍA</span>
+        </div>
+
+        <div class="project-row" onclick="openProject('voi-coffee')">
+          <span class="project-row-num">03</span>
+          <div class="project-row-thumb"><pre>
+__   __
+\ \ / /___  _
+ \ V // _ \| |
+  \_/ \___/|_|
+COFFEE</pre></div>
+          <div class="project-row-name">VOI COFFEE<span>Branding &amp; Packaging</span></div>
+          <span class="project-row-tag">MASCOTA · CAFETERÍA</span>
+        </div>
+
+        <div class="project-row" onclick="openProject('bar-brisal')">
+          <span class="project-row-num">04</span>
+          <div class="project-row-thumb"><pre>
+ ___  ____  ___
+| _ \| __ \|_ _|
+| |_)| |_) || |
+|___/|_|__/|_|
+RESTAURANT</pre></div>
+          <div class="project-row-name">BAR BRISAL<span>Branding, Four Seasons</span></div>
+          <span class="project-row-tag">LOGOTIPO · MENÚ</span>
+        </div>
+
+        <div class="project-row" onclick="openProject('honest-salad')">
+          <span class="project-row-num">05</span>
+          <div class="project-row-thumb"><pre>
+ _ _  ___  _ _
+| | |/ _ \| \ |
+|_  | (_) |   |
+ |_| \___/|_|\_|
+SALAD</pre></div>
+          <div class="project-row-name">HONEST SALAD<span>Branding &amp; Ilustración</span></div>
+          <span class="project-row-tag">RESTAURANTE · LOCAL</span>
+        </div>
+
+        <div class="project-row" onclick="openProject('koelleza')">
+          <span class="project-row-num">06</span>
+          <div class="project-row-thumb"><pre>
+ _ _____  ___
+| /  _ \| __>
+| | | | | _>
+|_|_|_|_|___>
+K-BEAUTY</pre></div>
+          <div class="project-row-name">KOELLEZA<span>Branding &amp; Packaging</span></div>
+          <span class="project-row-tag">PIXEL ART · KAWAII</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════ TERM: PRIVATE ════════════════════════ -->
+<div class="term-overlay" id="term-private">
+  <div class="term-panel">
+    <div class="term-cmd">
+      <span class="term-prompt">$</span>
+      <span class="term-cmd-text">CD PRIVADA/</span>
+      <span class="cursor" id="cur-private"></span>
+      <span class="term-close" onclick="closeTerm('private')">[ESC]</span>
+    </div>
+    <div class="term-content" id="content-private">
+      <div class="joke-block">
+
+        <pre class="joke-pre">
+PERMISSION DENIED
+─────────────────────────────────────
+ _   _  ___  ___ ___  ___ ___
+| | | |/ _ \| __| __|| _ \  _|
+| |_| | (_) | _||_  ||   / |_
+ \___/ \___/|___|___||_|_\___| ← TÚ
+
+─────────────────────────────────────
+ACCESS LEVEL REQUIRED : 99
+YOUR ACCESS LEVEL     : MUCHA_CURIOSIDAD
+STATUS                : LOL NO
+─────────────────────────────────────
+        </pre>
+
+        <p class="joke-title">// ACCESO DENEGADO</p>
+
+        <p class="joke-body">
+          ¿EN SERIO INTENTASTE ABRIR UNA CARPETA QUE DICE "PRIVADA"?<br><br>
+          RESPETO LA CURIOSIDAD — ES UNA HABILIDAD MUY ÚTIL EN DISEÑO.<br>
+          PERO ESTA CARPETA CONTIENE:<br><br>
+          &nbsp;&nbsp;/ MIS CONTRASEÑAS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(MENTIRA)<br>
+          &nbsp;&nbsp;/ MIS MEMES DE TRABAJO<br>
+          &nbsp;&nbsp;/ LAS VECES QUE DIJE "EN DOS SEMANAS"<br>
+          &nbsp;&nbsp;/ EL BRIEF ORIGINAL QUE EL CLIENTE "NUNCA PIDIÓ CAMBIAR"<br><br>
+          LAMENTABLEMENTE, NECESITAS NIVEL 99 DE ACCESO<br>
+          Y TÚ APENAS TIENES NIVEL <strong>CURIOSIDAD_INCONTROLABLE.EXE</strong>
+        </p>
+
+        <div class="joke-stamp">CLASIFICADO</div>
+
+        <p class="joke-footer">ESTE MENSAJE SE AUTODESTRUIRÁ EN... NAH, CIERRA NOMÁS.</p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════ TERM: PROJECT DETAIL ══════════════════ -->
+<div class="term-overlay" id="term-project">
+  <div class="term-panel" style="max-width:920px">
+    <div class="term-cmd">
+      <span class="term-prompt">$</span>
+      <span class="term-cmd-text" id="proj-cmd"></span>
+      <span class="cursor"></span>
+      <span class="term-close" onclick="closeTerm('project')">[ESC]</span>
+    </div>
+    <div class="term-content visible" id="content-project">
+
+      <div class="proj-header-wrap">
+        <svg class="proj-svg-title" id="proj-title-svg" viewBox="0 0 900 110" preserveAspectRatio="xMinYMid meet">
+          <text id="proj-title-text"
+            x="0" y="90"
+            font-family="'DM Mono', monospace"
+            font-size="96"
+            font-weight="500"
+            fill="none"
+            stroke="#7c3aed"
+            stroke-width="2.5"
+            stroke-dasharray="10 5"
+            letter-spacing="2"
+          ></text>
+        </svg>
+      </div>
+      <hr class="proj-divider" />
+
+      <div class="proj-body">
+        <div class="proj-text-col">
+          <div id="proj-meta-lines"></div>
+          <p class="proj-desc" id="proj-desc"></p>
+        </div>
+        <div class="proj-img-col" id="proj-images"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  /* ─────────────────────────────────── ASCII NOISE ─── */
+  const GLYPHS = [
+    '/ / / /',
+    '[ _ ]',
+    '───────',
+    '░░░░░',
+    '▓ ▒ ░',
+    '> _ <',
+    '* * *\n* * *',
+    '01001\n10110',
+    '┌───┐\n│   │\n└───┘',
+    '...',
+    '\\\\\\',
+    '////',
+    '─ ─ ─',
+    '▸ ▸ ▸',
+    '[ ][ ]',
+    '◦ ◦ ◦',
+    '+──+\n|  |\n+──+',
+    '≡ ≡ ≡',
+    '? ? ?',
+    '!  !',
+    '{ }',
+    '# # #',
+    '~~~~~',
+    '↑ ↓ ↑',
+    '⌐■-■',
+  ];
+
+  const noise = document.getElementById('noise');
+  const count = 22;
+
+  for (let i = 0; i < count; i++) {
+    const el = document.createElement('div');
+    el.className = 'noise-glyph';
+    const o = (Math.random() * 0.06 + 0.025).toFixed(3);
+    el.style.setProperty('--o', o);
+    el.style.opacity = o;
+    el.style.left  = (Math.random() * 92 + 1) + '%';
+    el.style.top   = (Math.random() * 90 + 1) + '%';
+    el.style.fontSize = (Math.random() * 6 + 9) + 'px';
+    el.textContent = GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+
+    const kind = Math.random();
+    if (kind < 0.4) {
+      const dur = (Math.random() * 3 + 2).toFixed(1);
+      const delay = (Math.random() * 4).toFixed(1);
+      el.style.animation = `glitch ${dur}s ${delay}s ease-in-out infinite`;
+    } else if (kind < 0.65) {
+      const dur = (Math.random() * 6 + 5).toFixed(1);
+      const delay = (Math.random() * 3).toFixed(1);
+      el.style.animation = `drift ${dur}s ${delay}s ease-in-out infinite`;
+    }
+
+    noise.appendChild(el);
+  }
+
+  /* ─────────────────────────────────── PROJECT DATA ─── */
+  const PROJECTS = {
+    'llano-colorado': {
+      cmd: 'OPEN LLANO_COLORADO/',
+      title: ['LLANO', 'COLORADO'],
+      cat: 'BRANDING · IDENTIDAD VISUAL',
+      desc: 'IDENTIDAD PARA BODEGA VITIVINÍCOLA EN SAN VICENTE, BAJA CALIFORNIA — REFERENTE NACIONAL EN PRODUCCIÓN DE VINO DE CALIDAD. EL PROYECTO MODERNIZÓ SU IMAGEN RESPETANDO SU HERENCIA Y LOS AÑOS DE TRABAJO DETRÁS DE LA MARCA. SE DISEÑÓ UN LOGOTIPO CON TIPOGRAFÍA SANS-SERIF DE AMPLIO ESPACIADO, EVOCANDO FUERZA Y CARÁCTER. LA PALETA TERROSA EN ROJO Y CREMA REMITE A LA TIERRA Y LA UVA MADURA.',
+      disciplines: ['BRANDING', 'DISEÑO DE LOGOTIPO', 'TIPOGRAFÍA', 'SISTEMA EDITORIAL'],
+      location: 'BAJA CALIFORNIA, MÉXICO',
+      year: '2026',
+      thumbs: 3
+    },
+    'desterrados': {
+      cmd: 'OPEN DESTERRADOS/',
+      title: ['DESTERR', 'ADOS'],
+      cat: 'BRANDING · ILUSTRACIÓN',
+      desc: 'TAQUERÍA ORIGINARIA DE CHIHUAHUA CON PLANES DE EXPANSIÓN A CIUDAD DE MÉXICO. EL PROYECTO BUSCÓ CREAR UNA IDENTIDAD QUE RESONARA TANTO CON LOCALES COMO CON TURISTAS, MEZCLANDO EL ESPÍRITU DEL DESIERTO CON LA CULTURA DEL TACO. SE DESARROLLÓ UN AMPLIO SISTEMA VISUAL CON ILUSTRACIONES QUE EVOCAN LA FAUNA Y FLORA DE CHIHUAHUA — ALACRANES, CABALLOS, CACTUS — CON UN TRAZO EXPRESIVO Y LÚDICO.',
+      disciplines: ['BRANDING', 'ILUSTRACIÓN', 'TIPOGRAFÍA DISPLAY', 'SISTEMA VISUAL'],
+      location: 'CHIHUAHUA / CDMX, MÉXICO',
+      year: '2026',
+      thumbs: 3
+    },
+    'voi-coffee': {
+      cmd: 'OPEN VOI_COFFEE/',
+      title: ['VOI', 'COFFEE'],
+      cat: 'BRANDING · PACKAGING',
+      desc: 'CADENA DE CAFETERÍAS CON SEDE EN TURQUÍA, CONSTRUIDA ALREDEDOR DE UN ENCANTADOR PERSONAJE DE NUTRIA QUE APORTA CALIDEZ Y PERSONALIDAD A CADA PUNTO DE CONTACTO DE LA MARCA. SE DESARROLLÓ UN SISTEMA VISUAL LÚDICO CENTRADO EN LA NUTRIA, APLICADO EN PACKAGING, TIENDAS Y MATERIALES DE COMUNICACIÓN.',
+      disciplines: ['BRANDING', 'DISEÑO DE PERSONAJE', 'PACKAGING', 'SEÑALÉTICA'],
+      location: 'ESTAMBUL, TURQUÍA',
+      year: '2026',
+      thumbs: 3
+    },
+    'bar-brisal': {
+      cmd: 'OPEN BAR_BRISAL/',
+      title: ['BAR', 'BRISAL'],
+      cat: 'BRANDING · MENÚ',
+      desc: 'RESTAURANTE UBICADO DENTRO DEL FOUR SEASONS PUNTA MITA, MÉXICO. SE DESARROLLARON EL LOGOTIPO Y EL SISTEMA DE MENÚ, CREANDO UNA IDENTIDAD QUE EQUILIBRA LA SOFISTICACIÓN DEL RESORT CON UN ESPÍRITU COSTERO RELAJADO, UTILIZANDO UNA PALETA DE ROJO CORAL Y AZUL MARINO.',
+      disciplines: ['DISEÑO DE LOGOTIPO', 'SISTEMA DE MENÚ', 'BRANDING', 'DISEÑO EDITORIAL'],
+      location: 'PUNTA MITA, MÉXICO',
+      year: '2026',
+      thumbs: 2
+    },
+    'honest-salad': {
+      cmd: 'OPEN HONEST_SALAD/',
+      title: ['HONEST', 'SALAD'],
+      cat: 'BRANDING · ILUSTRACIÓN',
+      desc: 'RESTAURANTE ESPECIALIZADO EN ENSALADAS DE ALTA CALIDAD CON UN FUERTE COMPROMISO HACIA LOS AGRICULTORES LOCALES. SE DESARROLLÓ UN SISTEMA VISUAL FRESCO Y COLORIDO, CON ILUSTRACIONES DE FRUTAS Y VERDURAS QUE REFUERZAN EL ESPÍRITU NATURAL Y HONESTO DE LA MARCA.',
+      disciplines: ['BRANDING', 'ILUSTRACIÓN', 'PACKAGING', 'SISTEMA VISUAL'],
+      location: 'MÉXICO',
+      year: '2026',
+      thumbs: 2
+    },
+    'koelleza': {
+      cmd: 'OPEN KOELLEZA/',
+      title: ['KOEL', 'LEZA'],
+      cat: 'BRANDING · PACKAGING',
+      desc: 'TIENDA EN LÍNEA QUE DISTRIBUYE PRODUCTOS DE SKINCARE COREANO. SE DESARROLLÓ UNA IDENTIDAD VISUAL CON ESTÉTICA PIXEL ART Y ELEMENTOS KAWAII, CONECTANDO CON UNA AUDIENCIA JOVEN INTERESADA EN LA CULTURA COREANA.',
+      disciplines: ['BRANDING', 'PIXEL ART', 'PACKAGING', 'IDENTIDAD DIGITAL'],
+      location: 'ONLINE / GLOBAL',
+      year: '2026',
+      thumbs: 3
+    }
+  };
+
+  function openProject(slug) {
+    const p = PROJECTS[slug];
+    if (!p) return;
+
+    // command bar
+    document.getElementById('proj-cmd').textContent = p.cmd;
+
+    // SVG dashed title — fit text to viewBox
+    const titleEl = document.getElementById('proj-title-text');
+    titleEl.textContent = p.title.join('  ');
+
+    // meta lines
+    const meta = [
+      ['CATEGORÍA', p.cat],
+      ['UBICACIÓN', p.location],
+      ['AÑO',       p.year],
+      ['DISCIPLINAS', p.disciplines.join(' · ')]
+    ];
+    document.getElementById('proj-meta-lines').innerHTML = meta.map(function(m){
+      return '<div class="proj-meta-line"><span>' + m[0] + '</span><span>' + m[1] + '</span></div>';
+    }).join('');
+
+    // description
+    document.getElementById('proj-desc').textContent = p.desc;
+
+    // modular image grid
+    // pattern: [tall, normal, normal, normal...] depending on count
+    const imgCol = document.getElementById('proj-images');
+    imgCol.innerHTML = '';
+
+    const patterns = {
+      2: ['tall', 'normal'],
+      3: ['tall', 'normal', 'normal'],
+      4: ['tall', 'normal', 'normal', 'normal']
+    };
+    const layout = patterns[p.thumbs] || Array(p.thumbs).fill('normal');
+
+    layout.forEach(function(size, i) {
+      const box = document.createElement('div');
+      box.className = 'proj-img' + (size === 'tall' ? ' tall' : '');
+      box.innerHTML =
+        '<div class="proj-img-placeholder">' +
+        '┌──────────┐\n│          │\n│   IMG ' + (i+1) + '  │\n│          │\n└──────────┘' +
+        '</div>';
+      imgCol.appendChild(box);
+    });
+
+    const overlay = document.getElementById('term-project');
+    overlay.style.display = 'block';
+    overlay.scrollTop = 0;
+    document.body.style.overflow = 'auto';
+  }
+
+  /* ─────────────────────────────────── TERMINAL ─── */
+  function openTerm(id) {
+    const overlay = document.getElementById('term-' + id);
+    overlay.style.display = 'block';
+    document.body.style.overflow = 'auto';
+
+    const cur     = document.getElementById('cur-' + id);
+    const content = document.getElementById('content-' + id);
+
+    content.classList.remove('visible');
+
+    setTimeout(function() {
+      content.classList.add('visible');
+    }, 700);
+  }
+
+  function closeTerm(id) {
+    const overlay = document.getElementById('term-' + id);
+    overlay.style.display = 'none';
+    document.body.style.overflow = 'hidden';
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      ['about','portfolio','private','project'].forEach(closeTerm);
+      document.body.style.overflow = 'hidden';
+    }
+  });
+
+  document.querySelectorAll('.term-overlay').forEach(function(o) {
+    o.addEventListener('click', function(e) {
+      if (e.target === o) {
+        o.style.display = 'none';
+        document.body.style.overflow = 'hidden';
+      }
+    });
+  });
+</script>
+</body>
+</html>
