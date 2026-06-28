@@ -6,283 +6,212 @@
   <title>JAVIER ZAPIEN</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:    #f0efeb;
-      --fg:    #111111;
-      --dim:   #999999;
-      --line:  #cccccc;
-      --mono:  'DM Mono', 'Courier New', monospace;
-      --yellow: #f5c518;
-      --yellow-d: #d4a900;
+      --bg:      #ffffff;
+      --fg:      #394744;
+      --courier: 'Courier New', Courier, monospace;
+      --georgia: 'Georgia', serif;
+      --space:   'Space Mono', monospace;
     }
 
     html, body {
-      height: 100%;
       background: var(--bg);
       color: var(--fg);
-      font-family: var(--mono);
-      text-transform: uppercase;
+      font-family: var(--courier);
       overflow-x: hidden;
     }
 
-    /* ════════════════════════════════════ NAV ═══ */
+    /* ══════════ NAV ══════════ */
     .nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 18px;
-      border-bottom: 1px solid var(--line);
-      font-size: 9px;
-      letter-spacing: .22em;
-      color: var(--dim);
+      padding: 0 50px;
+      height: 60px;
+      border-bottom: 1px solid var(--fg);
+      font-family: var(--courier);
+      font-size: 16px;
+      color: var(--fg);
     }
 
-    /* ════════════════════════════════════ LETTER GRID ═══ */
-    .name-grid {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      border-bottom: 1px solid var(--line);
-      overflow: hidden;
-    }
-
-    .name-cell {
+    /* ══════════ TITLE ROW ══════════ */
+    .title-row {
+      padding: 0 50px;
+      height: 124px;
+      border-bottom: 1px solid var(--fg);
       display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 14px 0 10px;
-      border-right: 1px solid var(--line);
-      font-size: clamp(32px, 6.5vw, 88px);
-      font-weight: 300;
-      letter-spacing: 0;
+    }
+
+    .name-text {
+      font-family: var(--space);
+      font-weight: 700;
+      font-size: clamp(36px, 4.4vw, 84px);
+      text-transform: uppercase;
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--fg);
+      white-space: nowrap;
       line-height: 1;
-      color: var(--fg);
-      user-select: none;
     }
 
-    .name-cell:last-child { border-right: none; }
-
-    .name-cell.gap {
-      font-size: 12px;
-      color: var(--line);
-    }
-
-    /* ════════════════════════════════════ CONTENT GRID ═══ */
+    /* ══════════ CONTENT GRID ══════════
+       Columns: bio+nav | image | contact | clock
+    ══════════════════════════════════════════ */
     .content-grid {
       display: grid;
-      grid-template-columns: 1.4fr 1fr 1fr;
-      min-height: calc(100vh - 120px);
-      border-bottom: 1px solid var(--line);
+      grid-template-columns: 1.8fr 1.3fr 0.7fr 0.5fr;
+      border-bottom: 1px solid var(--fg);
+      min-height: 580px;
     }
 
     .col {
-      padding: 28px 22px;
-      border-right: 1px solid var(--line);
+      padding: 28px 30px 28px 50px;
+      border-right: 1px solid var(--fg);
     }
-
     .col:last-child { border-right: none; }
+    .col-img     { padding: 0; }
+    .col-contact { padding: 28px 20px; }
+    .col-clock   { padding: 28px 20px; }
 
-    /* ── COL 1: tagline + icons ── */
-    .tagline {
-      font-size: 11px;
-      line-height: 1.9;
-      color: #555;
-      font-weight: 300;
-      letter-spacing: .04em;
-      margin-bottom: 40px;
-      max-width: 320px;
+    /* ── Col 1: bio + nav ── */
+    .bio-text {
+      font-family: var(--courier);
+      font-size: 18px;
+      line-height: 1;
+      color: var(--fg);
+      max-width: 560px;
+      margin-bottom: 52px;
     }
 
-    .icons-wrap {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
+    .nav-items { display: flex; flex-direction: column; }
 
-    .icon-row {
+    .nav-item {
       display: flex;
       align-items: center;
-      gap: 16px;
-      padding: 14px 0;
-      border-top: 1px solid var(--line);
+      gap: 20px;
+      padding: 16px 0;
+      border-top: 1px solid var(--fg);
       cursor: pointer;
-      transition: background .12s;
-    }
-
-    .icon-row:hover { background: rgba(0,0,0,.03); }
-    .icon-row:last-child { border-bottom: 1px solid var(--line); }
-
-    /* inline folder */
-    .mini-folder {
-      width: 32px;
-      height: 26px;
-      position: relative;
-      flex-shrink: 0;
-    }
-
-    .mini-folder::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 32px; height: 22px;
-      background: var(--yellow);
-      border-radius: 2px 2px 3px 3px;
-      box-shadow: inset 0 -2px 0 var(--yellow-d);
-    }
-
-    .mini-folder::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 13px; height: 6px;
-      background: var(--yellow);
-      border-radius: 2px 2px 0 0;
-    }
-
-    .mini-folder.grey::after,
-    .mini-folder.grey::before { background: #c8c8c8; }
-    .mini-folder.grey::after  { box-shadow: inset 0 -2px 0 #aaa; }
-
-    /* inline file */
-    .mini-file {
-      width: 24px;
-      height: 30px;
-      background: var(--bg);
-      border: 1.5px solid #bbb;
-      border-radius: 1px 4px 1px 1px;
-      flex-shrink: 0;
-      position: relative;
-    }
-
-    .mini-file::before {
-      content: '';
-      position: absolute;
-      top: -1px; right: -1px;
-      width: 7px; height: 7px;
-      background: var(--bg);
-      border-bottom: 1.5px solid #bbb;
-      border-left: 1.5px solid #bbb;
-    }
-
-    .icon-row-label {
-      font-size: 11px;
-      letter-spacing: .12em;
       color: var(--fg);
-      font-weight: 400;
+      transition: gap .2s;
     }
+    .nav-item:last-child { border-bottom: 1px solid var(--fg); }
+    .nav-item:hover { gap: 28px; }
 
-    .icon-row-hint {
-      margin-left: auto;
-      font-size: 9px;
-      letter-spacing: .1em;
-      color: var(--dim);
+    .nav-sq { width: 54px; height: 54px; flex-shrink: 0; border-radius: 1px; }
+    .sq-pink { background: #FFBAC3; }
+    .sq-blue { background: #CEE4EF; }
+    .sq-dark { background: #394744; }
+
+    .nav-label { font-family: var(--courier); font-size: 27px; color: var(--fg); }
+
+    /* ── Col 2: image ── */
+    .img-area {
+      width: 100%;
+      height: 100%;
+      background: #f4f4f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
-
-    /* ── COL 2: ASCII decoration + info ── */
-    .ascii-deco {
-      font-size: clamp(5px, 1vw, 9px);
-      line-height: 1.25;
-      white-space: pre;
-      color: #bbb;
-      margin-bottom: 32px;
-      user-select: none;
-    }
-
-    .info-block {
-      margin-bottom: 20px;
-    }
-
-    .info-label {
-      font-size: 8px;
-      letter-spacing: .26em;
-      color: var(--dim);
-      margin-bottom: 6px;
-      font-weight: 400;
-    }
-
-    .info-value {
+    .img-area img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .img-placeholder {
+      font-family: var(--courier);
       font-size: 11px;
-      line-height: 1.8;
-      color: #444;
-      font-weight: 300;
-      letter-spacing: .04em;
-    }
-
-    /* ── COL 3: random ASCII noise + contact ── */
-    .noise-block {
-      font-size: clamp(4px, .9vw, 8px);
-      line-height: 1.3;
-      white-space: pre;
-      color: #c8c8c8;
-      margin-bottom: 28px;
-      user-select: none;
-    }
-
-    .contact-line {
-      font-size: 10px;
-      letter-spacing: .1em;
-      color: #555;
-      font-weight: 300;
+      color: #bbb;
+      text-transform: uppercase;
+      text-align: center;
       line-height: 2;
     }
 
-    .contact-line a {
+    /* ── Col 3: contact ── */
+    .contact-label { font-family: var(--courier); font-size: 18px; color: var(--fg); margin-bottom: 4px; }
+    .contact-value { font-family: var(--courier); font-size: 18px; color: var(--fg); line-height: 1; word-break: break-word; }
+
+    /* ── Col 4: clock ── */
+    .clock-label {
+      font-family: var(--courier);
+      font-size: 10px;
+      letter-spacing: .2em;
+      color: #aaa;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .clock-time {
+      font-family: var(--courier);
+      font-size: 18px;
       color: var(--fg);
-      text-decoration: none;
-      border-bottom: 1px solid var(--line);
+      line-height: 1.4;
+    }
+    .clock-date {
+      font-family: var(--courier);
+      font-size: 12px;
+      color: #aaa;
+      margin-top: 6px;
+      line-height: 1.5;
     }
 
-    .contact-line a:hover { border-color: var(--fg); }
-
-    /* ════════════════════════════════════ FOOTER ═══ */
+    /* ══════════ FOOTER ══════════ */
     .footer {
       display: flex;
       justify-content: space-between;
-      padding: 10px 18px;
-      font-size: 9px;
-      letter-spacing: .2em;
-      color: var(--dim);
+      align-items: center;
+      padding: 0 50px;
+      height: 60px;
+      border-bottom: 1px solid var(--fg);
+    }
+    .footer-left { font-family: var(--courier); font-size: 18px; color: var(--fg); line-height: 1; }
+    .footer-links { display: flex; gap: 36px; }
+    .footer-links a {
+      font-family: var(--courier);
+      font-size: 16px;
+      color: var(--fg);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color .15s;
+    }
+    .footer-links a:hover { border-color: var(--fg); }
+
+    /* ══════════ PHRASE AREA ══════════ */
+    .phrase-area {
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+    }
+    .phrase-text {
+      font-family: var(--georgia);
+      font-size: clamp(40px, 6.5vw, 84px);
+      line-height: 1.13;
+      text-align: center;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--fg);
+      white-space: pre-line;
+      transition: opacity .45s ease;
     }
 
-    /* ════════════════════════════════════ RESPONSIVE ═══ */
-    @media (max-width: 680px) {
-      .name-grid { grid-template-columns: repeat(6, 1fr); }
-      .name-cell.gap { display: none; }
-
-      .content-grid {
-        grid-template-columns: 1fr;
-        min-height: auto;
-      }
-
-      .col { border-right: none; border-bottom: 1px solid var(--line); }
-      .col:last-child { border-bottom: none; }
-
-      .col-mid, .col-right { display: none; }
-    }
-
-    /* ════════════════════════════════════ TERMINAL OVERLAY ═══ */
+    /* ══════════ TERM OVERLAYS ══════════ */
     .term-overlay {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(240,239,235,.96);
+      background: rgba(255,255,255,.96);
       backdrop-filter: blur(6px);
       z-index: 200;
       overflow-y: auto;
     }
-
-    .term-overlay.active { display: block; }
-
     .term-panel {
-      max-width: 860px;
+      max-width: 900px;
       width: calc(100% - 48px);
       margin: 48px auto 60px;
-      animation: termIn .22s ease;
+      animation: termIn .2s ease;
     }
-
     .term-cmd {
       display: flex;
       align-items: center;
@@ -290,281 +219,196 @@
       padding-bottom: 14px;
       border-bottom: 1px solid var(--fg);
       margin-bottom: 32px;
+      font-family: var(--courier);
     }
-
-    .term-prompt { font-size: 11px; letter-spacing: .1em; color: var(--dim); font-weight: 300; }
-    .term-cmd-text { font-size: 13px; letter-spacing: .08em; color: var(--fg); font-weight: 400; }
-
+    .term-prompt { font-size: 12px; color: #aaa; }
+    .term-cmd-text { font-size: 14px; letter-spacing: .06em; color: var(--fg); text-transform: uppercase; }
     .cursor {
       display: inline-block;
-      width: 8px; height: 13px;
+      width: 9px; height: 14px;
       background: var(--fg);
       animation: blink .9s step-end infinite;
       flex-shrink: 0;
     }
-
     .term-close {
       margin-left: auto;
-      font-size: 10px;
-      letter-spacing: .18em;
-      color: var(--dim);
+      font-size: 11px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: #aaa;
       cursor: pointer;
-      border: 1px solid var(--line);
+      border: 1px solid #ccc;
       padding: 4px 10px;
+      font-family: var(--courier);
       transition: border-color .15s, color .15s;
-      flex-shrink: 0;
     }
-
     .term-close:hover { border-color: var(--fg); color: var(--fg); }
-
     .term-content { opacity: 0; transition: opacity .3s ease; }
     .term-content.visible { opacity: 1; }
 
-    /* ── ABOUT ── */
-    .about-bio {
-      font-size: 12px;
-      line-height: 2;
-      color: #444;
-      font-weight: 300;
-      max-width: 600px;
-      margin-bottom: 32px;
-      letter-spacing: .03em;
-    }
-
-    .about-divider { border: none; border-top: 1px solid var(--line); margin: 24px 0; }
-
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
-
-    @media (max-width: 560px) { .about-grid { grid-template-columns: 1fr; } }
-
-    .about-block {
-      padding: 18px 20px 18px 0;
-      border-top: 1px solid var(--line);
-    }
-
-    .about-block:nth-child(even) { padding-left: 20px; border-left: 1px solid var(--line); }
-
-    .about-block h3 { font-size: 8px; letter-spacing: .28em; color: var(--dim); font-weight: 400; margin-bottom: 8px; }
-
-    .about-block p,
-    .about-block li { font-size: 11px; line-height: 1.9; color: #444; font-weight: 300; list-style: none; }
-
+    /* about */
+    .about-bio { font-family: var(--courier); font-size: 16px; line-height: 1.9; color: var(--fg); max-width: 600px; margin-bottom: 32px; }
+    .about-divider { border: none; border-top: 1px solid var(--fg); margin: 24px 0; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; }
+    .about-block { padding: 18px 20px 18px 0; border-top: 1px solid var(--fg); }
+    .about-block:nth-child(even) { padding-left: 20px; border-left: 1px solid var(--fg); }
+    .about-block h3 { font-family: var(--courier); font-size: 9px; letter-spacing: .28em; color: #aaa; text-transform: uppercase; margin-bottom: 8px; }
+    .about-block p, .about-block li { font-family: var(--courier); font-size: 12px; line-height: 1.9; color: var(--fg); list-style: none; text-transform: uppercase; }
     .about-block li::before { content: '/ '; color: #ccc; }
 
-    /* ── PORTFOLIO ── */
-    .port-header {
-      font-size: 9px; letter-spacing: .26em; color: var(--dim);
-      font-weight: 400; padding-bottom: 10px; border-bottom: 1px solid var(--line);
-    }
-
+    /* portfolio */
+    .port-header { font-family: var(--courier); font-size: 10px; letter-spacing: .22em; color: #aaa; text-transform: uppercase; padding-bottom: 10px; border-bottom: 1px solid var(--fg); }
     .project-row {
       display: grid;
-      grid-template-columns: 28px 72px 1fr 140px;
+      grid-template-columns: 30px 80px 1fr 160px;
       gap: 16px;
       align-items: center;
       padding: 14px 0;
-      border-bottom: 1px solid var(--line);
+      border-bottom: 1px solid var(--fg);
       cursor: pointer;
-      transition: background .12s;
+      transition: background .1s;
     }
-
-    .project-row:hover { background: rgba(0,0,0,.03); }
-    .project-row:hover .project-row-num { color: var(--fg); }
-
-    .project-row-num { font-size: 10px; color: #ccc; font-weight: 300; transition: color .12s; }
-
-    .project-row-thumb {
-      width: 72px; height: 52px; background: #e0dfdb;
-      overflow: hidden; display: flex; align-items: center; justify-content: center;
-    }
-
+    .project-row:hover { background: #f5f7f6; }
+    .project-row:hover .prn { color: var(--fg); }
+    .prn { font-family: var(--courier); font-size: 11px; color: #ccc; transition: color .12s; }
+    .project-row-thumb { width: 80px; height: 54px; background: #f0f0f0; overflow: hidden; display: flex; align-items: center; justify-content: center; }
     .project-row-thumb pre { font-size: 3.5px; line-height: 1.1; white-space: pre; color: #888; pointer-events: none; }
+    .prname { font-family: var(--courier); font-size: 13px; color: var(--fg); letter-spacing: .04em; text-transform: uppercase; }
+    .prname span { display: block; font-family: var(--georgia); font-size: 11px; color: #aaa; margin-top: 3px; font-style: italic; text-transform: none; }
+    .prtag { font-family: var(--courier); font-size: 10px; letter-spacing: .12em; color: #bbb; text-align: right; text-transform: uppercase; }
 
-    .project-row-name { font-size: 12px; font-weight: 400; color: var(--fg); letter-spacing: .06em; }
-    .project-row-name span { display: block; font-size: 10px; font-weight: 300; color: var(--dim); letter-spacing: .04em; margin-top: 3px; font-style: italic; text-transform: none; }
-
-    .project-row-tag { font-size: 9px; letter-spacing: .14em; color: #bbb; font-weight: 300; text-align: right; }
-
-    @media (max-width: 560px) {
-      .project-row { grid-template-columns: 20px 1fr; }
-      .project-row-thumb, .project-row-tag { display: none; }
-    }
-
-    /* ── PRIVATE ── */
-    .joke-pre { font-size: clamp(8px, 1.4vw, 12px); line-height: 1.35; white-space: pre; color: var(--fg); margin-bottom: 28px; font-weight: 300; }
-    .joke-title { font-size: 13px; letter-spacing: .12em; font-weight: 500; margin-bottom: 18px; }
-    .joke-body { font-size: 11px; line-height: 2.1; color: #555; font-weight: 300; max-width: 500px; margin-bottom: 28px; letter-spacing: .04em; }
-    .joke-stamp { display: inline-block; border: 2px solid #c00; color: #c00; font-size: 10px; letter-spacing: .22em; padding: 6px 14px; transform: rotate(-3deg); font-weight: 500; }
-    .joke-footer { margin-top: 28px; font-size: 9px; color: #bbb; letter-spacing: .18em; }
-
-    /* ── PROJECT DETAIL ── */
-    .proj-header-wrap { margin-bottom: 0; overflow: hidden; }
-
+    /* project detail */
+    .proj-header-wrap { overflow: hidden; }
     .proj-svg-title { width: 100%; display: block; overflow: visible; }
-
-    .proj-divider { border: none; border-top: 1px solid var(--fg); margin: 0; }
-
-    .proj-body { display: grid; grid-template-columns: 260px 1fr; gap: 0; align-items: start; min-height: 60vh; }
-
-    @media (max-width: 680px) {
-      .proj-body { grid-template-columns: 1fr; }
-      .proj-text-col { border-right: none; border-bottom: 1px solid var(--line); padding: 20px 0 24px; }
-      .proj-img-col { grid-template-columns: 1fr; grid-auto-rows: 220px; padding: 20px 0 0; gap: 10px; }
-      .proj-img.tall { grid-row: span 1; }
-      .term-panel { width: calc(100% - 24px); margin: 24px auto 40px; }
-    }
-
-    .proj-text-col { padding: 24px 24px 36px 0; border-right: 1px solid var(--line); }
-
-    .proj-meta-line { display: flex; justify-content: space-between; align-items: baseline; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 10px; font-weight: 300; letter-spacing: .08em; }
-    .proj-meta-line span:first-child { color: var(--dim); }
-
-    .proj-desc { font-size: 11px; line-height: 1.95; color: #555; font-weight: 300; letter-spacing: .03em; margin-top: 22px; }
-
+    .proj-divider { border: none; border-top: 1px solid var(--fg); }
+    .proj-body { display: grid; grid-template-columns: 260px 1fr; align-items: start; min-height: 60vh; }
+    .proj-text-col { padding: 24px 24px 36px 0; border-right: 1px solid var(--fg); }
+    .proj-meta-line { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--fg); font-family: var(--courier); font-size: 11px; text-transform: uppercase; }
+    .proj-meta-line span:first-child { color: #aaa; }
+    .proj-desc { font-family: var(--georgia); font-size: 13px; line-height: 1.95; color: #555; font-style: italic; margin-top: 22px; }
     .proj-img-col { display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 200px; gap: 8px; padding: 20px 0 20px 20px; }
-
-    .proj-img { background: #e0dfdb; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .proj-img { background: #f0f0f0; overflow: hidden; display: flex; align-items: center; justify-content: center; }
     .proj-img.tall { grid-row: span 2; }
     .proj-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .proj-img-placeholder { font-size: 9px; line-height: 1.3; white-space: pre; color: #bbb; user-select: none; text-align: center; }
+    .proj-img-placeholder { font-family: var(--courier); font-size: 9px; line-height: 1.3; white-space: pre; color: #ccc; text-align: center; }
 
-    /* ════════════════════════════════════ ANIMATIONS ═══ */
-    @keyframes termIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes blink  { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    /* private */
+    .joke-pre { font-family: var(--courier); font-size: clamp(8px,1.4vw,12px); line-height: 1.35; white-space: pre; color: var(--fg); margin-bottom: 28px; }
+    .joke-title { font-family: var(--courier); font-size: 14px; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 18px; }
+    .joke-body { font-family: var(--georgia); font-size: 13px; line-height: 2.1; color: #555; font-style: italic; max-width: 500px; margin-bottom: 28px; }
+    .joke-stamp { display: inline-block; border: 2px solid #c00; color: #c00; font-family: var(--courier); font-size: 11px; letter-spacing: .22em; padding: 6px 14px; transform: rotate(-3deg); text-transform: uppercase; }
+    .joke-footer { margin-top: 28px; font-family: var(--courier); font-size: 10px; color: #bbb; letter-spacing: .18em; text-transform: uppercase; }
 
-    body { animation: fadeIn .5s ease; }
+    @keyframes termIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes blink  { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+    @keyframes fadeIn { from { opacity: 0; } to   { opacity: 1; } }
+    body { animation: fadeIn .35s ease; }
   </style>
 </head>
 <body>
 
-<!-- ══════════════════════ NAV ══════════════════════ -->
+<!-- ════════ NAV ════════ -->
 <nav class="nav">
-  <span>GRAPHIC DESIGNER &amp; ART DIRECTOR</span>
-  <span>DUBAI, UAE · MÉXICO</span>
+  <span>DESIG &amp; ART DIRECTION</span>
+  <span>DUBAI, UAE - MÉXICO</span>
 </nav>
 
-<!-- ══════════════════════ LETTER GRID ══════════════ -->
-<div class="name-grid">
-  <div class="name-cell">J</div>
-  <div class="name-cell">A</div>
-  <div class="name-cell">V</div>
-  <div class="name-cell">I</div>
-  <div class="name-cell">E</div>
-  <div class="name-cell">R</div>
-  <div class="name-cell">Z</div>
-  <div class="name-cell">A</div>
-  <div class="name-cell">P</div>
-  <div class="name-cell">I</div>
-  <div class="name-cell">E</div>
-  <div class="name-cell">N</div>
+<!-- ════════ TITLE ════════ -->
+<div class="title-row">
+  <span class="name-text">JAVIER ZAPIEN</span>
 </div>
 
-<!-- ══════════════════════ CONTENT GRID ══════════════ -->
+<!-- ════════ CONTENT GRID ════════
+     col 1: lorem + nav items
+     col 2: imagen
+     col 3: contacto
+     col 4: reloj dubai
+═════════════════════════════════ -->
 <div class="content-grid">
 
   <!-- COL 1 -->
   <div class="col">
-    <p class="tagline">
-      11 AÑOS TRABAJANDO EN BRANDING, PACKAGING,
-      TIPOGRAFÍA E ILUSTRACIÓN.<br><br>
-      ESTUDIOS Y CLIENTES EN MÉXICO,
-      LATINOAMÉRICA Y MEDIO ORIENTE.
+    <p class="bio-text">
+      Lorem ipsum dolor sit amet, consectetur adipiscing<br>
+      elit. Morbi pretium nisl eget elementum tristique.<br>
+      Maecenas risus ligula, tincidunt sit amet dui eget,<br>
+      maximus mollis libero. Phasellus eget dignissim enim.
     </p>
-
-    <div class="icons-wrap">
-      <div class="icon-row" onclick="openTerm('about')">
-        <div class="mini-file"></div>
-        <span class="icon-row-label">ACERCA.TXT</span>
-        <span class="icon-row-hint">→</span>
+    <div class="nav-items">
+      <div class="nav-item" onclick="openTerm('about')">
+        <div class="nav-sq sq-pink"></div>
+        <span class="nav-label">INFORMATION/</span>
       </div>
-      <div class="icon-row" onclick="openTerm('portfolio')">
-        <div class="mini-folder"></div>
-        <span class="icon-row-label">PORTAFOLIO/</span>
-        <span class="icon-row-hint">→</span>
+      <div class="nav-item" onclick="openTerm('portfolio')">
+        <div class="nav-sq sq-blue"></div>
+        <span class="nav-label">PORTFOLIO/</span>
       </div>
-      <div class="icon-row" onclick="openTerm('private')">
-        <div class="mini-folder grey"></div>
-        <span class="icon-row-label">PRIVADA/</span>
-        <span class="icon-row-hint">🔒</span>
+      <div class="nav-item" onclick="openTerm('private')">
+        <div class="nav-sq sq-dark"></div>
+        <span class="nav-label">LOGOFOLIO</span>
       </div>
     </div>
   </div>
 
-  <!-- COL 2 -->
-  <div class="col col-mid">
-    <pre class="ascii-deco">
-  /\ | __ \/ __ \| | | |
- /  \| |__) | | | | | | |
-/ /\ \  _ /| | | | | | |
-/ ____ \ | \ \| |__| | |__| |
-/_/    \_\_| \_\\____/ \____/
-
-  ·  B R A N D I N G
-  ·  P A C K A G I N G
-  ·  A R T  D I R E C T I O N
-  ·  I L L U S T R A T I O N</pre>
-
-    <div class="info-block">
-      <p class="info-label">BASADO EN</p>
-      <p class="info-value">DUBAI, UAE</p>
-    </div>
-    <div class="info-block">
-      <p class="info-label">DISPONIBLE PARA</p>
-      <p class="info-value">PROYECTOS GLOBALES<br>FREELANCE · COLABORACIONES</p>
-    </div>
-    <div class="info-block">
-      <p class="info-label">EXPERIENCIA</p>
-      <p class="info-value">11 AÑOS</p>
+  <!-- COL 2: imagen -->
+  <div class="col col-img">
+    <div class="img-area">
+      <div class="img-placeholder">
+        [ ILUSTRACIÓN ]<br>AGREGAR IMAGEN
+      </div>
     </div>
   </div>
 
-  <!-- COL 3 -->
-  <div class="col col-right">
-    <pre class="noise-block">
-┌───────────────────┐
-│  / / / / / / / /  │
-│  ░ ░ ░ ░ ░ ░ ░ ░  │
-│  ─ ─ ─ ─ ─ ─ ─ ─  │
-│  [ ] [ ] [ ] [ ]  │
-│  ▸ ▸ ▸ ▸ ▸ ▸ ▸ ▸  │
-│  ◦ ◦ ◦ ◦ ◦ ◦ ◦ ◦  │
-│  * * * * * * * *  │
-└───────────────────┘</pre>
+  <!-- COL 3: contacto -->
+  <div class="col col-contact">
+    <p class="contact-label">CONTACTO</p>
+    <p class="contact-value">HOLA.JAVIERZAPIEN<br>@GMAIL.COM</p>
+  </div>
 
-    <div class="contact-line">
-      <p>CONTACTO</p>
-      <p><a href="mailto:hola.javierzapien@gmail.com">HOLA.JAVIERZAPIEN@GMAIL.COM</a></p>
-      <br>
-      <p>© 2026</p>
-    </div>
+  <!-- COL 4: reloj dubai -->
+  <div class="col col-clock">
+    <p class="clock-label">HORA LOCAL</p>
+    <p class="clock-time" id="clock-time">--:--:--</p>
+    <p class="clock-date" id="clock-date">DUBAI, UAE<br>UTC+4</p>
   </div>
 
 </div>
 
-<!-- ══════════════════════ FOOTER ══════════════════ -->
+<!-- ════════ FOOTER ════════ -->
 <footer class="footer">
-  <span>JAVIER ZAPIEN · PORTFOLIO</span>
-  <span>[ESC] PARA CERRAR</span>
+  <div class="footer-left">
+    Copyright © 2026.<br>
+    All Rights Reserved.
+  </div>
+  <div class="footer-links">
+    <a href="#" target="_blank">DRIBBLE</a>
+    <a href="#" target="_blank">ARE.NA</a>
+    <a href="#" target="_blank">BEHANCE</a>
+    <a href="#" target="_blank">INSTAGRAM</a>
+    <a href="#" target="_blank">LINKEDIN</a>
+  </div>
 </footer>
 
+<!-- ════════ PHRASE AREA ════════ -->
+<div class="phrase-area">
+  <p class="phrase-text" id="phrase-el"></p>
+</div>
 
-<!-- ══════════════════════ TERM: ABOUT ══════════════ -->
+
+<!-- OVERLAY: INFORMATION -->
 <div class="term-overlay" id="term-about">
   <div class="term-panel">
     <div class="term-cmd">
       <span class="term-prompt">$</span>
-      <span class="term-cmd-text">CAT ACERCA.TXT</span>
+      <span class="term-cmd-text">CAT INFORMATION.TXT</span>
       <span class="cursor"></span>
       <span class="term-close" onclick="closeTerm('about')">[ESC]</span>
     </div>
     <div class="term-content" id="content-about">
       <p class="about-bio">
-        DISEÑADOR GRÁFICO Y DIRECTOR DE ARTE CON SEDE EN DUBAI, EMIRATOS ÁRABES UNIDOS,
-        CON RAÍCES EN MÉXICO. 11 AÑOS DE EXPERIENCIA TRABAJANDO EN BRANDING, PACKAGING,
-        TIPOGRAFÍA E ILUSTRACIÓN — DESDE EL CONCEPTO HASTA LA EJECUCIÓN.<br><br>
-        HE COLABORADO CON ESTUDIOS Y CLIENTES EN MÉXICO, AMÉRICA LATINA Y MEDIO ORIENTE,
-        APORTANDO UNA PERSPECTIVA INTERCULTURAL A CADA PROYECTO.
+        Diseñador gráfico y director de arte con sede en Dubai, Emiratos Árabes Unidos,
+        con raíces en México. 11 años de experiencia trabajando en branding, packaging,
+        tipografía e ilustración — desde el concepto hasta la ejecución.
       </p>
       <hr class="about-divider" />
       <div class="about-grid">
@@ -583,7 +427,7 @@
           <ul>
             <li>DUBAI, UAE</li>
             <li>MÉXICO</li>
-            <li>AMÉRICA LATINA</li>
+            <li>LATINOAMÉRICA</li>
             <li>MEDIO ORIENTE</li>
           </ul>
         </div>
@@ -601,142 +445,130 @@
 </div>
 
 
-<!-- ══════════════════════ TERM: PORTFOLIO ══════════ -->
+<!-- OVERLAY: PORTFOLIO -->
 <div class="term-overlay" id="term-portfolio">
   <div class="term-panel">
     <div class="term-cmd">
       <span class="term-prompt">$</span>
-      <span class="term-cmd-text">LS -LA PORTAFOLIO/</span>
+      <span class="term-cmd-text">LS -LA PORTFOLIO/</span>
       <span class="cursor"></span>
       <span class="term-close" onclick="closeTerm('portfolio')">[ESC]</span>
     </div>
     <div class="term-content visible" id="content-portfolio">
-      <p class="port-header">TOTAL &nbsp;6 &nbsp;·&nbsp; BRANDING · PACKAGING · ART DIRECTION &nbsp;·&nbsp; 2026</p>
-      <div class="project-list">
+      <p class="port-header">TOTAL 6 · BRANDING · PACKAGING · ART DIRECTION · 2026</p>
 
-        <div class="project-row" onclick="openProject('llano-colorado')">
-          <span class="project-row-num">01</span>
-          <div class="project-row-thumb"><pre>
+      <div class="project-row" onclick="openProject('llano-colorado')">
+        <span class="prn">01</span>
+        <div class="project-row-thumb"><pre>
  _
-| |  __ _ _ __   ___
-| | / _` | '_ \ / _ \
-| || (_| | | | | (_) |
-|_| \__,_|_| |_|\___/
-COLORADO</pre></div>
-          <div class="project-row-name">LLANO COLORADO<span>Branding, Baja California</span></div>
-          <span class="project-row-tag">IDENTIDAD · TIPOGRAFÍA</span>
-        </div>
+|_|___ _ __   ___
+| / __| '_ \ / _ \
+| \__ \ | | | (_) |
+|_|___/_| |_|\___/</pre></div>
+        <div class="prname">LLANO COLORADO<span>Branding, Baja California</span></div>
+        <span class="prtag">IDENTIDAD · TIPOGRAFÍA</span>
+      </div>
 
-        <div class="project-row" onclick="openProject('desterrados')">
-          <span class="project-row-num">02</span>
-          <div class="project-row-thumb"><pre>
+      <div class="project-row" onclick="openProject('desterrados')">
+        <span class="prn">02</span>
+        <div class="project-row-thumb"><pre>
 |  _ \| __>
 |  | ||  >\
 |____/|___>
 TAQUERIA</pre></div>
-          <div class="project-row-name">DESTERRADOS<span>Branding &amp; Ilustración</span></div>
-          <span class="project-row-tag">SISTEMA VISUAL · TAQUERÍA</span>
-        </div>
-
-        <div class="project-row" onclick="openProject('voi-coffee')">
-          <span class="project-row-num">03</span>
-          <div class="project-row-thumb"><pre>
-__   __
-\ \ / /___  _
- \ V // _ \| |
-  \_/ \___/|_|
-COFFEE</pre></div>
-          <div class="project-row-name">VOI COFFEE<span>Branding &amp; Packaging</span></div>
-          <span class="project-row-tag">MASCOTA · CAFETERÍA</span>
-        </div>
-
-        <div class="project-row" onclick="openProject('bar-brisal')">
-          <span class="project-row-num">04</span>
-          <div class="project-row-thumb"><pre>
- ___  ____  ___
-| _ \| __ \|_ _|
-| |_)| |_) || |
-|___/|_|__/|_|
-RESTAURANT</pre></div>
-          <div class="project-row-name">BAR BRISAL<span>Branding, Four Seasons</span></div>
-          <span class="project-row-tag">LOGOTIPO · MENÚ</span>
-        </div>
-
-        <div class="project-row" onclick="openProject('honest-salad')">
-          <span class="project-row-num">05</span>
-          <div class="project-row-thumb"><pre>
- _ _  ___  _ _
-| | |/ _ \| \ |
-|_  | (_) |   |
- |_| \___/|_|\_|
-SALAD</pre></div>
-          <div class="project-row-name">HONEST SALAD<span>Branding &amp; Ilustración</span></div>
-          <span class="project-row-tag">RESTAURANTE · LOCAL</span>
-        </div>
-
-        <div class="project-row" onclick="openProject('koelleza')">
-          <span class="project-row-num">06</span>
-          <div class="project-row-thumb"><pre>
- _ _____  ___
-| /  _ \| __>
-| | | | | _>
-|_|_|_|_|___>
-K-BEAUTY</pre></div>
-          <div class="project-row-name">KOELLEZA<span>Branding &amp; Packaging</span></div>
-          <span class="project-row-tag">PIXEL ART · KAWAII</span>
-        </div>
-
+        <div class="prname">DESTERRADOS<span>Branding &amp; Ilustración</span></div>
+        <span class="prtag">SISTEMA VISUAL · TAQUERÍA</span>
       </div>
+
+      <div class="project-row" onclick="openProject('voi-coffee')">
+        <span class="prn">03</span>
+        <div class="project-row-thumb"><pre>
+__   __
+\ \ / /___
+ \ V // _ \
+  \_/ \___/
+COFFEE</pre></div>
+        <div class="prname">VOI COFFEE<span>Branding &amp; Packaging</span></div>
+        <span class="prtag">MASCOTA · CAFETERÍA</span>
+      </div>
+
+      <div class="project-row" onclick="openProject('bar-brisal')">
+        <span class="prn">04</span>
+        <div class="project-row-thumb"><pre>
+ ___  ____
+| _ \| __ \
+| |_)| |_) |
+|___/|_|__/
+BAR</pre></div>
+        <div class="prname">BAR BRISAL<span>Branding, Four Seasons</span></div>
+        <span class="prtag">LOGOTIPO · MENÚ</span>
+      </div>
+
+      <div class="project-row" onclick="openProject('honest-salad')">
+        <span class="prn">05</span>
+        <div class="project-row-thumb"><pre>
+ _ _  ___
+| | |/ _ \
+|_  | (_) |
+ |_| \___/
+SALAD</pre></div>
+        <div class="prname">HONEST SALAD<span>Branding &amp; Ilustración</span></div>
+        <span class="prtag">RESTAURANTE · LOCAL</span>
+      </div>
+
+      <div class="project-row" onclick="openProject('koelleza')">
+        <span class="prn">06</span>
+        <div class="project-row-thumb"><pre>
+ _ _____
+| /  _ \
+| | | | |
+|_|_|_|_|
+K-BEAUTY</pre></div>
+        <div class="prname">KOELLEZA<span>Branding &amp; Packaging</span></div>
+        <span class="prtag">PIXEL ART · KAWAII</span>
+      </div>
+
     </div>
   </div>
 </div>
 
 
-<!-- ══════════════════════ TERM: PRIVATE ════════════ -->
+<!-- OVERLAY: LOGOFOLIO -->
 <div class="term-overlay" id="term-private">
   <div class="term-panel">
     <div class="term-cmd">
       <span class="term-prompt">$</span>
-      <span class="term-cmd-text">CD PRIVADA/</span>
+      <span class="term-cmd-text">OPEN LOGOFOLIO/</span>
       <span class="cursor"></span>
       <span class="term-close" onclick="closeTerm('private')">[ESC]</span>
     </div>
     <div class="term-content" id="content-private">
-      <div>
-        <pre class="joke-pre">
+      <pre class="joke-pre">
 PERMISSION DENIED
-─────────────────────────────────────
- _   _  ___  ___ ___  ___ ___
-| | | |/ _ \| __| __|| _ \  _|
-| |_| | (_) | _||_  ||   / |_
- \___/ \___/|___|___||_|_\___| ← TÚ
-
-─────────────────────────────────────
+──────────────────────────────────────
 ACCESS LEVEL REQUIRED : 99
 YOUR ACCESS LEVEL     : MUCHA_CURIOSIDAD
-─────────────────────────────────────</pre>
-
-        <p class="joke-title">// ACCESO DENEGADO</p>
-        <p class="joke-body">
-          ¿EN SERIO INTENTASTE ABRIR UNA CARPETA QUE DICE "PRIVADA"?<br><br>
-          ESTA CARPETA CONTIENE:<br><br>
-          &nbsp;&nbsp;/ MIS CONTRASEÑAS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(MENTIRA)<br>
-          &nbsp;&nbsp;/ MIS MEMES DE TRABAJO<br>
-          &nbsp;&nbsp;/ LAS VECES QUE DIJE "EN DOS SEMANAS"<br>
-          &nbsp;&nbsp;/ EL BRIEF QUE EL CLIENTE "NUNCA PIDIÓ CAMBIAR"<br><br>
-          NECESITAS NIVEL 99 · TÚ TIENES NIVEL <strong>CURIOSIDAD_INCONTROLABLE.EXE</strong>
-        </p>
-        <div class="joke-stamp">CLASIFICADO</div>
-        <p class="joke-footer">CIERRA NOMÁS.</p>
-      </div>
+STATUS                : LOL NO
+──────────────────────────────────────</pre>
+      <p class="joke-title">// ACCESO DENEGADO</p>
+      <p class="joke-body">
+        ¿En serio intentaste abrir esto? Respeto la curiosidad.<br><br>
+        Esta sección contiene logos tan buenos que si los ves
+        sin contexto podrías copiarlos accidentalmente.<br>
+        No es personal — es protección artística.<br><br>
+        Necesitas nivel 99 de acceso.
+        Tú tienes nivel <strong>curiosidad_incontrolable.exe</strong>
+      </p>
+      <div class="joke-stamp">CLASIFICADO</div>
+      <p class="joke-footer">Cierra nomás.</p>
     </div>
   </div>
 </div>
 
 
-<!-- ══════════════════════ TERM: PROJECT ════════════ -->
+<!-- OVERLAY: PROJECT DETAIL -->
 <div class="term-overlay" id="term-project">
-  <div class="term-panel" style="max-width:920px">
+  <div class="term-panel" style="max-width:940px">
     <div class="term-cmd">
       <span class="term-prompt">$</span>
       <span class="term-cmd-text" id="proj-cmd"></span>
@@ -748,15 +580,11 @@ YOUR ACCESS LEVEL     : MUCHA_CURIOSIDAD
         <svg class="proj-svg-title" id="proj-title-svg" viewBox="0 0 900 110" preserveAspectRatio="xMinYMid meet">
           <text id="proj-title-text"
             x="0" y="90"
-            font-family="'DM Mono', monospace"
-            font-size="96"
-            font-weight="500"
-            fill="none"
-            stroke="#7c3aed"
-            stroke-width="2.5"
-            stroke-dasharray="10 5"
-            letter-spacing="2"
-          ></text>
+            font-family="'Courier New', monospace"
+            font-size="96" font-weight="700"
+            fill="none" stroke="#7c3aed"
+            stroke-width="2" stroke-dasharray="10 5"
+            letter-spacing="2"></text>
         </svg>
       </div>
       <hr class="proj-divider" />
@@ -773,113 +601,138 @@ YOUR ACCESS LEVEL     : MUCHA_CURIOSIDAD
 
 
 <script>
+  /* ── DUBAI CLOCK ── */
+  function updateClock() {
+    var now = new Date();
+    var time = now.toLocaleString('en-US', {
+      timeZone: 'Asia/Dubai',
+      hour: '2-digit', minute: '2-digit', second: '2-digit',
+      hour12: false
+    });
+    var date = now.toLocaleString('en-US', {
+      timeZone: 'Asia/Dubai',
+      weekday: 'short', day: '2-digit', month: 'short', year: 'numeric'
+    });
+    document.getElementById('clock-time').textContent = time;
+    document.getElementById('clock-date').textContent = 'DUBAI, UAE\n' + date.toUpperCase();
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  /* ── ROTATING PHRASES ── */
+  var PHRASES = [
+    'JUST TAKE A LOOK',
+    'NADA EXISTE HASTA\nQUE LO CREAS',
+    'ただ見てください',
+    '何も存在しない、\nあなたが創るまでは。',
+    'فقط ألقِ نظرة',
+    'لا شيء يوجد\nحتى تخلقه'
+  ];
+
+  var phraseEl = document.getElementById('phrase-el');
+  var phraseIndex = Math.floor(Math.random() * PHRASES.length);
+
+  function showPhrase(idx) {
+    phraseEl.style.opacity = '0';
+    setTimeout(function() {
+      phraseEl.textContent = PHRASES[idx];
+      phraseEl.style.opacity = '1';
+    }, 450);
+  }
+
+  showPhrase(phraseIndex);
+  setInterval(function() {
+    phraseIndex = (phraseIndex + 1) % PHRASES.length;
+    showPhrase(phraseIndex);
+  }, 3400);
+
   /* ── PROJECT DATA ── */
-  const PROJECTS = {
+  var PROJECTS = {
     'llano-colorado': {
       cmd: 'OPEN LLANO_COLORADO/',
-      title: ['LLANO', 'COLORADO'],
+      title: 'LLANO COLORADO',
       cat: 'BRANDING · IDENTIDAD VISUAL',
-      desc: 'IDENTIDAD PARA BODEGA VITIVINÍCOLA EN SAN VICENTE, BAJA CALIFORNIA. EL PROYECTO MODERNIZÓ SU IMAGEN RESPETANDO SU HERENCIA. LOGOTIPO CON TIPOGRAFÍA SANS-SERIF DE AMPLIO ESPACIADO, PALETA TERROSA EN ROJO Y CREMA.',
+      desc: 'Identidad para bodega vitivinícola en San Vicente, Baja California. El proyecto modernizó su imagen respetando su herencia. Logotipo con tipografía sans-serif de amplio espaciado, paleta terrosa en rojo y crema.',
       disciplines: ['BRANDING', 'DISEÑO DE LOGOTIPO', 'TIPOGRAFÍA', 'SISTEMA EDITORIAL'],
-      location: 'BAJA CALIFORNIA, MÉXICO',
-      year: '2026',
-      thumbs: 3
+      location: 'BAJA CALIFORNIA, MÉXICO', year: '2026', thumbs: 3
     },
     'desterrados': {
       cmd: 'OPEN DESTERRADOS/',
-      title: ['DESTERR', 'ADOS'],
+      title: 'DESTERRADOS',
       cat: 'BRANDING · ILUSTRACIÓN',
-      desc: 'TAQUERÍA ORIGINARIA DE CHIHUAHUA CON EXPANSIÓN A CDMX. SISTEMA VISUAL CON ILUSTRACIONES DE FAUNA Y FLORA DESÉRTICA — ALACRANES, CABALLOS, CACTUS — CON UN TRAZO EXPRESIVO Y LÚDICO.',
+      desc: 'Taquería originaria de Chihuahua con expansión a CDMX. Sistema visual con ilustraciones de fauna y flora desértica — alacranes, caballos, cactus — con un trazo expresivo y lúdico.',
       disciplines: ['BRANDING', 'ILUSTRACIÓN', 'TIPOGRAFÍA DISPLAY', 'SISTEMA VISUAL'],
-      location: 'CHIHUAHUA / CDMX, MÉXICO',
-      year: '2026',
-      thumbs: 3
+      location: 'CHIHUAHUA / CDMX, MÉXICO', year: '2026', thumbs: 3
     },
     'voi-coffee': {
       cmd: 'OPEN VOI_COFFEE/',
-      title: ['VOI', 'COFFEE'],
+      title: 'VOI COFFEE',
       cat: 'BRANDING · PACKAGING',
-      desc: 'CADENA DE CAFETERÍAS EN TURQUÍA CENTRADA EN UN PERSONAJE DE NUTRIA. SISTEMA VISUAL APLICADO EN PACKAGING, TIENDAS Y MATERIALES DE COMUNICACIÓN.',
+      desc: 'Cadena de cafeterías en Turquía centrada en un personaje de nutria. Sistema visual aplicado en packaging, tiendas y materiales de comunicación.',
       disciplines: ['BRANDING', 'DISEÑO DE PERSONAJE', 'PACKAGING', 'SEÑALÉTICA'],
-      location: 'ESTAMBUL, TURQUÍA',
-      year: '2026',
-      thumbs: 3
+      location: 'ESTAMBUL, TURQUÍA', year: '2026', thumbs: 3
     },
     'bar-brisal': {
       cmd: 'OPEN BAR_BRISAL/',
-      title: ['BAR', 'BRISAL'],
+      title: 'BAR BRISAL',
       cat: 'BRANDING · MENÚ',
-      desc: 'RESTAURANTE EN FOUR SEASONS PUNTA MITA. LOGOTIPO Y SISTEMA DE MENÚ QUE EQUILIBRA LA SOFISTICACIÓN DEL RESORT CON UN ESPÍRITU COSTERO. PALETA CORAL Y AZUL MARINO.',
+      desc: 'Restaurante en Four Seasons Punta Mita. Logotipo y sistema de menú que equilibra la sofisticación del resort con un espíritu costero. Paleta coral y azul marino.',
       disciplines: ['DISEÑO DE LOGOTIPO', 'SISTEMA DE MENÚ', 'BRANDING', 'DISEÑO EDITORIAL'],
-      location: 'PUNTA MITA, MÉXICO',
-      year: '2026',
-      thumbs: 2
+      location: 'PUNTA MITA, MÉXICO', year: '2026', thumbs: 2
     },
     'honest-salad': {
       cmd: 'OPEN HONEST_SALAD/',
-      title: ['HONEST', 'SALAD'],
+      title: 'HONEST SALAD',
       cat: 'BRANDING · ILUSTRACIÓN',
-      desc: 'RESTAURANTE DE ENSALADAS CON COMPROMISO HACIA AGRICULTORES LOCALES. SISTEMA VISUAL FRESCO Y COLORIDO CON ILUSTRACIONES DE FRUTAS Y VERDURAS.',
+      desc: 'Restaurante de ensaladas con compromiso hacia agricultores locales. Sistema visual fresco con ilustraciones de frutas y verduras.',
       disciplines: ['BRANDING', 'ILUSTRACIÓN', 'PACKAGING', 'SISTEMA VISUAL'],
-      location: 'MÉXICO',
-      year: '2026',
-      thumbs: 2
+      location: 'MÉXICO', year: '2026', thumbs: 2
     },
     'koelleza': {
       cmd: 'OPEN KOELLEZA/',
-      title: ['KOEL', 'LEZA'],
+      title: 'KOELLEZA',
       cat: 'BRANDING · PACKAGING',
-      desc: 'TIENDA ONLINE DE SKINCARE COREANO. IDENTIDAD CON ESTÉTICA PIXEL ART Y ELEMENTOS KAWAII PARA AUDIENCIAS JÓVENES INTERESADAS EN LA CULTURA K.',
+      desc: 'Tienda online de skincare coreano. Identidad con estética pixel art y elementos kawaii para audiencias jóvenes.',
       disciplines: ['BRANDING', 'PIXEL ART', 'PACKAGING', 'IDENTIDAD DIGITAL'],
-      location: 'ONLINE / GLOBAL',
-      year: '2026',
-      thumbs: 3
+      location: 'ONLINE / GLOBAL', year: '2026', thumbs: 3
     }
   };
 
   function openProject(slug) {
-    const p = PROJECTS[slug];
+    var p = PROJECTS[slug];
     if (!p) return;
-
     document.getElementById('proj-cmd').textContent = p.cmd;
-    document.getElementById('proj-title-text').textContent = p.title.join('  ');
-
-    const meta = [
-      ['CATEGORÍA',   p.cat],
-      ['UBICACIÓN',   p.location],
-      ['AÑO',         p.year],
+    document.getElementById('proj-title-text').textContent = p.title;
+    var meta = [
+      ['CATEGORÍA', p.cat],
+      ['UBICACIÓN', p.location],
+      ['AÑO', p.year],
       ['DISCIPLINAS', p.disciplines.join(' · ')]
     ];
-    document.getElementById('proj-meta-lines').innerHTML = meta.map(function(m){
+    document.getElementById('proj-meta-lines').innerHTML = meta.map(function(m) {
       return '<div class="proj-meta-line"><span>' + m[0] + '</span><span>' + m[1] + '</span></div>';
     }).join('');
-
     document.getElementById('proj-desc').textContent = p.desc;
-
-    const imgCol = document.getElementById('proj-images');
+    var imgCol = document.getElementById('proj-images');
     imgCol.innerHTML = '';
-    const patterns = { 2: ['tall','normal'], 3: ['tall','normal','normal'], 4: ['tall','normal','normal','normal'] };
-    const layout = patterns[p.thumbs] || Array(p.thumbs).fill('normal');
+    var patterns = { 2: ['tall','normal'], 3: ['tall','normal','normal'], 4: ['tall','normal','normal','normal'] };
+    var layout = patterns[p.thumbs] || [];
     layout.forEach(function(size, i) {
-      const box = document.createElement('div');
+      var box = document.createElement('div');
       box.className = 'proj-img' + (size === 'tall' ? ' tall' : '');
       box.innerHTML = '<div class="proj-img-placeholder">┌──────────┐\n│          │\n│  IMG ' + (i+1) + '   │\n│          │\n└──────────┘</div>';
       imgCol.appendChild(box);
     });
-
-    const overlay = document.getElementById('term-project');
-    overlay.style.display = 'block';
-    overlay.scrollTop = 0;
+    document.getElementById('term-project').style.display = 'block';
+    document.getElementById('term-project').scrollTop = 0;
     document.body.style.overflow = 'hidden';
   }
 
   /* ── TERMINAL ── */
   function openTerm(id) {
-    const overlay = document.getElementById('term-' + id);
-    overlay.style.display = 'block';
+    document.getElementById('term-' + id).style.display = 'block';
     document.body.style.overflow = 'hidden';
-
-    const content = document.getElementById('content-' + id);
+    var content = document.getElementById('content-' + id);
     if (content) {
       content.classList.remove('visible');
       setTimeout(function() { content.classList.add('visible'); }, 600);
@@ -887,23 +740,17 @@ YOUR ACCESS LEVEL     : MUCHA_CURIOSIDAD
   }
 
   function closeTerm(id) {
-    const overlay = document.getElementById('term-' + id);
-    overlay.style.display = 'none';
+    document.getElementById('term-' + id).style.display = 'none';
     document.body.style.overflow = '';
   }
 
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-      ['about','portfolio','private','project'].forEach(closeTerm);
-    }
+    if (e.key === 'Escape') ['about','portfolio','private','project'].forEach(closeTerm);
   });
 
   document.querySelectorAll('.term-overlay').forEach(function(o) {
     o.addEventListener('click', function(e) {
-      if (e.target === o) {
-        o.style.display = 'none';
-        document.body.style.overflow = '';
-      }
+      if (e.target === o) { o.style.display = 'none'; document.body.style.overflow = ''; }
     });
   });
 </script>
