@@ -6,7 +6,7 @@
   <title>JAVIER ZAPIEN</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&family=Bitcount+Prop+Double&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -40,22 +40,53 @@
 
     /* ══════════ TITLE ROW ══════════ */
     .title-row {
-      padding: 0 50px;
-      height: 124px;
+      height: 80px;
       border-bottom: 1px solid var(--fg);
       display: flex;
       align-items: center;
+      overflow: hidden;
+    }
+
+    .name-wrap {
+      padding: 0 50px;
+      flex-shrink: 0;
     }
 
     .name-text {
       font-family: var(--space);
       font-weight: 700;
-      font-size: clamp(36px, 4.4vw, 84px);
+      font-size: clamp(28px, 3.2vw, 58px);
       text-transform: uppercase;
       color: transparent;
       -webkit-text-stroke: 1.5px var(--fg);
       white-space: nowrap;
       line-height: 1;
+    }
+
+    /* scrolling PORTFOLIO DESIGN */
+    .marquee-wrap {
+      flex: 1;
+      overflow: hidden;
+      border-left: 1px solid var(--fg);
+      height: 100%;
+      position: relative;
+    }
+
+    .marquee-track {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      white-space: nowrap;
+      will-change: left;
+    }
+
+    .marquee-text {
+      font-family: 'Bitcount Prop Double', 'Courier New', monospace;
+      font-size: clamp(28px, 3.2vw, 58px);
+      color: var(--fg);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      padding: 0 40px;
     }
 
     /* ══════════ CONTENT GRID ══════════
@@ -314,7 +345,14 @@
 
 <!-- ════════ TITLE ════════ -->
 <div class="title-row">
-  <span class="name-text">JAVIER ZAPIEN</span>
+  <div class="name-wrap">
+    <span class="name-text">JAVIER ZAPIEN</span>
+  </div>
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="marquee-text">PORTFOLIO DESIGN</span>
+    </div>
+  </div>
 </div>
 
 <!-- ════════ CONTENT GRID ════════
@@ -592,6 +630,33 @@ STATUS                : LOL NO
 
 
 <script>
+  /* ── MARQUEE ── */
+  (function() {
+    var wrap  = document.querySelector('.marquee-wrap');
+    var track = document.querySelector('.marquee-track');
+
+    var now = new Date();
+    var dd  = String(now.getDate()).padStart(2,'0');
+    var mm  = String(now.getMonth()+1).padStart(2,'0');
+    var yy  = now.getFullYear();
+    var dateStr = dd + '.' + mm + '.' + yy;
+
+    document.querySelector('.marquee-text').textContent =
+      'PORTFOLIO DESIGN  ·  ' + dateStr + '  ·  ';
+
+    var pos = null;
+
+    function tick() {
+      if (pos === null) pos = wrap.offsetWidth;
+      pos -= 1.8;
+      if (pos < -track.offsetWidth) pos = wrap.offsetWidth;
+      track.style.left = pos + 'px';
+      requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+  })();
+
   /* ── DUBAI CLOCK ── */
   function updateClock() {
     var now = new Date();
