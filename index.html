@@ -22,6 +22,7 @@
 
   a { color: inherit; text-decoration: none; }
   .gray { color: #939191; }
+  .logo-mobile { display: none; }
 
   /* ── HEADER ── */
   .header {
@@ -81,6 +82,8 @@
   .s2 a { text-decoration: underline; text-underline-offset: 2px; color: #939191; }
   .s2 a:hover { opacity: 0.6; }
   .s-copy-mobile { display: none; }
+  /* Hide section row line breaks on desktop */
+  .s1 br, .s2 br, .s-copy-mobile br { display: none; }
 
   /* ── SLIDESHOW ── */
   .slideshow-wrap {
@@ -194,13 +197,20 @@
     .h-city  { display: none; }
     .h-copy  { display: none; }
 
-    /* Logo: small */
-    .logo-over img { height: 50px; }
+    /* Logo: move to header col 1 on mobile */
+    .logo-over { display: none; }
+    .logo-mobile {
+      display: block;
+      height: 50px;
+      width: auto;
+      margin-top: 8px;
+    }
 
-    /* Section row: 3 cols, copyright in col 3 */
+    /* Section row: 3 cols, copyright in col 3, labels wrap */
     .s1 { flex: 0 0 28%; }
     .s2 { flex: 0 0 44%; }
     .s-copy-mobile { display: block; flex: 0 0 28%; color: #939191; }
+    .s1 br, .s2 br, .s-copy-mobile br { display: inline; }
 
     /* Overlay header */
     .overlay-header .h-name  { flex: 0 0 28%; }
@@ -228,7 +238,10 @@
 <!-- ══ MAIN PAGE ══ -->
 
 <header class="header">
-  <div class="h-name">Javier Zapien</div>
+  <div class="h-name">
+    Javier Zapien
+    <img class="logo-mobile" src="Images/zapien_.svg" alt="Zapien">
+  </div>
   <div class="h-bio">
     Graphic Designer based in Dubai, UAE.<br>
     Currently at Ground Rising Studio<br>
@@ -245,9 +258,9 @@
 <div class="content-area">
 
   <div class="section-row">
-    <div class="s1">Portfolio Sample</div>
-    <div class="s2">Full Portfolio <a href="mailto:hola.javierzapien@gmail.com">Here</a></div>
-    <div class="s-copy-mobile">© 2026 All rights reserved.</div>
+    <div class="s1">Portfolio<br>Sample</div>
+    <div class="s2">Full<br>Portfolio <a href="mailto:hola.javierzapien@gmail.com">Here</a></div>
+    <div class="s-copy-mobile">© 2026 All<br>rights<br>reserved.</div>
   </div>
 
   <div class="logo-over">
