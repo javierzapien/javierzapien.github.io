@@ -38,6 +38,8 @@
   .h-dt    { flex: 1; }
   .h-copy  { flex: 0 0 25%; color: #939191; }
 
+  .h-readmore { display: none; }
+
   .read-more {
     display: block;
     margin-top: 0.8em;
@@ -116,6 +118,15 @@
     display: block;
   }
 
+  @media (max-width: 600px) {
+    .slide-img--dark { background: #010101; }
+    .slide-img--gray { background: #ececea; }
+    .slide-img--dark img,
+    .slide-img--gray img {
+      object-fit: contain;
+    }
+  }
+
   /* ── CAPTION ── */
   .slide-caption {
     flex-shrink: 0;
@@ -191,30 +202,55 @@
 
   /* ══ MOBILE (≤600px) ══ */
   @media (max-width: 600px) {
-    /* Header: 3 columns */
-    .h-name  { flex: 0 0 28%; }
-    .h-bio   { flex: 0 0 44%; }
-    .h-time  { flex: 0 0 28%; flex-direction: column; }
+    /* Header: CSS Grid — 3 equal cols, 2 rows */
+    .header {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      align-items: start;
+    }
+    .h-name {
+      grid-column: 1;
+      grid-row: 1 / 3;
+    }
+    .h-bio {
+      grid-column: 2 / 4;
+      grid-row: 1;
+      padding-right: 0;
+    }
+    .h-time {
+      grid-column: 3;
+      grid-row: 2;
+      flex-direction: column;
+    }
     .h-city  { display: none; }
     .h-copy  { display: none; }
+
+    /* Read More alineado con la fecha en fila 2, col 2 */
+    .h-readmore {
+      display: block;
+      grid-column: 2;
+      grid-row: 2;
+    }
+    .h-readmore .read-more { margin-top: 0; }
+    .read-more--desktop { display: none; }
 
     /* Bio: flow as paragraph with / separator on mobile */
     .bio-br { display: none; }
     .bio-sep { display: inline; }
 
-    /* Logo: move to header col 1 on mobile */
+    /* Logo: col 1 mobile */
     .logo-over { display: none; }
     .logo-mobile {
       display: block;
-      height: 50px;
+      height: 100px;
       width: auto;
       margin-top: 8px;
     }
 
-    /* Section row: 3 cols, copyright in col 3, labels wrap */
-    .s1 { flex: 0 0 28%; }
-    .s2 { flex: 0 0 44%; }
-    .s-copy-mobile { display: block; flex: 0 0 28%; color: #939191; }
+    /* Section row: 3 equal cols */
+    .s1 { flex: 0 0 33.33%; }
+    .s2 { flex: 0 0 33.33%; }
+    .s-copy-mobile { display: block; flex: 0 0 33.33%; color: #939191; }
     .s1 br, .s2 br, .s-copy-mobile br { display: inline; }
 
     /* Overlay header */
@@ -248,9 +284,10 @@
     <img class="logo-mobile" src="Images/zapien_.svg" alt="Zapien">
   </div>
   <div class="h-bio">
-    Graphic Designer based in Dubai, UAE.<span class="bio-br"><br></span><span class="bio-sep"> </span>Currently at Ground Rising Studio<span class="bio-br"><br></span><span class="bio-sep"> / </span>Previously at Anagrama and Landor
-    <a class="read-more" onclick="openOverlay()">Read More</a>
+    Graphic Designer based in Dubai, UAE.<span class="bio-br"><br></span><span class="bio-sep"> </span>Currently at Ground Rising Studio<span class="bio-br"><br></span><span class="bio-sep"> / </span>Previously at <a href="https://www.anagrama.com" target="_blank">Anagrama</a> and <a href="https://landor.com" target="_blank">Landor</a>
+    <a class="read-more read-more--desktop" onclick="openOverlay()">Read More</a>
   </div>
+  <div class="h-readmore"><a class="read-more" onclick="openOverlay()">Read More</a></div>
   <div class="h-time">
     <div class="h-city">Dubai</div>
     <div class="h-dt" id="datetime-display"></div>
@@ -273,42 +310,72 @@
   <div class="slideshow-wrap" id="slideshow">
 
     <div class="slide active">
-      <div class="slide-img"><img src="Images/desterrados_.png" alt="Desterrados"></div>
+      <div class="slide-img">
+        <picture>
+          <source media="(max-width: 600px)" srcset="Images/mobil/Personal_phone_REAR_DESTERRADOS.png">
+          <img src="Images/desterrados_.png" alt="Desterrados">
+        </picture>
+      </div>
       <div class="slide-caption">
         Desterrados<br>Brand Identity, Illustration<br>Espina Studio, 2024
       </div>
     </div>
 
     <div class="slide">
-      <div class="slide-img"><img src="Images/voi_coffee.png" alt="VOI Coffee"></div>
+      <div class="slide-img slide-img--dark">
+        <picture>
+          <source media="(max-width: 600px)" srcset="Images/mobil/Personal_phone_VOID.png">
+          <img src="Images/voi_coffee.png" alt="VOI Coffee">
+        </picture>
+      </div>
       <div class="slide-caption">
         Voi Coffee<br>Brand Identity, Illustration<br>Espina Studio, 2024
       </div>
     </div>
 
     <div class="slide">
-      <div class="slide-img"><img src="Images/malayerba_.png" alt="Malayerba"></div>
+      <div class="slide-img">
+        <picture>
+          <source media="(max-width: 600px)" srcset="Images/mobil/Personal_phone_MALAYERBA.png">
+          <img src="Images/malayerba_.png" alt="Malayerba">
+        </picture>
+      </div>
       <div class="slide-caption">
         Malayerba<br>Brand Identity<br>Espina Studio, 2024
       </div>
     </div>
 
     <div class="slide">
-      <div class="slide-img"><img src="Images/chahcalaca_.png" alt="Chachalaca"></div>
+      <div class="slide-img slide-img--dark">
+        <picture>
+          <source media="(max-width: 600px)" srcset="Images/mobil/Personal_phone_CHACHALACA_01.png">
+          <img src="Images/chahcalaca_.png" alt="Chachalaca">
+        </picture>
+      </div>
       <div class="slide-caption">
         Chachalaca<br>Brand Identity, Illustration, 3D<br>By Frward, 2023
       </div>
     </div>
 
     <div class="slide">
-      <div class="slide-img"><img src="Images/chachalaca_latas.png" alt="Chachalaca Latas"></div>
+      <div class="slide-img slide-img--gray">
+        <picture>
+          <source media="(max-width: 600px)" srcset="Images/mobil/Personal_phone_CHACHALACA_02.png">
+          <img src="Images/chachalaca_latas.png" alt="Chachalaca Latas">
+        </picture>
+      </div>
       <div class="slide-caption">
         Chachalaca<br>Brand Identity, Illustration, 3D<br>By Frward, 2023
       </div>
     </div>
 
     <div class="slide">
-      <div class="slide-img"><img src="Images/say_.png" alt="Say Carbon Yacht"></div>
+      <div class="slide-img slide-img--dark">
+        <picture>
+          <source media="(max-width: 600px)" srcset="Images/mobil/Personal_phone_REAR_SAY.png">
+          <img src="Images/say_.png" alt="Say Carbon Yacht">
+        </picture>
+      </div>
       <div class="slide-caption">
         Say Carbon Yacht<br>Brand Identity, Logotype, Iconography<br>Ground Rising, 2025
       </div>
@@ -326,7 +393,7 @@
   <header class="overlay-header">
     <div class="h-name">Javier Zapien</div>
     <div class="h-bio">
-      Graphic Designer based in Dubai, UAE.<span class="bio-br"><br></span><span class="bio-sep"> </span>Currently at Ground Rising Studio<span class="bio-br"><br></span><span class="bio-sep"> / </span>Previously at Anagrama and Landor
+      Graphic Designer based in Dubai, UAE.<span class="bio-br"><br></span><span class="bio-sep"> </span>Currently at Ground Rising Studio<span class="bio-br"><br></span><span class="bio-sep"> / </span>Previously at <a href="https://www.anagrama.com" target="_blank">Anagrama</a> and <a href="https://landor.com" target="_blank">Landor</a>
       <a class="read-more" onclick="closeOverlay()">Close</a>
     </div>
     <div class="h-time">
