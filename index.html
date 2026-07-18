@@ -21,26 +21,20 @@
   }
 
   a { color: inherit; text-decoration: none; }
-
   .gray { color: #939191; }
-
-  /* ── GRID ROW ── */
-  .row {
-    display: flex;
-    padding: 0 10px;
-  }
-  .c1 { flex: 0 0 25%; }
-  .c2 { flex: 0 0 25%; padding-right: 8px; }
-  .c3 { flex: 0 0 25%; display: flex; gap: 0; }
-  .c3-city { flex: 0 0 33%; }
-  .c3-time { flex: 1; }
-  .c4 { flex: 0 0 25%; }
 
   /* ── HEADER ── */
   .header {
     flex-shrink: 0;
-    padding-top: 12px;
+    display: flex;
+    padding: 10px 10px 0;
   }
+  .h-name  { flex: 0 0 25%; }
+  .h-bio   { flex: 0 0 25%; padding-right: 8px; }
+  .h-time  { flex: 0 0 25%; display: flex; }
+  .h-city  { flex: 0 0 40%; }
+  .h-dt    { flex: 1; }
+  .h-copy  { flex: 0 0 25%; color: #939191; }
 
   .read-more {
     display: block;
@@ -61,7 +55,7 @@
     min-height: 0;
   }
 
-  /* ── LOGO ── */
+  /* ── LOGO (overlaps section row + slideshow) ── */
   .logo-over {
     position: absolute;
     top: 0;
@@ -70,7 +64,7 @@
     pointer-events: none;
   }
   .logo-over img {
-    height: 150px;
+    height: 130px;
     width: auto;
     display: block;
   }
@@ -78,8 +72,15 @@
   /* ── SECTION ROW ── */
   .section-row {
     flex-shrink: 0;
+    display: flex;
     padding: 8px 10px 8px;
+    color: #939191;
   }
+  .s1 { flex: 0 0 25%; }
+  .s2 { flex: 0 0 25%; }
+  .s2 a { text-decoration: underline; text-underline-offset: 2px; color: #939191; }
+  .s2 a:hover { opacity: 0.6; }
+  .s-copy-mobile { display: none; }
 
   /* ── SLIDESHOW ── */
   .slideshow-wrap {
@@ -116,7 +117,6 @@
     flex-shrink: 0;
     padding: 6px 10px 8px;
     border-top: 1px solid #e8e8e8;
-    display: flex;
   }
 
   /* ── READ MORE OVERLAY ── */
@@ -133,20 +133,42 @@
 
   .overlay-header {
     flex-shrink: 0;
-    padding-top: 12px;
+    display: flex;
+    padding: 10px 10px 0;
+  }
+
+  .overlay-logo {
+    flex-shrink: 0;
+    padding: 8px 10px;
+    width: 25%;
+  }
+  .overlay-logo img {
+    height: 130px;
+    width: auto;
+    display: block;
   }
 
   .overlay-section {
-    padding: 20px 10px 8px;
+    display: flex;
+    padding: 16px 10px 8px;
+    color: #939191;
   }
+  .os1 { flex: 0 0 25%; }
+  .os2 { flex: 0 0 25%; }
+  .os3 { flex: 0 0 25%; }
+  .os4 { flex: 0 0 25%; }
 
   .overlay-content {
-    padding: 0 10px 40px;
     display: flex;
+    padding: 0 10px 30px;
     align-items: flex-start;
   }
+  .oc1 { flex: 0 0 25%; }
+  .oc2 { flex: 0 0 25%; }
+  .oc3 { flex: 0 0 25%; }
+  .oc4 { flex: 0 0 25%; }
 
-  .overlay-content .c2 p + p { margin-top: 0.9em; }
+  .oc2 p + p { margin-top: 0.9em; }
 
   .exp-item { margin-bottom: 14px; }
   .exp-item:last-child { margin-bottom: 0; }
@@ -156,36 +178,76 @@
     text-underline-offset: 2px;
   }
   .overlay-content a:hover { opacity: 0.5; }
-
   .social-links a { display: block; }
+
+  /* ══ TABLET (≤1024px) ══ */
+  @media (max-width: 1024px) {
+    .logo-over img { height: 130px; }
+  }
+
+  /* ══ MOBILE (≤600px) ══ */
+  @media (max-width: 600px) {
+    /* Header: 3 columns */
+    .h-name  { flex: 0 0 28%; }
+    .h-bio   { flex: 0 0 44%; }
+    .h-time  { flex: 0 0 28%; flex-direction: column; }
+    .h-city  { display: none; }
+    .h-copy  { display: none; }
+
+    /* Logo: small */
+    .logo-over img { height: 50px; }
+
+    /* Section row: 3 cols, copyright in col 3 */
+    .s1 { flex: 0 0 28%; }
+    .s2 { flex: 0 0 44%; }
+    .s-copy-mobile { display: block; flex: 0 0 28%; color: #939191; }
+
+    /* Overlay header */
+    .overlay-header .h-name  { flex: 0 0 28%; }
+    .overlay-header .h-bio   { flex: 0 0 44%; }
+    .overlay-header .h-time  { flex: 0 0 28%; }
+    .overlay-header .h-copy  { display: none; }
+
+    .overlay-logo { width: 28%; }
+    .overlay-logo img { height: 60px; }
+
+    /* Overlay sections stack */
+    .overlay-section { flex-wrap: wrap; gap: 8px 0; }
+    .os1, .os2, .os3, .os4 { flex: 0 0 50%; }
+
+    .overlay-content { flex-wrap: wrap; }
+    .oc1, .oc2, .oc3, .oc4 {
+      flex: 0 0 100%;
+      padding-bottom: 20px;
+    }
+  }
 </style>
 </head>
 <body>
 
 <!-- ══ MAIN PAGE ══ -->
 
-<header class="header row">
-  <div class="c1">Javier Zapien</div>
-  <div class="c2">
-    Graphic Designer based in Dubai, UAE<br>
+<header class="header">
+  <div class="h-name">Javier Zapien</div>
+  <div class="h-bio">
+    Graphic Designer based in Dubai, UAE.<br>
     Currently at Ground Rising Studio<br>
     Previously at Anagrama and Landor
     <a class="read-more" onclick="openOverlay()">Read More</a>
   </div>
-  <div class="c3">
-    <div class="c3-city">Dubai</div>
-    <div class="c3-time" id="datetime-display"></div>
+  <div class="h-time">
+    <div class="h-city">Dubai</div>
+    <div class="h-dt" id="datetime-display"></div>
   </div>
-  <div class="c4 gray">© 2026 All rights reserved.</div>
+  <div class="h-copy">© 2026 All rights reserved.</div>
 </header>
 
 <div class="content-area">
 
-  <div class="section-row row">
-    <div class="c1 gray">Portfolio Sample</div>
-    <div class="c2 gray">Full Portfolio</div>
-    <div class="c3"></div>
-    <div class="c4"></div>
+  <div class="section-row">
+    <div class="s1">Portfolio Sample</div>
+    <div class="s2">Full Portfolio <a href="mailto:hola.javierzapien@gmail.com">Here</a></div>
+    <div class="s-copy-mobile">© 2026 All rights reserved.</div>
   </div>
 
   <div class="logo-over">
@@ -194,61 +256,49 @@
 
   <div class="slideshow-wrap" id="slideshow">
 
-  <div class="slide active">
-    <div class="slide-img"><img src="Images/voi_coffee.png" alt="VOI Coffee"></div>
-    <div class="slide-caption">
-      <div class="c1">VOI Coffee</div>
-      <div class="c2">Brand Identity, Packaging</div>
-      <div class="c3-city">2023</div>
+    <div class="slide active">
+      <div class="slide-img"><img src="Images/desterrados_.png" alt="Desterrados"></div>
+      <div class="slide-caption">
+        Desterrados<br>Brand Identity, Illustration<br>Espina Studio, 2024
+      </div>
     </div>
-  </div>
 
-  <div class="slide">
-    <div class="slide-img"><img src="Images/chahcalaca_.png" alt="Chachalaca"></div>
-    <div class="slide-caption">
-      <div class="c1">Chachalaca</div>
-      <div class="c2">Brand Identity</div>
-      <div class="c3-city">2022</div>
+    <div class="slide">
+      <div class="slide-img"><img src="Images/voi_coffee.png" alt="VOI Coffee"></div>
+      <div class="slide-caption">
+        Voi Coffee<br>Brand Identity, Illustration<br>Espina Studio, 2024
+      </div>
     </div>
-  </div>
 
-  <div class="slide">
-    <div class="slide-img"><img src="Images/chachalaca_latas.png" alt="Chachalaca Latas"></div>
-    <div class="slide-caption">
-      <div class="c1">Chachalaca</div>
-      <div class="c2">Brand Identity, Packaging</div>
-      <div class="c3-city">2022</div>
+    <div class="slide">
+      <div class="slide-img"><img src="Images/malayerba_.png" alt="Malayerba"></div>
+      <div class="slide-caption">
+        Malayerba<br>Brand Identity<br>Espina Studio, 2024
+      </div>
     </div>
-  </div>
 
-  <div class="slide">
-    <div class="slide-img"><img src="Images/say_.png" alt="Say"></div>
-    <div class="slide-caption">
-      <div class="c1">Say</div>
-      <div class="c2">Brand Identity</div>
-      <div class="c3-city">2025</div>
+    <div class="slide">
+      <div class="slide-img"><img src="Images/chahcalaca_.png" alt="Chachalaca"></div>
+      <div class="slide-caption">
+        Chachalaca<br>Brand Identity, Illustration, 3D<br>By Frward, 2023
+      </div>
     </div>
-  </div>
 
-  <div class="slide">
-    <div class="slide-img"><img src="Images/desterrados_.png" alt="Desterrados"></div>
-    <div class="slide-caption">
-      <div class="c1">Desterrados</div>
-      <div class="c2">Brand Identity, Illustration</div>
-      <div class="c3-city">2023</div>
+    <div class="slide">
+      <div class="slide-img"><img src="Images/chachalaca_latas.png" alt="Chachalaca Latas"></div>
+      <div class="slide-caption">
+        Chachalaca<br>Brand Identity, Illustration, 3D<br>By Frward, 2023
+      </div>
     </div>
-  </div>
 
-  <div class="slide">
-    <div class="slide-img"><img src="Images/malayerba_.png" alt="Malayerba"></div>
-    <div class="slide-caption">
-      <div class="c1">Malayerba</div>
-      <div class="c2">Brand Identity</div>
-      <div class="c3-city">2023</div>
+    <div class="slide">
+      <div class="slide-img"><img src="Images/say_.png" alt="Say Carbon Yacht"></div>
+      <div class="slide-caption">
+        Say Carbon Yacht<br>Brand Identity, Logotype, Iconography<br>Ground Rising, 2025
+      </div>
     </div>
-  </div>
 
-  </div>
+  </div><!-- end slideshow-wrap -->
 
 </div><!-- end content-area -->
 
@@ -257,114 +307,128 @@
 
 <div class="overlay" id="overlay">
 
-  <header class="overlay-header row">
-    <div class="c1">Javier Zapien</div>
-    <div class="c2">
-      Graphic Designer based in Dubai, UAE<br>
+  <header class="overlay-header">
+    <div class="h-name">Javier Zapien</div>
+    <div class="h-bio">
+      Graphic Designer based in Dubai, UAE.<br>
       Currently at Ground Rising Studio<br>
       Previously at Anagrama and Landor
       <a class="read-more" onclick="closeOverlay()">Close</a>
     </div>
-    <div class="c3">
-      <div class="c3-city">Dubai</div>
-      <div class="c3-time" id="datetime-overlay"></div>
+    <div class="h-time">
+      <div class="h-city">Dubai</div>
+      <div class="h-dt" id="datetime-overlay"></div>
     </div>
-    <div class="c4 gray">© 2026 All rights reserved.</div>
+    <div class="h-copy gray">© 2026 All rights reserved.</div>
   </header>
 
-  <div class="overlay-section row">
-    <div class="c1 gray">Information</div>
-    <div class="c2 gray">Bio</div>
-    <div class="c3 gray">Contact</div>
-    <div class="c4 gray">Links</div>
+  <div class="overlay-logo">
+    <img src="Images/zapien_.svg" alt="Zapien">
+  </div>
+
+  <div class="overlay-section">
+    <div class="os1"></div>
+    <div class="os2">Bio</div>
+    <div class="os3">Contact</div>
+    <div class="os4">Links</div>
   </div>
 
   <div class="overlay-content">
-    <div class="c1"></div>
-    <div class="c2">
+    <div class="oc1"></div>
+    <div class="oc2">
       <p>I am a graphic designer based in Dubai, United Arab Emirates, with ten years of experience working in design studios.</p>
       <p>My expertise spans branding, typography, illustration, and design direction, always with a focus on delivering strong, original, and impactful concepts.</p>
       <p>I am passionate about taking on projects that present creative challenges and generate value through thoughtful, strategic solutions.</p>
       <p>Over the course of my career, I have collaborated with design studios across the globe, an experience that has broadened my perspective and allowed me to approach each project with versatility and a well-rounded vision.</p>
     </div>
-    <div class="c3">
-      <a href="mailto:hola.javierzapien@gmail.com">hola.javierzapien<br>@gmail.com</a>
+    <div class="oc3">
+      <a href="mailto:hola.javierzapien@gmail.com">Hola.javierzapien<br>@gmail.com</a>
     </div>
-    <div class="c4 social-links">
+    <div class="oc4 social-links">
       <a href="https://instagram.com/javierzapien" target="_blank">Instagram</a>
       <a href="https://linkedin.com/in/javierzapien" target="_blank">LinkedIn</a>
       <a href="https://behance.net/javierzapien" target="_blank">Behance</a>
-      <a href="https://dribbble.com/javierzapien" target="_blank">Dribbble</a>
+      <a href="https://dribbble.com/javierzapien" target="_blank">Dribble</a>
     </div>
   </div>
 
-  <div class="overlay-section row">
-    <div class="c1 gray">Services</div>
-    <div class="c2 gray">Experience</div>
-    <div class="c3 gray">Contact</div>
-    <div class="c4"></div>
+  <div class="overlay-section">
+    <div class="os1">Services</div>
+    <div class="os2">Experience</div>
+    <div class="os3"></div>
+    <div class="os4">Links</div>
   </div>
 
   <div class="overlay-content">
-    <div class="c1">
-      Brand Identity<br>
+    <div class="oc1">
+      Brand identity<br>
       Illustration<br>
       Art Direction<br>
       Packaging<br>
       3D Modeling<br>
       Typography
     </div>
-    <div class="c2">
+    <div class="oc2">
       <div class="exp-item">
         Ground Rising<br>
-        Sr. Brand Designer, Full-time<br>
+        Sr. Brand Designer<br>
+        Full-time<br>
         Dubái, UAE<br>
         <span class="gray">Current</span>
       </div>
       <div class="exp-item">
         Espina Studio<br>
-        Sr. Brand Designer, Full-time<br>
+        Sr. Brand Designer<br>
+        Full-time<br>
         Mexico City, MX<br>
         <span class="gray">06.23 – 07.24</span>
       </div>
       <div class="exp-item">
         Landor &amp; Fitch<br>
-        Design Director, Full-time<br>
+        Design Director<br>
+        Full-time<br>
         Mexico City, MX<br>
         <span class="gray">06.22 – 05.23</span>
       </div>
       <div class="exp-item">
         Anagrama<br>
-        Design Director, Full-time<br>
+        Design Director<br>
+        Full-time<br>
         Mexico City, MX<br>
         <span class="gray">09.20 – 05.22</span>
       </div>
       <div class="exp-item">
         La Tortilleria<br>
-        Graphic Designer, Full-time<br>
+        Graphic Designer<br>
+        Full-time<br>
         Monterrey, MX<br>
         <span class="gray">11.18 – 02.20</span>
       </div>
       <div class="exp-item">
         The Hungry Design Co.<br>
-        Illustrator / Designer, Full-time<br>
+        Illustrator / Designer<br>
+        Full-time<br>
         Monterrey, MX<br>
         <span class="gray">01.17 – 11.18</span>
       </div>
       <div class="exp-item">
         La Sociedad<br>
-        Graphic Designer, Full-time<br>
+        Graphic Designer<br>
+        Full-time<br>
         Monterrey, MX<br>
         <span class="gray">01.16 – 01.17</span>
       </div>
     </div>
-    <div class="c3">
-      <a href="mailto:hola.javierzapien@gmail.com">hola.javierzapien<br>@gmail.com</a>
+    <div class="oc3"></div>
+    <div class="oc4 social-links">
+      <a href="https://instagram.com/javierzapien" target="_blank">Instagram</a>
+      <a href="https://linkedin.com/in/javierzapien" target="_blank">LinkedIn</a>
+      <a href="https://behance.net/javierzapien" target="_blank">Behance</a>
+      <a href="https://dribbble.com/javierzapien" target="_blank">Dribble</a>
     </div>
-    <div class="c4"></div>
   </div>
 
-</div>
+</div><!-- end overlay -->
 
 
 <script>
