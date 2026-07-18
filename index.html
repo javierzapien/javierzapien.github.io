@@ -202,6 +202,7 @@
   }
   .overlay-content a:hover { opacity: 0.5; }
   .social-links a { display: block; }
+  .ov-mobile-contact { display: none; }
 
   /* ══ TABLET (≤1024px) ══ */
   @media (max-width: 1024px) {
@@ -262,24 +263,54 @@
     .s-copy-mobile { display: block; flex: 0 0 33.33%; color: #939191; }
     .s1 br, .s2 br, .s-copy-mobile br { display: inline; }
 
-    /* Overlay header */
-    .overlay-header .h-name  { flex: 0 0 28%; }
-    .overlay-header .h-bio   { flex: 0 0 44%; }
-    .overlay-header .h-time  { flex: 0 0 28%; }
-    .overlay-header .h-copy  { display: none; }
-
-    .overlay-logo { width: 28%; }
-    .overlay-logo img { height: 60px; }
-
-    /* Overlay sections stack */
-    .overlay-section { flex-wrap: wrap; gap: 8px 0; }
-    .os1, .os2, .os3, .os4 { flex: 0 0 50%; }
-
-    .overlay-content { flex-wrap: wrap; }
-    .oc1, .oc2, .oc3, .oc4 {
-      flex: 0 0 100%;
-      padding-bottom: 20px;
+    /* Overlay header: mismo grid que header principal */
+    .overlay-header {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      align-items: start;
     }
+    .overlay-header .h-name  { grid-column: 1; grid-row: 1 / 4; }
+    .overlay-header .h-bio   { grid-column: 2 / 4; grid-row: 1; padding-right: 0; }
+    .overlay-header .h-readmore { display: block; grid-column: 2; grid-row: 2; }
+    .overlay-header .h-readmore .read-more { margin-top: 0; }
+    .overlay-header .h-time  { grid-column: 3; grid-row: 2; flex-direction: column; }
+    .overlay-header .h-copy  { display: block; grid-column: 3; grid-row: 3; color: #939191; }
+
+    /* Logo overlay oculto en mobile (está en h-name) */
+    .overlay-logo { display: none; }
+
+    /* Overlay sections: 3 cols */
+    .overlay-section {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      flex-wrap: unset;
+    }
+    .os1 { flex: unset; }
+    .os2 { flex: unset; }
+    .os3 { flex: unset; }
+    .os4 { display: none; }
+
+    /* Overlay content: 3 cols */
+    .overlay-content {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      align-items: start;
+      flex-wrap: unset;
+      padding-bottom: 16px;
+    }
+    .oc1 { flex: unset; padding-bottom: 0; }
+    .oc2 { grid-column: 2 / 4; flex: unset; padding-bottom: 0; }
+    .oc3 { display: none; }
+    .oc4 { display: none; }
+
+    /* Experience: oc2 ocupa solo col 2 (no span) */
+    .overlay-content--exp .oc2 { grid-column: 2; }
+
+    /* Sección mobile-only Contact + Links */
+    .ov-mobile-contact { display: grid !important; grid-template-columns: repeat(3, 1fr); }
+    .ov-mobile-contact .oc2 { grid-column: 2; }
+    .ov-mobile-contact .oc3 { display: block; }
   }
 </style>
 </head>
@@ -400,11 +431,15 @@
 <div class="overlay" id="overlay">
 
   <header class="overlay-header">
-    <div class="h-name">Javier Zapien</div>
+    <div class="h-name">
+      Javier Zapien
+      <img class="logo-mobile" src="Images/zapien_.svg" alt="Zapien">
+    </div>
     <div class="h-bio">
       Graphic Designer based in Dubai, UAE.<span class="bio-br"><br></span><span class="bio-sep"> </span>Currently at Ground Rising Studio<span class="bio-br"><br></span><span class="bio-sep"> / </span>Previously at <a href="https://www.anagrama.com" target="_blank">Anagrama</a> and <a href="https://landor.com" target="_blank">Landor</a>
-      <a class="read-more" onclick="closeOverlay()">Close</a>
+      <a class="read-more read-more--desktop" onclick="closeOverlay()">Close</a>
     </div>
+    <div class="h-readmore"><a class="read-more" onclick="closeOverlay()">Close</a></div>
     <div class="h-time">
       <div class="h-city">Dubai</div>
       <div class="h-dt" id="datetime-overlay"></div>
@@ -416,15 +451,23 @@
     <img src="Images/zapien_.svg" alt="Zapien">
   </div>
 
+  <!-- Sección: Services + Bio + Contact + Links -->
   <div class="overlay-section">
-    <div class="os1"></div>
+    <div class="os1">Services</div>
     <div class="os2">Bio</div>
     <div class="os3">Contact</div>
     <div class="os4">Links</div>
   </div>
 
   <div class="overlay-content">
-    <div class="oc1"></div>
+    <div class="oc1">
+      Brand identity<br>
+      Illustration<br>
+      Art Direction<br>
+      Packaging<br>
+      3D Modeling<br>
+      Typography
+    </div>
     <div class="oc2">
       <p>I am a graphic designer based in Dubai, United Arab Emirates, with ten years of experience working in design studios.</p>
       <p>My expertise spans branding, typography, illustration, and design direction, always with a focus on delivering strong, original, and impactful concepts.</p>
@@ -442,23 +485,16 @@
     </div>
   </div>
 
+  <!-- Sección: Experience -->
   <div class="overlay-section">
-    <div class="os1">Services</div>
-    <div class="os2">Experience</div>
+    <div class="os1">Experience</div>
+    <div class="os2"></div>
     <div class="os3"></div>
     <div class="os4">Links</div>
   </div>
 
-  <div class="overlay-content">
+  <div class="overlay-content overlay-content--exp">
     <div class="oc1">
-      Brand identity<br>
-      Illustration<br>
-      Art Direction<br>
-      Packaging<br>
-      3D Modeling<br>
-      Typography
-    </div>
-    <div class="oc2">
       <div class="exp-item">
         Ground Rising<br>
         Sr. Brand Designer<br>
@@ -487,6 +523,8 @@
         Mexico City, MX<br>
         <span class="gray">09.20 – 05.22</span>
       </div>
+    </div>
+    <div class="oc2">
       <div class="exp-item">
         La Tortilleria<br>
         Graphic Designer<br>
@@ -511,6 +549,25 @@
     </div>
     <div class="oc3"></div>
     <div class="oc4 social-links">
+      <a href="https://instagram.com/javierzapien" target="_blank">Instagram</a>
+      <a href="https://linkedin.com/in/javierzapien" target="_blank">LinkedIn</a>
+      <a href="https://behance.net/javierzapien" target="_blank">Behance</a>
+      <a href="https://dribbble.com/javierzapien" target="_blank">Dribble</a>
+    </div>
+  </div>
+
+  <!-- Sección Contact + Links (solo mobile) -->
+  <div class="overlay-section ov-mobile-contact">
+    <div class="os1">Contact</div>
+    <div class="os2"></div>
+    <div class="os3">Links</div>
+  </div>
+  <div class="overlay-content ov-mobile-contact">
+    <div class="oc1">
+      <a href="mailto:hola.javierzapien@gmail.com">Hola.javierzapien<br>@gmail.com</a>
+    </div>
+    <div class="oc2"></div>
+    <div class="oc3 social-links">
       <a href="https://instagram.com/javierzapien" target="_blank">Instagram</a>
       <a href="https://linkedin.com/in/javierzapien" target="_blank">LinkedIn</a>
       <a href="https://behance.net/javierzapien" target="_blank">Behance</a>
