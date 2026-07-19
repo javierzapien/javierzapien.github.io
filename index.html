@@ -219,7 +219,7 @@
     .header {
       position: relative;
       display: block;
-      min-height: 140px;
+      min-height: 160px;
       padding: 0;
     }
     .h-name {
@@ -246,7 +246,7 @@
       position: absolute;
       left: calc(66.67% + 4px);
       right: 10px;
-      top: 112px;
+      top: 132px;
       color: #939191;
     }
     .h-readmore {
@@ -266,7 +266,7 @@
       position: absolute;
       left: calc(33.33% + 7px);
       right: calc(33.33% + 4px);
-      top: 112px;
+      top: 142px;
       color: #939191;
     }
     .h-port2 a { color: #939191; text-decoration: underline; text-underline-offset: 2px; }
@@ -282,9 +282,9 @@
     .logo-over { display: none; }
     .logo-mobile {
       display: block;
-      height: 90px;
+      height: 80px;
       width: auto;
-      margin-top: 8px;
+      margin-top: 18px;
       animation: spin 12s linear infinite;
     }
 
@@ -298,7 +298,7 @@
     .overlay-header {
       position: relative;
       display: block;
-      min-height: 122px;
+      min-height: 142px;
       padding: 0;
     }
     .overlay-header .h-name     { position: absolute; left: 10px; top: 12px; }
@@ -306,10 +306,10 @@
     .overlay-header .h-readmore { display: block; position: absolute; left: calc(33.33% + 7px); top: 62px; }
     .overlay-header .h-readmore .read-more { margin-top: 0; }
     .overlay-header .h-time     { position: absolute; left: calc(66.67% + 4px); top: 62px; flex-direction: column; }
-    .overlay-header .h-copy     { display: block; position: absolute; left: calc(66.67% + 4px); right: 10px; top: 112px; color: #939191; }
+    .overlay-header .h-copy     { display: block; position: absolute; left: calc(66.67% + 4px); right: 10px; top: 132px; color: #939191; }
 
-    /* Primera sección (Services/Bio) empieza a 2px del header — igual que Figma */
-    .overlay-section--bio { padding-top: 2px; }
+    /* Primera sección (Services/Bio) empieza justo al terminar el header */
+    .overlay-section--bio { padding-top: 0; }
 
     /* Ocultar Contact label al lado de Bio en mobile */
     .overlay-section--bio .os3 { visibility: hidden; }
@@ -348,19 +348,7 @@
     /* Sección mobile-only Contact + Links */
     .ov-mobile-contact { display: grid !important; grid-template-columns: repeat(3, 1fr); }
     .ov-mobile-contact .oc2 { grid-column: 2; }
-    .ov-mobile-contact .oc3 { display: block; }
-
-    /* Footer copyright del overlay */
-    .overlay-footer {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      padding: 20px 10px 16px;
-    }
-    .overlay-footer-copy {
-      grid-column: 3;
-      color: #939191;
-      text-align: right;
-    }
+    .ov-mobile-contact .oc3 { display: none; }
 
     /* Slide caption: info left + copyright right, sin padding extra — el margen del slideshow-wrap ya da x=10 */
     .slide-caption {
@@ -388,7 +376,7 @@
     <img class="logo-mobile" src="Images/zapien_.svg" alt="Zapien">
   </div>
   <div class="h-bio">
-    Graphic Designer based in Dubai, UAE.<span class="bio-br"><br></span><span class="bio-sep"> </span>Currently at Ground Rising Studio<span class="bio-br"><br></span><span class="bio-sep"> / </span>Previously at <a href="https://www.anagrama.com" target="_blank">Anagrama</a> and <a href="https://landor.com" target="_blank">Landor</a>
+    Graphic Designer based in Dubai, UAE.<span class="bio-br"><br></span><span class="bio-sep"> </span>Currently at Ground Rising Studio<span class="bio-br"><br></span><span class="bio-sep">, </span>Previously at <a href="https://www.anagrama.com" target="_blank">Anagrama</a> and <a href="https://landor.com" target="_blank">Landor</a>
     <a class="read-more read-more--desktop" onclick="openOverlay()">Read More</a>
   </div>
   <div class="h-readmore"><a class="read-more" onclick="openOverlay()">Read More</a></div>
@@ -398,7 +386,7 @@
   </div>
   <div class="h-copy">2026 All rights reserved.</div>
   <div class="h-port1">Portfolio<br>Sample</div>
-  <div class="h-port2">Full<br>Portfolio <a href="mailto:hola.javierzapien@gmail.com">Here</a></div>
+  <div class="h-port2">Full Book <a href="mailto:hola.javierzapien@gmail.com">Here</a></div>
 </header>
 
 <div class="content-area">
@@ -508,7 +496,7 @@
       <img class="logo-mobile" src="Images/zapien_.svg" alt="Zapien">
     </div>
     <div class="h-bio">
-      Graphic Designer based in Dubai, UAE.<span class="bio-br"><br></span><span class="bio-sep"> </span>Currently at Ground Rising Studio<span class="bio-br"><br></span><span class="bio-sep"> / </span>Previously at <a href="https://www.anagrama.com" target="_blank">Anagrama</a> and <a href="https://landor.com" target="_blank">Landor</a>
+      Graphic Designer based in Dubai, UAE.<span class="bio-br"><br></span><span class="bio-sep"> </span>Currently at Ground Rising Studio<span class="bio-br"><br></span><span class="bio-sep">, </span>Previously at <a href="https://www.anagrama.com" target="_blank">Anagrama</a> and <a href="https://landor.com" target="_blank">Landor</a>
       <a class="read-more read-more--desktop" onclick="closeOverlay()">Close</a>
     </div>
     <div class="h-readmore"><a class="read-more" onclick="closeOverlay()">Close</a></div>
@@ -631,25 +619,20 @@
   <!-- Sección Contact + Links (solo mobile) -->
   <div class="overlay-section ov-mobile-contact">
     <div class="os1">Contact</div>
-    <div class="os2"></div>
-    <div class="os3">Links</div>
+    <div class="os2">Links</div>
+    <div class="os3"></div>
   </div>
   <div class="overlay-content ov-mobile-contact">
     <div class="oc1">
       <a href="mailto:hola.javierzapien@gmail.com">Hola.javierzapien<br>@gmail.com</a>
     </div>
-    <div class="oc2"></div>
-    <div class="oc3 social-links">
+    <div class="oc2 social-links">
       <a href="https://instagram.com/javierzapien" target="_blank">Instagram</a>
       <a href="https://linkedin.com/in/javierzapien" target="_blank">LinkedIn</a>
       <a href="https://behance.net/javierzapien" target="_blank">Behance</a>
       <a href="https://dribbble.com/javierzapien" target="_blank">Dribble</a>
     </div>
-  </div>
-
-  <!-- Footer copyright (solo mobile) -->
-  <div class="overlay-footer">
-    <div class="overlay-footer-copy">2026 All rights reserved.</div>
+    <div class="oc3"></div>
   </div>
 
 </div><!-- end overlay -->
