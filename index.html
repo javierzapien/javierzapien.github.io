@@ -665,8 +665,12 @@
     slides[current].classList.add('active');
   }, 4000);
 
-  // OVERLAY
+  // OVERLAY — sincroniza el logo del overlay con el principal para que la rotación sea continua
+  var logoAnimStart = Date.now();
   function openOverlay() {
+    var elapsed = (Date.now() - logoAnimStart) / 1000;
+    var overlayLogo = document.querySelector('.overlay-header .logo-mobile');
+    if (overlayLogo) overlayLogo.style.animationDelay = '-' + (elapsed % 12) + 's';
     document.getElementById('overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
