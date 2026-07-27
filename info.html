@@ -24,28 +24,51 @@
     .site-header.dark .flower { filter: invert(1); }
 
     /* ─── INFO CONTENT ───────────────────────────────────────── */
+    /*
+      Figma 12-col grid (col-width 109px, gutter 10px, offset 10px):
+      col2=129  col3=248  col4=367  col5=486  col6=606
+      col7=725  col8=844  col9=963  col10=1082 col11=1202
+
+      INFO top:   [empty col2-3] [BIO col4-7, 466px] [gap col8] [CONTACT col9-10, 238px] [LINKS col11-12]
+      INFO bottom:[SERVICES col2-3, 228px] [EXPERIENCE col4-6, 240px]
+    */
     .info-content {
       background: #fff;
-      padding: 64px var(--right-margin) 0 var(--left-margin);
+      /* Full 12-col grid: 10px left offset, 10px right offset */
+      padding: 15px 10px 0 10px;
     }
 
-    /* Top section: BIO | CONTACT | LINKS */
-    .info-top {
-      display: grid;
-      grid-template-columns: 1fr 220px 200px;
-      gap: 0 48px;
-      padding-bottom: 72px;
-      border-bottom: 1px solid #d0ccc9;
-    }
-
-    /* Bottom section: SERVICES | EXPERIENCE */
+    /* 12-column inner grid matching Figma exactly */
+    .info-top,
     .info-bottom {
       display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 0 48px;
-      padding-top: 56px;
-      padding-bottom: 80px;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: 10px;
     }
+
+    .info-top {
+      padding-bottom: 64px;
+      border-bottom: 1px solid #d0ccc9;
+      align-items: start;
+    }
+
+    /* BIO: col 4–7 */
+    .info-bio     { grid-column: 4 / 8; }
+    /* CONTACT: col 9–10 */
+    .info-contact { grid-column: 9 / 11; }
+    /* LINKS: col 11–12 */
+    .info-links   { grid-column: 11 / 13; }
+
+    .info-bottom {
+      padding-top: 48px;
+      padding-bottom: 80px;
+      align-items: start;
+    }
+
+    /* SERVICES: col 2–3 */
+    .info-services    { grid-column: 2 / 4; }
+    /* EXPERIENCE: col 4–6 */
+    .info-experience  { grid-column: 4 / 7; }
 
     .info-label {
       font-family: var(--font-mono);

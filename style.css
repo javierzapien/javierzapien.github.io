@@ -19,8 +19,19 @@
   --footer-bg: #c2bab1;
   --font-mono: 'Courier Prime', monospace;
   --font-code: 'Source Code Pro', monospace;
-  --left-margin: 129px;
-  --right-margin: 10px;
+
+  /* 12-column grid: offset 10px, gutter 10px, col-width ≈ 109px */
+  --left-margin:  129px;  /* col 2 start */
+  --right-margin:  10px;  /* grid right offset (gallery/images extend to here) */
+  --right-content: 129px; /* mirror of left margin for text/nav/footer */
+
+  /* Named column starts for precision alignment */
+  --col3:  248px;
+  --col4:  367px;
+  --col7:  725px;
+  --col8:  844px;
+  --col9:  963px;
+  --col11: 1202px;
 }
 
 /* ─── BASE TYPOGRAPHY & RENDERING ───────────────────────── */
@@ -117,7 +128,7 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding: 22px var(--right-margin) 0 var(--left-margin);
+  padding: 22px var(--right-content) 0 var(--left-margin);
 }
 
 .site-name {
@@ -185,11 +196,10 @@ img {
 
 .time-col {
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start; /* Dubai top-aligns with the date — both at same y in Figma */
   gap: 12px;
   flex-shrink: 0;
-  padding-right: var(--right-margin);
-  /* tabular numbers so the clock doesn't jitter */
+  padding-right: var(--right-content);
   font-variant-numeric: tabular-nums;
 }
 
@@ -214,8 +224,9 @@ img {
 }
 .footer-inner {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 0 40px;
+  /* Figma: col2-6 (596px), col7-8 (238px), col9-10 (239px), col11-12 (rest) */
+  grid-template-columns: 596px 238px 239px 1fr;
+  gap: 0;
 }
 .footer-col-title {
   font-family: var(--font-code);
