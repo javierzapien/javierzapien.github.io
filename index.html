@@ -1,683 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Javier Zapien</title>
-<link rel="icon" type="image/svg+xml" href="Images/zapien_.svg">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Javier Zapien — Graphic Designer</title>
+  <link rel="icon" type="image/svg+xml" href="Images/zapien_.svg">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { background: #fff; color: var(--dark); }
 
-  html, body { height: 100%; }
-
-  body {
-    font-family: "Courier New", Courier, monospace;
-    font-size: 10px;
-    line-height: 1.05;
-    color: #000;
-    background: #fff;
-    display: flex;
-    flex-direction: column;
-  }
-
-  a { color: inherit; text-decoration: none; }
-
-  @keyframes spin {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(-360deg); }
-  }
-  .gray { color: #939191; }
-  .logo-mobile { display: none; }
-  .bio-sep { display: none; }
-
-  /* ── HEADER ── */
-  .header {
-    flex-shrink: 0;
-    display: flex;
-    padding: 10px 10px 0;
-  }
-  .h-name  { flex: 0 0 25%; }
-  .h-bio   { flex: 0 0 25%; padding-right: 8px; }
-  .h-time  { flex: 0 0 25%; display: flex; }
-  .h-city  { flex: 0 0 40%; }
-  .h-dt    { flex: 1; }
-  .h-copy  { flex: 0 0 25%; color: #939191; }
-
-  .h-readmore { display: none; }
-  .h-port1, .h-port2 { display: none; }
-
-  .read-more {
-    display: block;
-    margin-top: 0.8em;
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    cursor: pointer;
-  }
-  .read-more:hover { opacity: 0.5; }
-
-  /* ── CONTENT AREA ── */
-  .content-area {
-    flex: 1;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    min-height: 0;
-  }
-
-  /* ── LOGO (overlaps section row + slideshow) ── */
-  .logo-over {
-    position: absolute;
-    top: 0;
-    left: 10px;
-    z-index: 10;
-    pointer-events: none;
-  }
-  .logo-over img {
-    height: 130px;
-    width: auto;
-    display: block;
-    animation: spin 12s linear infinite;
-  }
-
-  /* ── SECTION ROW ── */
-  .section-row {
-    flex-shrink: 0;
-    display: flex;
-    padding: 8px 10px 8px;
-    color: #939191;
-  }
-  .s1 { flex: 0 0 25%; }
-  .s2 { flex: 0 0 25%; }
-  .s2 a { text-decoration: underline; text-underline-offset: 2px; color: #939191; }
-  .s2 a:hover { opacity: 0.6; }
-  .s-copy-mobile { display: none; }
-  /* Hide section row line breaks on desktop */
-  .s1 br, .s2 br, .s-copy-mobile br { display: none; }
-
-  .slide-caption-copy { display: none; }
-
-  /* ── SLIDESHOW ── */
-  .slideshow-wrap {
-    flex: 1;
-    position: relative;
-    overflow: hidden;
-    min-height: 0;
-  }
-
-  .slide {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transition: opacity 0.8s ease;
-    display: flex;
-    flex-direction: column;
-  }
-  .slide.active { opacity: 1; }
-
-  .slide-img {
-    flex: 1;
-    min-height: 0;
-    overflow: hidden;
-  }
-  .slide-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  @media (max-width: 600px) {
-    .slideshow-wrap { margin: 0 10px; }
-    .slide-img--dark { background: #010101; }
-    .slide-img--gray { background: #ececea; }
-    .slide-img--dark img,
-    .slide-img--gray img {
-      object-fit: contain;
-    }
-    .slide-img--contain-mobile img { object-fit: contain; }
-  }
-
-  /* ── CAPTION ── */
-  .slide-caption {
-    flex-shrink: 0;
-    padding: 6px 10px 8px;
-    border-top: 1px solid #e8e8e8;
-  }
-
-  /* ── READ MORE OVERLAY ── */
-  .overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: #fff;
-    z-index: 100;
-    flex-direction: column;
-    overflow-y: auto;
-  }
-  .overlay.open { display: flex; }
-
-  .overlay-header {
-    flex-shrink: 0;
-    display: flex;
-    padding: 10px 10px 0;
-  }
-
-  .overlay-logo {
-    flex-shrink: 0;
-    padding: 8px 10px;
-    width: 25%;
-  }
-  .overlay-logo img {
-    height: 130px;
-    width: auto;
-    display: block;
-  }
-
-  .overlay-section {
-    display: flex;
-    padding: 16px 10px 8px;
-    color: #939191;
-  }
-  .os1 { flex: 0 0 25%; }
-  .os2 { flex: 0 0 25%; }
-  .os3 { flex: 0 0 25%; }
-  .os4 { flex: 0 0 25%; }
-
-  .overlay-content {
-    display: flex;
-    padding: 0 10px 30px;
-    align-items: flex-start;
-  }
-  .oc1 { flex: 0 0 25%; }
-  .oc2 { flex: 0 0 25%; }
-  .oc3 { flex: 0 0 25%; }
-  .oc4 { flex: 0 0 25%; }
-
-  .oc2 p + p { margin-top: 0.9em; }
-
-  .exp-item { margin-bottom: 14px; }
-  .exp-item:last-child { margin-bottom: 0; }
-
-  .overlay-content a {
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-  .overlay-content a:hover { opacity: 0.5; }
-  .social-links a { display: block; }
-  .ov-mobile-contact { display: none; }
-  .overlay-footer { display: none; }
-
-  /* ══ TABLET (≤1024px) ══ */
-  @media (max-width: 1024px) {
-    .logo-over img { height: 130px; }
-  }
-
-  /* ══ MOBILE (≤600px) ══ */
-  @media (max-width: 600px) {
-    /* Header: posicionamiento absoluto para coincidir exactamente con Figma */
-    .header {
+    .hero {
+      width: 100%;
+      height: 700px;
       position: relative;
-      display: block;
-      min-height: 160px;
-      padding: 0;
+      overflow: hidden;
+      background: var(--dark);
     }
-    .h-name {
+    .hero-slide {
       position: absolute;
-      left: 0;
-      top: 12px;
-      width: 33.33%;
-      padding-left: 10px;
-      box-sizing: border-box;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
     }
-    .h-bio {
-      position: absolute;
-      left: calc(33.33% + 7px);
-      right: 10px;
-      top: 12px;
-      padding-right: 0;
+    .hero-slide.active { opacity: 1; }
+    .hero-slide img { width: 100%; height: 100%; object-fit: cover; }
+
+    .hero-caption {
+      padding: 28px var(--right-margin) 0 var(--left-margin);
+      font-size: 19px;
+      color: var(--dark);
+      line-height: 1.4;
+      min-height: 228px;
     }
-    .h-time {
-      position: absolute;
-      left: calc(66.67% + 4px);
-      top: 62px;
-      flex-direction: column;
-    }
-    .h-city { display: none; }
-    .h-copy {
-      display: block;
-      position: absolute;
-      left: calc(66.67% + 4px);
-      right: 10px;
-      top: 132px;
-      color: #939191;
-    }
-    .h-readmore {
-      display: block;
-      position: absolute;
-      left: calc(33.33% + 7px);
-      top: 62px;
-    }
-    .h-readmore .read-more { margin-top: 0; }
-    .read-more--desktop { display: none; }
-
-    .s-copy-mobile { display: none !important; }
-
-    .h-port1 { display: none; }
-    .h-port2 {
-      display: block;
-      position: absolute;
-      left: calc(33.33% + 7px);
-      right: calc(33.33% + 4px);
-      top: 142px;
-      color: #939191;
-    }
-    .h-port2 a { color: #939191; text-decoration: underline; text-underline-offset: 2px; }
-
-    /* Ocultar section row en mobile */
-    .section-row { display: none; }
-
-    /* Bio: flow as paragraph with / separator on mobile */
-    .bio-br { display: none; }
-    .bio-sep { display: inline; }
-
-    /* Logo: col 1 mobile */
-    .logo-over { display: none; }
-    .logo-mobile {
-      display: block;
-      height: 80px;
-      width: auto;
-      margin: 18px auto 0;
-      animation: spin 12s linear infinite;
-    }
-
-    /* Section row: 3 equal cols */
-    .s1 { flex: 0 0 33.33%; }
-    .s2 { flex: 0 0 33.33%; }
-    .s-copy-mobile { display: block; flex: 0 0 33.33%; color: #939191; }
-    .s1 br, .s2 br, .s-copy-mobile br { display: inline; }
-
-    /* Overlay header: posicionamiento absoluto igual que header principal */
-    .overlay-header {
-      position: relative;
-      display: block;
-      min-height: 142px;
-      padding: 0;
-    }
-    .overlay-header .h-name     { position: absolute; left: 0; top: 12px; width: 33.33%; padding-left: 10px; box-sizing: border-box; }
-    .overlay-header .h-bio      { position: absolute; left: calc(33.33% + 7px); right: 10px; top: 12px; padding-right: 0; }
-    .overlay-header .h-readmore { display: block; position: absolute; left: calc(33.33% + 7px); top: 62px; }
-    .overlay-header .h-readmore .read-more { margin-top: 0; }
-    .overlay-header .h-time     { position: absolute; left: calc(66.67% + 4px); top: 62px; flex-direction: column; }
-    .overlay-header .h-copy     { display: block; position: absolute; left: calc(66.67% + 4px); right: 10px; top: 132px; color: #939191; }
-
-    /* Primera sección (Services/Bio) empieza justo al terminar el header */
-    .overlay-section--bio { padding-top: 0; }
-
-    /* Ocultar Contact label al lado de Bio en mobile */
-    .overlay-section--bio .os3 { visibility: hidden; }
-
-    /* Logo overlay oculto en mobile (está en h-name) */
-    .overlay-logo { display: none; }
-
-    /* Overlay sections: 3 cols */
-    .overlay-section {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0;
-      flex-wrap: unset;
-    }
-    .os1 { flex: unset; }
-    .os2 { flex: unset; }
-    .os3 { flex: unset; }
-    .os4 { display: none; }
-
-    /* Overlay content: 3 cols */
-    .overlay-content {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      align-items: start;
-      flex-wrap: unset;
-      padding-bottom: 16px;
-    }
-    .oc1 { flex: unset; padding-bottom: 0; }
-    .oc2 { grid-column: 2 / 4; flex: unset; padding-bottom: 0; }
-    .oc3 { display: none; }
-    .oc4 { display: none; }
-
-    /* Experience: oc2 ocupa solo col 2 (no span) */
-    .overlay-content--exp .oc2 { grid-column: 2; }
-
-    /* Sección mobile-only Contact + Links */
-    .ov-mobile-contact { display: grid !important; grid-template-columns: repeat(3, 1fr); }
-    .ov-mobile-contact .oc2 { grid-column: 2; }
-    .ov-mobile-contact .oc3 { display: none; }
-
-    /* Slide caption: info left + copyright right, sin padding extra — el margen del slideshow-wrap ya da x=10 */
-    .slide-caption {
-      display: grid;
-      grid-template-columns: 5fr 2fr;
-      align-items: start;
-      padding-left: 0;
-      padding-right: 0;
-    }
-    .slide-caption-copy { display: none; }
-  }
-</style>
+  </style>
 </head>
 <body>
 
-<!-- ══ MAIN PAGE ══ -->
-
-<header class="header">
-  <div class="h-name">
-    Javier Zapien
-    <img class="logo-mobile" src="Images/zapien_.svg" alt="Zapien">
-  </div>
-  <div class="h-bio">
-    Graphic Designer based in Dubai, UAE.<span class="bio-br"><br></span><span class="bio-sep"> </span>Currently at Ground Rising Studio<span class="bio-br"><br></span><span class="bio-sep">, </span>Previously at <a href="https://www.anagrama.com" target="_blank" style="font-weight:500">Anagrama</a> and <a href="https://landor.com" target="_blank" style="font-weight:500">Landor</a>
-    <a class="read-more read-more--desktop" onclick="openOverlay()">Read More</a>
-  </div>
-  <div class="h-readmore"><a class="read-more" onclick="openOverlay()">Read More</a></div>
-  <div class="h-time">
-    <div class="h-city">Dubai</div>
-    <div class="h-dt" id="datetime-display"></div>
-  </div>
-  <div class="h-copy">2026 All rights reserved.</div>
-  <div class="h-port1">Portfolio<br>Sample</div>
-  <div class="h-port2">Full Book <a href="mailto:hola.javierzapien@gmail.com">Here</a></div>
-</header>
-
-<div class="content-area">
-
-  <div class="section-row">
-    <div class="s1">Portfolio<br>Sample</div>
-    <div class="s2">Full<br>Portfolio <a href="mailto:hola.javierzapien@gmail.com">Here</a></div>
-    <div class="s-copy-mobile">© 2026 All<br>rights<br>reserved.</div>
-  </div>
-
-  <div class="logo-over">
-    <img src="Images/zapien_.svg" alt="Zapien">
-  </div>
-
-  <div class="slideshow-wrap" id="slideshow">
-
-    <div class="slide active">
-      <div class="slide-img">
-        <picture>
-          <source media="(max-width: 600px)" srcset="Images/mobil/Personal_phone_REAR_DESTERRADOS.png">
-          <img src="Images/desterrados_.png" alt="Desterrados">
-        </picture>
+  <header class="site-header light">
+    <div class="header-topbar">
+      <a href="index.html" class="site-name">JAVIER ZAPIEN</a>
+      <nav class="site-nav">
+        <a href="portfolio.html">PORTFOLIO</a><span>/</span><a href="logofolio.html">LOGOFOLIO</a><span>/</span><a href="info.html">INFO</a>
+      </nav>
+    </div>
+    <div class="header-body">
+      <div class="flower-col">
+        <img class="flower" src="Images/zapien_.svg" alt="">
       </div>
-      <div class="slide-caption">
-        <div class="slide-caption-info">Desterrados<br>Brand Identity, Illustration<br>Espina Studio, 2024</div>
-        <div class="slide-caption-copy">2026 All rights reserved.</div>
+      <div class="title-col">
+        <h1 class="page-title">WELCOME</h1>
+        <div class="header-bottom-row">
+          <p class="services-text">graphic design,3d illustration,<br>custom type, illustration.</p>
+          <div class="time-col">
+            <span class="dubai-label">Dubai &rarr;</span>
+            <div class="dubai-clock">
+              <div class="dubai-date"></div>
+              <div class="dubai-time"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="slide">
-      <div class="slide-img slide-img--dark">
-        <picture>
-          <source media="(max-width: 600px)" srcset="Images/mobil/Personal_phone_VOID.png">
-          <img src="Images/voi_coffee.png" alt="VOI Coffee">
-        </picture>
-      </div>
-      <div class="slide-caption">
-        <div class="slide-caption-info">Voi Coffee<br>Brand Identity, Illustration<br>Espina Studio, 2024</div>
-        <div class="slide-caption-copy">2026 All rights reserved.</div>
-      </div>
-    </div>
-
-    <div class="slide">
-      <div class="slide-img">
-        <picture>
-          <source media="(max-width: 600px)" srcset="Images/mobil/Personal_phone_MALAYERBA.png">
-          <img src="Images/malayerba_.png" alt="Malayerba">
-        </picture>
-      </div>
-      <div class="slide-caption">
-        <div class="slide-caption-info">Malayerba<br>Brand Identity<br>Espina Studio, 2024</div>
-        <div class="slide-caption-copy">2026 All rights reserved.</div>
-      </div>
-    </div>
-
-    <div class="slide">
-      <div class="slide-img slide-img--dark slide-img--contain-mobile">
-        <picture>
-          <source media="(max-width: 600px)" srcset="Images/mobil/Personal_phone_CHACHALACA_01.png">
-          <img src="Images/chahcalaca_.png" alt="Chachalaca">
-        </picture>
-      </div>
-      <div class="slide-caption">
-        <div class="slide-caption-info">Chachalaca<br>Brand Identity, Illustration, 3D<br>By Frward, 2023</div>
-        <div class="slide-caption-copy">2026 All rights reserved.</div>
-      </div>
-    </div>
-
-    <div class="slide">
-      <div class="slide-img slide-img--gray">
-        <picture>
-          <source media="(max-width: 600px)" srcset="Images/mobil/Personal_phone_CHACHALACA_02.png">
-          <img src="Images/chachalaca_latas.png" alt="Chachalaca Latas">
-        </picture>
-      </div>
-      <div class="slide-caption">
-        <div class="slide-caption-info">Chachalaca<br>Brand Identity, Illustration, 3D<br>By Frward, 2023</div>
-        <div class="slide-caption-copy">2026 All rights reserved.</div>
-      </div>
-    </div>
-
-    <div class="slide">
-      <div class="slide-img slide-img--dark">
-        <picture>
-          <source media="(max-width: 600px)" srcset="Images/mobil/Personal_phone_REAR_SAY.png">
-          <img src="Images/say_.png" alt="Say Carbon Yacht">
-        </picture>
-      </div>
-      <div class="slide-caption">
-        <div class="slide-caption-info">Say Carbon Yacht<br>Brand Identity, Logotype, Iconography<br>Ground Rising, 2025</div>
-        <div class="slide-caption-copy">2026 All rights reserved.</div>
-      </div>
-    </div>
-
-  </div><!-- end slideshow-wrap -->
-
-</div><!-- end content-area -->
-
-
-<!-- ══ READ MORE OVERLAY ══ -->
-
-<div class="overlay" id="overlay">
-
-  <header class="overlay-header">
-    <div class="h-name">
-      Javier Zapien
-      <img class="logo-mobile" src="Images/zapien_.svg" alt="Zapien">
-    </div>
-    <div class="h-bio">
-      Graphic Designer based in Dubai, UAE.<span class="bio-br"><br></span><span class="bio-sep"> </span>Currently at Ground Rising Studio<span class="bio-br"><br></span><span class="bio-sep">, </span>Previously at <a href="https://www.anagrama.com" target="_blank" style="font-weight:500">Anagrama</a> and <a href="https://landor.com" target="_blank" style="font-weight:500">Landor</a>
-      <a class="read-more read-more--desktop" onclick="closeOverlay()">Close</a>
-    </div>
-    <div class="h-readmore"><a class="read-more" onclick="closeOverlay()">Close</a></div>
-    <div class="h-time">
-      <div class="h-city">Dubai</div>
-      <div class="h-dt" id="datetime-overlay"></div>
-    </div>
-    <div class="h-copy gray">2026 All rights reserved.</div>
   </header>
 
-  <div class="overlay-logo">
-    <img src="Images/zapien_.svg" alt="Zapien">
-  </div>
-
-  <!-- Sección: Services + Bio + Contact + Links -->
-  <div class="overlay-section overlay-section--bio">
-    <div class="os1">Services</div>
-    <div class="os2">Bio</div>
-    <div class="os3">Contact</div>
-    <div class="os4">Links</div>
-  </div>
-
-  <div class="overlay-content">
-    <div class="oc1">
-      Brand identity<br>
-      Illustration<br>
-      Art Direction<br>
-      Packaging<br>
-      3D Modeling<br>
-      Typography
+  <div class="hero">
+    <div class="hero-slide active">
+      <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/desterrados-01.jpg" alt="Desterrados">
     </div>
-    <div class="oc2">
-      <p>I am a graphic designer based in Dubai, United Arab Emirates, with ten years of experience working in design studios.</p>
-      <p>My expertise spans branding, typography, illustration, and design direction, always with a focus on delivering strong, original, and impactful concepts.</p>
-      <p>I am passionate about taking on projects that present creative challenges and generate value through thoughtful, strategic solutions.</p>
-      <p>Over the course of my career, I have collaborated with design studios across the globe, an experience that has broadened my perspective and allowed me to approach each project with versatility and a well-rounded vision.</p>
+    <div class="hero-slide">
+      <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/amargo-mezcal-01.jpg" alt="Amargo Mezcal">
     </div>
-    <div class="oc3">
-      <a href="mailto:hola.javierzapien@gmail.com">Hola.javierzapien<br>@gmail.com</a>
+    <div class="hero-slide">
+      <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/chachalaca-01.jpg" alt="Chachalaca">
     </div>
-    <div class="oc4 social-links">
-      <a href="https://www.instagram.com/javizapien?igsh=OG5pZTh5OGZ4Y2t1&utm_source=qr" target="_blank">Instagram</a>
-      <a href="https://www.linkedin.com/in/javier-villarreal-zapien/" target="_blank">LinkedIn</a>
-      <a href="https://www.behance.net/Javizapien" target="_blank">Behance</a>
-      <a href="https://dribbble.com/Javizapien" target="_blank">Dribble</a>
+    <div class="hero-slide">
+      <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/say-carbon-yachts-01.jpg" alt="SAY Carbon Yachts">
+    </div>
+    <div class="hero-slide">
+      <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/anillos-mezcal-01.jpg" alt="Anillos Mezcal">
     </div>
   </div>
 
-  <!-- Sección: Experience -->
-  <div class="overlay-section">
-    <div class="os1">Experience</div>
-    <div class="os2"></div>
-    <div class="os3"></div>
-    <div class="os4">Links</div>
+  <div class="hero-caption">
+    <span id="caption-text">Desterrados<br>Brand Identity, Illustration<br>Espina Studio, 2024</span>
   </div>
 
-  <div class="overlay-content overlay-content--exp">
-    <div class="oc1">
-      <div class="exp-item">
-        Ground Rising<br>
-        Sr. Brand Designer<br>
-        Full-time<br>
-        Dubái, UAE<br>
-        <span class="gray">Current</span>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <p class="footer-col-title">JAVIER ZAPIEN</p>
+        <p>graphic design,3d<br>illustration, custom<br>type, illustration.</p>
       </div>
-      <div class="exp-item">
-        Espina Studio<br>
-        Sr. Brand Designer<br>
-        Full-time<br>
-        Mexico City, MX<br>
-        <span class="gray">06.23 – 07.24</span>
+      <div class="footer-col">
+        <p class="footer-col-title">SITE</p>
+        <a href="index.html">Home</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="info.html">Info</a>
+        <a href="logofolio.html">Logofolio</a>
       </div>
-      <div class="exp-item">
-        Landor &amp; Fitch<br>
-        Design Director<br>
-        Full-time<br>
-        Mexico City, MX<br>
-        <span class="gray">06.22 – 05.23</span>
+      <div class="footer-col">
+        <p class="footer-col-title">LINKS</p>
+        <a href="https://www.instagram.com/javizapien?igsh=OG5pZTh5OGZ4Y2t1&utm_source=qr" target="_blank">Instagram</a>
+        <a href="https://www.linkedin.com/in/javier-villarreal-zapien/" target="_blank">LinkedIn</a>
+        <a href="https://www.behance.net/Javizapien" target="_blank">Behance</a>
+        <a href="https://dribbble.com/Javizapien" target="_blank">Dribble</a>
       </div>
-      <div class="exp-item">
-        Anagrama<br>
-        Design Director<br>
-        Full-time<br>
-        Mexico City, MX<br>
-        <span class="gray">09.20 – 05.22</span>
+      <div class="footer-col">
+        <p class="footer-col-title">CONTACT</p>
+        <a href="mailto:hola.javierzapien@gmail.com">Hola.javierzapien<br>@gmail.com</a>
       </div>
     </div>
-    <div class="oc2">
-      <div class="exp-item">
-        La Tortilleria<br>
-        Graphic Designer<br>
-        Full-time<br>
-        Monterrey, MX<br>
-        <span class="gray">11.18 – 02.20</span>
-      </div>
-      <div class="exp-item">
-        The Hungry Design Co.<br>
-        Illustrator / Designer<br>
-        Full-time<br>
-        Monterrey, MX<br>
-        <span class="gray">01.17 – 11.18</span>
-      </div>
-      <div class="exp-item">
-        La Sociedad<br>
-        Graphic Designer<br>
-        Full-time<br>
-        Monterrey, MX<br>
-        <span class="gray">01.16 – 01.17</span>
-      </div>
-    </div>
-    <div class="oc3"></div>
-    <div class="oc4 social-links">
-      <a href="https://www.instagram.com/javizapien?igsh=OG5pZTh5OGZ4Y2t1&utm_source=qr" target="_blank">Instagram</a>
-      <a href="https://www.linkedin.com/in/javier-villarreal-zapien/" target="_blank">LinkedIn</a>
-      <a href="https://www.behance.net/Javizapien" target="_blank">Behance</a>
-      <a href="https://dribbble.com/Javizapien" target="_blank">Dribble</a>
-    </div>
-  </div>
+    <p class="footer-bottom">2026 ALL RIGHTS RESERVED.</p>
+  </footer>
 
-  <!-- Sección Contact + Links (solo mobile) -->
-  <div class="overlay-section ov-mobile-contact">
-    <div class="os1">Contact</div>
-    <div class="os2">Links</div>
-    <div class="os3"></div>
-  </div>
-  <div class="overlay-content ov-mobile-contact">
-    <div class="oc1">
-      <a href="mailto:hola.javierzapien@gmail.com">Hola.javierzapien<br>@gmail.com</a>
-    </div>
-    <div class="oc2 social-links">
-      <a href="https://www.instagram.com/javizapien?igsh=OG5pZTh5OGZ4Y2t1&utm_source=qr" target="_blank">Instagram</a>
-      <a href="https://www.linkedin.com/in/javier-villarreal-zapien/" target="_blank">LinkedIn</a>
-      <a href="https://www.behance.net/Javizapien" target="_blank">Behance</a>
-      <a href="https://dribbble.com/Javizapien" target="_blank">Dribble</a>
-    </div>
-    <div class="oc3"></div>
-  </div>
-
-</div><!-- end overlay -->
-
-
-<script>
-  // LIVE DATE/TIME (Dubai)
-  function updateDatetime() {
-    var now = new Date();
-    var date = now.toLocaleDateString('en-US', {
-      timeZone: 'Asia/Dubai',
-      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-    });
-    var time = now.toLocaleTimeString('en-US', {
-      timeZone: 'Asia/Dubai',
-      hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
-    });
-    var html = date + '<br>' + time;
-    document.getElementById('datetime-display').innerHTML = html;
-    document.getElementById('datetime-overlay').innerHTML = html;
-  }
-  updateDatetime();
-  setInterval(updateDatetime, 1000);
-
-  // SLIDESHOW
-  var slides = document.querySelectorAll('#slideshow .slide');
-  var current = 0;
-  setInterval(function() {
-    slides[current].classList.remove('active');
-    current = (current + 1) % slides.length;
-    slides[current].classList.add('active');
-  }, 4000);
-
-  // OVERLAY — sincroniza el logo del overlay con el principal para que la rotación sea continua
-  var logoAnimStart = Date.now();
-  function openOverlay() {
-    var elapsed = (Date.now() - logoAnimStart) / 1000;
-    var overlayLogo = document.querySelector('.overlay-header .logo-mobile');
-    if (overlayLogo) overlayLogo.style.animationDelay = '-' + (elapsed % 12) + 's';
-    document.getElementById('overlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeOverlay() {
-    document.getElementById('overlay').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-</script>
+  <script src="script.js"></script>
+  <script>
+    const slides = document.querySelectorAll('.hero-slide');
+    const captions = [
+      'Desterrados<br>Brand Identity, Illustration<br>Espina Studio, 2024',
+      'Amargo Mezcal<br>Design Direction<br>FRWARD Branding',
+      'Chachalaca Café<br>Branding, Illustration<br>Espina Studio',
+      'SAY Carbon Yachts<br>Brand System<br>Ground Rising',
+      'Anillos Mezcal<br>Branding, Illustration<br>Ground Rising',
+    ];
+    let current = 0;
+    setInterval(() => {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+      document.getElementById('caption-text').innerHTML = captions[current];
+    }, 4000);
+  </script>
 </body>
 </html>

@@ -1,0 +1,172 @@
+@font-face {
+  font-family: 'Cayuse';
+  src: url('FONT/Cayuse.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime&family=Source+Code+Pro:wght@700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --dark: #272727;
+  --gray: #939191;
+  --accent: #ff6600;
+  --footer-bg: #c2bab1;
+  --font-mono: 'Courier Prime', monospace;
+  --font-code: 'Source Code Pro', monospace;
+  --left-margin: 129px;
+  --right-margin: 10px;
+}
+
+html { font-size: 19px; }
+body { font-family: var(--font-mono); font-size: 1rem; line-height: 1.3; min-width: 1024px; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+/* ─── FLOWER ─────────────────────────────────────────────── */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+.flower {
+  width: 152px;
+  height: auto;
+  animation: spin 12s linear infinite;
+  flex-shrink: 0;
+}
+
+/* ─── HEADER ─────────────────────────────────────────────── */
+.site-header {
+  height: 310px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.site-header.light { background: #fff; color: var(--dark); }
+.site-header.dark  { background: var(--dark); color: #fff; }
+
+.header-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 22px var(--right-margin) 0 var(--left-margin);
+}
+
+.site-name {
+  font-family: var(--font-code);
+  font-weight: 700;
+  font-size: 19px;
+  letter-spacing: 0.02em;
+}
+.site-header.light .site-name { color: var(--dark); }
+.site-header.dark  .site-name { color: #fff; }
+
+.site-nav { font-size: 19px; color: var(--gray); }
+.site-nav a { color: var(--gray); transition: color 0.2s; }
+.site-nav a:hover { color: inherit; }
+.site-nav a.active { color: var(--accent); }
+.site-nav span { color: var(--gray); }
+
+.header-body {
+  display: flex;
+  align-items: flex-start;
+  padding: 0 var(--right-margin) 0 52px;
+  margin-top: 35px;
+  gap: 0;
+  flex: 1;
+}
+
+.flower-col {
+  width: 195px;
+  flex-shrink: 0;
+}
+
+/* right side: title on top, services+dubai on the same bottom row */
+.title-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 165px;
+}
+
+.page-title {
+  font-family: 'Cayuse', serif;
+  font-weight: normal;
+  font-size: 64px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+.site-header.light .page-title { color: var(--dark); }
+.site-header.dark  .page-title { color: #fff; }
+
+/* row at the bottom: services text left, dubai time right */
+.header-bottom-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-right: 0;
+}
+
+.services-text {
+  font-family: var(--font-mono);
+  font-size: 19px;
+  color: var(--gray);
+  line-height: 1.3;
+}
+
+.time-col {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  flex-shrink: 0;
+  margin-right: 0;
+  padding-right: var(--right-margin);
+  /* compensate for the padding-left: 52px on header-body
+     so Dubai time aligns to the right edge */
+}
+
+.dubai-label {
+  font-size: 19px;
+  color: var(--gray);
+  white-space: nowrap;
+}
+.dubai-clock {
+  font-size: 19px;
+  color: var(--gray);
+  line-height: 1.3;
+  text-align: right;
+}
+
+/* ─── FOOTER ─────────────────────────────────────────────── */
+.site-footer {
+  background: var(--footer-bg);
+  color: var(--dark);
+  padding: 48px var(--right-margin) 32px var(--left-margin);
+}
+.footer-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 0 40px;
+}
+.footer-col-title {
+  font-family: var(--font-code);
+  font-weight: 700;
+  font-size: 19px;
+  margin-bottom: 12px;
+}
+.footer-col p, .footer-col a {
+  font-size: 19px;
+  color: var(--dark);
+  display: block;
+  line-height: 1.4;
+}
+.footer-col a:hover { opacity: 0.7; }
+.footer-bottom {
+  margin-top: 48px;
+  font-size: 19px;
+  color: var(--dark);
+  opacity: 0.7;
+}

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio — Javier Zapien</title>
+  <link rel="icon" type="image/svg+xml" href="Images/zapien_.svg">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { background: var(--dark); color: #fff; }
+
+    /* invert flower to white on dark bg */
+    .site-header.dark .flower { filter: invert(1); }
+
+    /* ─── PROJECTS ─────────────────────────────────────────── */
+    .projects { padding: 0; }
+
+    .project {
+      border-top: 1px solid #3a3a3a;
+      padding: 0 var(--right-margin) 0 var(--left-margin);
+    }
+
+    .project-name {
+      font-family: var(--font-code);
+      font-weight: 700;
+      font-size: 19px;
+      padding: 10px 0 8px;
+      color: var(--gray);
+      letter-spacing: 0.05em;
+    }
+
+    /* horizontal scroll gallery */
+    .project-gallery {
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      cursor: grab;
+      margin: 0 calc(-1 * var(--right-margin)) 0 calc(-1 * var(--left-margin));
+      padding: 0 var(--right-margin) 0 var(--left-margin);
+    }
+    .project-gallery:active { cursor: grabbing; }
+    .project-gallery::-webkit-scrollbar { height: 2px; }
+    .project-gallery::-webkit-scrollbar-track { background: #1a1a1a; }
+    .project-gallery::-webkit-scrollbar-thumb { background: var(--gray); }
+
+    .project-gallery img {
+      height: 520px;
+      width: auto;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      object-fit: cover;
+      display: block;
+    }
+
+    .project-meta {
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 0 28px;
+      gap: 40px;
+    }
+    .project-desc {
+      font-size: 19px;
+      color: var(--gray);
+      max-width: 680px;
+      line-height: 1.4;
+    }
+    .project-credits {
+      font-size: 19px;
+      color: var(--gray);
+      text-align: right;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header dark">
+    <div class="header-topbar">
+      <a href="index.html" class="site-name">JAVIER ZAPIEN</a>
+      <nav class="site-nav">
+        <a href="portfolio.html" class="active">PORTFOLIO</a><span>/</span><a href="logofolio.html">LOGOFOLIO</a><span>/</span><a href="info.html">INFO</a>
+      </nav>
+    </div>
+    <div class="header-body">
+      <div class="flower-col">
+        <img class="flower" src="Images/zapien_.svg" alt="">
+      </div>
+      <div class="title-col">
+        <h1 class="page-title">PORTFOLIO</h1>
+        <div class="header-bottom-row">
+          <p class="services-text">graphic design,3d illustration,<br>custom type, illustration.</p>
+          <div class="time-col">
+            <span class="dubai-label">Dubai &rarr;</span>
+            <div class="dubai-clock">
+              <div class="dubai-date"></div>
+              <div class="dubai-time"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="projects">
+
+    <!-- AMARGO MEZCAL -->
+    <div class="project">
+      <div class="project-name">AMARGO MEZCAL</div>
+      <div class="project-gallery" id="g-amargo">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/amargo-mezcal-01.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/amargo-mezcal-02.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/amargo-mezcal-03.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/amargo-mezcal-04.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/amargo-mezcal-05.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/amargo-mezcal-06.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/amargo-mezcal-07.jpg" alt="">
+      </div>
+      <div class="project-meta">
+        <p class="project-desc">A mezcal my wife and I built from the ground up — concept, name, and design, all ours. Inspired by Oaxaca's traditions and old medicinal remedies: great mezcal, like good medicine, heals the soul.</p>
+        <p class="project-credits">DESIGN DIRECTION: FRWARD BRANDING</p>
+      </div>
+    </div>
+
+    <!-- SAY CARBON YACHTS -->
+    <div class="project">
+      <div class="project-name">SAY CARBON YACHTS</div>
+      <div class="project-gallery">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/say-carbon-yachts-01.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/say-carbon-yachts-02.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/say-carbon-yachts-03.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/say-carbon-yachts-04.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/say-carbon-yachts-05.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/say-carbon-yachts-06.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/say-carbon-yachts-07.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/say-carbon-yachts-08.jpg" alt="">
+      </div>
+      <div class="project-meta">
+        <p class="project-desc">Full visual identity for a super-luxury carbon yacht brand in Wangen im Allgäu, Germany — logotype, icon system, and guidelines. A cohesive, minimal language reflecting engineering excellence and exclusivity.</p>
+        <p class="project-credits">DESIGN: GROUND RISING — BRAND SYSTEM</p>
+      </div>
+    </div>
+
+    <!-- SUSHIITTO -->
+    <div class="project">
+      <div class="project-name">SUSHIITTO</div>
+      <div class="project-gallery">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/sushiitto-01.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/sushiitto-02.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/sushiitto-03.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/sushiitto-04.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/sushiitto-05.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/sushiitto-06.jpg" alt="">
+      </div>
+      <div class="project-meta">
+        <p class="project-desc">3D illustrations for Sushiitto's digital menu, bringing each dish to life with a playful, appetizing aesthetic — from rolls and nigiri to ramen — enhancing the online ordering experience.</p>
+        <p class="project-credits">DESIGN: ESPINA STUDIO — 3D ILLUSTRATION</p>
+      </div>
+    </div>
+
+    <!-- DEUS EX MACHINA -->
+    <div class="project">
+      <div class="project-name">DEUS EX MACHINA</div>
+      <div class="project-gallery">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/deus-ex-machina-01.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/deus-ex-machina-02.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/deus-ex-machina-03.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/deus-ex-machina-04.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/deus-ex-machina-05.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/deus-ex-machina-06.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/deus-ex-machina-07.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/deus-ex-machina-08.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/deus-ex-machina-09.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/deus-ex-machina-10.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/deus-ex-machina-11.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/deus-ex-machina-12.jpg" alt="">
+      </div>
+      <div class="project-meta">
+        <p class="project-desc">Inspired by Japanese culture and the raw spirit of the open road, a series of collector badges for t-shirts and motorcycle graphics. The aesthetic blends biker subculture with Eastern motifs — bold, hand-crafted, and built to wear.</p>
+        <p class="project-credits">DESIGN DIRECTION: FRWARD BRANDING — MERCH, ILLUSTRATION</p>
+      </div>
+    </div>
+
+    <!-- DESTERRADOS -->
+    <div class="project">
+      <div class="project-name">DESTERRADOS</div>
+      <div class="project-gallery">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/desterrados-01.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/desterrados-02.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/desterrados-03.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/desterrados-04.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/desterrados-05.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/desterrados-06.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/desterrados-07.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/desterrados-08.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/desterrados-09.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/desterrados-10.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/desterrados-11.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/desterrados-12.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/desterrados-13.jpg" alt="">
+      </div>
+      <div class="project-meta">
+        <p class="project-desc">Identity for a Chihuahua-born taquería expanding to Mexico City. Illustrations of desert fauna and flora — scorpions, horses, cactus — paired with expressive display and script typography.</p>
+        <p class="project-credits">DESIGN: ESPINA STUDIO — ILLUSTRATION, LOCKUP, BRAND</p>
+      </div>
+    </div>
+
+    <!-- BAR 18 -->
+    <div class="project">
+      <div class="project-name">BAR 18</div>
+      <div class="project-gallery">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/bar-18-01.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/bar-18-02.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/bar-18-03.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/bar-18-04.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/bar-18-05.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/bar-18-06.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/bar-18-07.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/bar-18-08.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/bar-18-09.jpg" alt="">
+      </div>
+      <div class="project-meta">
+        <p class="project-desc">A bar where every drink costs 18 pesos. The identity was designed for a young crowd chasing a good time on a tight budget — bold, loud, and unapologetically fun. The brand makes a virtue of its price point, turning affordability into attitude.</p>
+        <p class="project-credits">BRANDING, ILLUSTRATION, PACKAGING</p>
+      </div>
+    </div>
+
+    <!-- SUCANTO -->
+    <div class="project">
+      <div class="project-name">SUCANTO</div>
+      <div class="project-gallery">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/sucanto-01.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/sucanto-02.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/sucanto-03.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/sucanto-04.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/sucanto-05.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/sucanto-06.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/sucanto-07.jpg" alt="">
+      </div>
+      <div class="project-meta">
+        <p class="project-desc">Artisanal chocolate from Mazatán, Chiapas. A central illustration of Mother Nature, vintage typography, and hand-drawn detail root the identity in harvest, nature, and indigenous tradition.</p>
+        <p class="project-credits">BRANDING, ILLUSTRATION, PACKAGING</p>
+      </div>
+    </div>
+
+    <!-- CHACHALACA -->
+    <div class="project">
+      <div class="project-name">CHACHALACA CAFÉ</div>
+      <div class="project-gallery">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/chachalaca-01.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/chachalaca-02.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/chachalaca-03.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/chachalaca-04.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/chachalaca-05.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/chachalaca-06.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/chachalaca-07.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/chachalaca-08.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/chachalaca-09.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/chachalaca-10.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/chachalaca-11.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/chachalaca-12.jpg" alt="">
+      </div>
+      <div class="project-meta">
+        <p class="project-desc">A café celebrating the joy of conversation, named after Chiapas's loud, lively bird. A hand-drawn chachalaca illustration and a playful typographic system capture the brand's energetic, social spirit.</p>
+        <p class="project-credits">BRANDING, ILLUSTRATION, PACKAGING</p>
+      </div>
+    </div>
+
+    <!-- HELLOW FESTIVAL -->
+    <div class="project">
+      <div class="project-name">HELLOW FESTIVAL 2018</div>
+      <div class="project-gallery">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/hellow-festival-01.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/hellow-festival-02.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/hellow-festival-03.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/hellow-festival-04.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/hellow-festival-05.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/hellow-festival-06.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/hellow-festival-07.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/hellow-festival-08.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/hellow-festival-09.jpg" alt="">
+      </div>
+      <div class="project-meta">
+        <p class="project-desc">3D illustrations created for stage design and promotional materials for the Hellow Festival in Monterrey, Mexico. Each piece was built to capture the energy and immersion of live music — visually rich, large-format, and designed to be experienced.</p>
+        <p class="project-credits">3D ILLUSTRATION, STAGE DESIGN</p>
+      </div>
+    </div>
+
+    <!-- GOLDSTORM -->
+    <div class="project">
+      <div class="project-name">GOLDSTORM</div>
+      <div class="project-gallery">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/goldstorm-01.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/goldstorm-02.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/goldstorm-03.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/goldstorm-04.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/goldstorm-05.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/goldstorm-06.jpg" alt="">
+      </div>
+      <div class="project-meta">
+        <p class="project-desc">A highly specialized asset management firm. We crafted a name and identity communicating trust, security, and abundance — positioning Goldstorm as Mexico's most renowned independent advisor group.</p>
+        <p class="project-credits">BRANDING, IDENTITY SYSTEM</p>
+      </div>
+    </div>
+
+    <!-- COMPA -->
+    <div class="project">
+      <div class="project-name">COMPA</div>
+      <div class="project-gallery">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/compa-01.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/compa-02.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/compa-03.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/compa-04.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/compa-05.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/compa-06.jpg" alt="">
+      </div>
+      <div class="project-meta">
+        <p class="project-desc">Logo and brand system for Compa, an insurance company based in Colombia. The identity was built to feel approachable and trustworthy — making insurance feel human and accessible to everyday people.</p>
+        <p class="project-credits">BRANDING, ILLUSTRATION</p>
+      </div>
+    </div>
+
+    <!-- ESTRAL SPORT -->
+    <div class="project">
+      <div class="project-name">ESTRAL SPORT</div>
+      <div class="project-gallery">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/estral-sport-01.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/estral-sport-02.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/estral-sport-03.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/estral-sport-04.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/estral-sport-05.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/estral-sport-06.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/estral-sport-07.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/estral-sport-08.jpg" alt="">
+      </div>
+      <div class="project-meta">
+        <p class="project-desc">Brand identity for Estral Sport, a professional esports team from Monterrey, Mexico. The branding was designed to compete at the highest level — a bold visual system built to stand alongside the world's top esports organizations.</p>
+        <p class="project-credits">BRANDING, ILLUSTRATION</p>
+      </div>
+    </div>
+
+    <!-- BLÜM -->
+    <div class="project">
+      <div class="project-name">BLÜM</div>
+      <div class="project-gallery">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/blum-01.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/blum-02.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/blum-03.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/blum-04.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/blum-05.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/blum-06.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/blum-07.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/blum-08.jpg" alt="">
+      </div>
+      <div class="project-meta">
+        <p class="project-desc">A design system for Blüm, a flower shop based in Ecuador. The identity brings more joy and personality to the experience of buying flowers — colorful, playful, and warm.</p>
+        <p class="project-credits">BRANDING, ILLUSTRATION, PACKAGING</p>
+      </div>
+    </div>
+
+    <!-- VOI COFFEE -->
+    <div class="project">
+      <div class="project-name">VOI COFFEE</div>
+      <div class="project-gallery">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/voi-coffee-01.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/voi-coffee-02.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/voi-coffee-03.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/voi-coffee-04.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/voi-coffee-05.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/voi-coffee-06.jpg" alt="">
+      </div>
+      <div class="project-meta">
+        <p class="project-desc">A Turkish coffee shop chain built around a charming otter character that brings warmth and personality — playful and consistent, applied across packaging, storefronts, and communications.</p>
+        <p class="project-credits">BRANDING, ILLUSTRATION, PACKAGING</p>
+      </div>
+    </div>
+
+    <!-- KOELLEZA -->
+    <div class="project">
+      <div class="project-name">KOELLEZA</div>
+      <div class="project-gallery">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/koelleza-01.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/koelleza-02.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/koelleza-03.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/koelleza-04.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/koelleza-05.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/koelleza-06.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/koelleza-07.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/koelleza-08.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/koelleza-09.jpg" alt="">
+      </div>
+      <div class="project-meta">
+        <p class="project-desc">Visual identity for an online retailer of Korean skincare, built with a pixel-art aesthetic and kawaii elements to connect with a young audience drawn to Korean culture and design.</p>
+        <p class="project-credits">BRANDING, ILLUSTRATION</p>
+      </div>
+    </div>
+
+    <!-- LLANO COLORADO -->
+    <div class="project">
+      <div class="project-name">LLANO COLORADO</div>
+      <div class="project-gallery">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/llano-colorado-01.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/llano-colorado-02.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/llano-colorado-03.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/llano-colorado-04.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/llano-colorado-05.jpg" alt="">
+      </div>
+      <div class="project-meta">
+        <p class="project-desc">Identity for a winery rooted in Baja California. A wide-spaced sans-serif logotype, earthy red and cream palette, and a grape-leaf monogram honor the land, the harvest, and the brand's heritage.</p>
+        <p class="project-credits">BRANDING, ILLUSTRATION, PACKAGING</p>
+      </div>
+    </div>
+
+    <!-- PATIO SUNLINE -->
+    <div class="project">
+      <div class="project-name">PATIO SUNLINE</div>
+      <div class="project-gallery">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/patio-sunline-01.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/patio-sunline-02.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/patio-sunline-03.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/patio-sunline-04.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/patio-sunline-05.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/patio-sunline-06.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/patio-sunline-07.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/patio-sunline-08.jpg" alt="">
+      </div>
+      <div class="project-meta">
+        <p class="project-desc">Brand identity for Patio Sunline, a pergola and outdoor living company with presence across California. The palette leans tropical and warm, evoking an outdoor lifestyle that inspires customers to live more fully in their own backyard.</p>
+        <p class="project-credits">BRANDING, ILLUSTRATION</p>
+      </div>
+    </div>
+
+    <!-- ANILLOS MEZCAL -->
+    <div class="project">
+      <div class="project-name">ANILLOS MEZCAL</div>
+      <div class="project-gallery">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/anillos-mezcal-01.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/anillos-mezcal-02.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/anillos-mezcal-03.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/anillos-mezcal-04.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/anillos-mezcal-05.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/anillos-mezcal-06.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/anillos-mezcal-07.jpg" alt="">
+      </div>
+      <div class="project-meta">
+        <p class="project-desc">Created for two former NBA stars behind the hit podcast All the Smoke, Anillos is a mezcal brand built around rings and smoke. The identity is as bold and charismatic as the athletes themselves — celebrating legacy, culture, and craft.</p>
+        <p class="project-credits">BRANDING, ILLUSTRATION, PACKAGING</p>
+      </div>
+    </div>
+
+    <!-- ILLUSTRATION -->
+    <div class="project">
+      <div class="project-name">ILLUSTRATION</div>
+      <div class="project-gallery">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/illustration-01.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/illustration-02.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/illustration-03.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/illustration-04.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/illustration-05.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/illustration-06.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/illustration-07.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/illustration-08.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/illustration-09.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/illustration-10.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/illustration-11.jpg" alt="">
+        <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/illustration-12.jpg" alt="">
+      </div>
+      <div class="project-meta">
+        <p class="project-desc">A curated collection of 3D illustrations made for real client projects and personal exploration. Each piece pushes form, texture, and character — a showcase of the visual language developed across years of work in design and digital art.</p>
+        <p class="project-credits">3D ILLUSTRATION</p>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <p class="footer-col-title">JAVIER ZAPIEN</p>
+        <p>graphic design,3d<br>illustration, custom<br>type, illustration.</p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">SITE</p>
+        <a href="index.html">Home</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="info.html">Info</a>
+        <a href="logofolio.html">Logofolio</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">LINKS</p>
+        <a href="https://www.instagram.com/javizapien?igsh=OG5pZTh5OGZ4Y2t1&utm_source=qr" target="_blank">Instagram</a>
+        <a href="https://www.linkedin.com/in/javier-villarreal-zapien/" target="_blank">LinkedIn</a>
+        <a href="https://www.behance.net/Javizapien" target="_blank">Behance</a>
+        <a href="https://dribbble.com/Javizapien" target="_blank">Dribble</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">CONTACT</p>
+        <a href="mailto:hola.javierzapien@gmail.com">Hola.javierzapien<br>@gmail.com</a>
+      </div>
+    </div>
+    <p class="footer-bottom">2026 ALL RIGHTS RESERVED.</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Drag-to-scroll galleries
+    document.querySelectorAll('.project-gallery').forEach(el => {
+      let isDown = false, startX, scrollLeft;
+      el.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - el.offsetLeft; scrollLeft = el.scrollLeft; });
+      el.addEventListener('mouseleave', () => { isDown = false; });
+      el.addEventListener('mouseup', () => { isDown = false; });
+      el.addEventListener('mousemove', e => {
+        if (!isDown) return;
+        e.preventDefault();
+        el.scrollLeft = scrollLeft - (e.pageX - el.offsetLeft - startX);
+      });
+    });
+  </script>
+</body>
+</html>

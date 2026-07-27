@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logofolio — Javier Zapien</title>
+  <link rel="icon" type="image/svg+xml" href="Images/zapien_.svg">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { background: var(--dark); color: #fff; }
+    .site-header.dark .flower { filter: invert(1); }
+
+    /* ─── LOGOFOLIO GRID ─────────────────────────────────────── */
+    .logofolio {
+      padding: 40px var(--right-margin) 80px var(--left-margin);
+    }
+
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2px;
+    }
+
+    .logo-item {
+      aspect-ratio: 1 / 1;
+      background: #1e1e1e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .logo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 24px;
+      opacity: 0.4;
+      transition: opacity 0.3s ease;
+      filter: grayscale(100%);
+    }
+
+    .logo-item:hover img {
+      opacity: 1;
+      filter: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header dark">
+    <div class="header-topbar">
+      <a href="index.html" class="site-name">JAVIER ZAPIEN</a>
+      <nav class="site-nav">
+        <a href="portfolio.html">PORTFOLIO</a><span>/</span><a href="logofolio.html" class="active">LOGOFOLIO</a><span>/</span><a href="info.html">INFO</a>
+      </nav>
+    </div>
+    <div class="header-body">
+      <div class="flower-col">
+        <img class="flower" src="Images/zapien_.svg" alt="">
+      </div>
+      <div class="title-col">
+        <h1 class="page-title">LOGOFOLIO</h1>
+        <div class="header-bottom-row">
+          <p class="services-text">graphic design,3d illustration,<br>custom type, illustration.</p>
+          <div class="time-col">
+            <span class="dubai-label">Dubai &rarr;</span>
+            <div class="dubai-clock">
+              <div class="dubai-date"></div>
+              <div class="dubai-time"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="logofolio">
+    <div class="logo-grid">
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-01.png" alt="Logo 1"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-02.png" alt="Logo 2"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-03.png" alt="Logo 3"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-04.png" alt="Logo 4"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-05.png" alt="Logo 5"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-06.png" alt="Logo 6"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-07.png" alt="Logo 7"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-08.png" alt="Logo 8"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-09.png" alt="Logo 9"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-10.png" alt="Logo 10"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-11.png" alt="Logo 11"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-12.png" alt="Logo 12"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-13.png" alt="Logo 13"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-14.png" alt="Logo 14"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-15.png" alt="Logo 15"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-16.png" alt="Logo 16"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-17.png" alt="Logo 17"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-18.png" alt="Logo 18"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-19.png" alt="Logo 19"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-20.png" alt="Logo 20"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-21.png" alt="Logo 21"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-22.png" alt="Logo 22"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-23.png" alt="Logo 23"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-24.png" alt="Logo 24"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-25.png" alt="Logo 25"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-26.png" alt="Logo 26"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-27.png" alt="Logo 27"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-28.png" alt="Logo 28"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-29.png" alt="Logo 29"></div>
+      <div class="logo-item"><img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/logo-30.png" alt="Logo 30"></div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <p class="footer-col-title">JAVIER ZAPIEN</p>
+        <p>graphic design,3d<br>illustration, custom<br>type, illustration.</p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">SITE</p>
+        <a href="index.html">Home</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="info.html">Info</a>
+        <a href="logofolio.html">Logofolio</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">LINKS</p>
+        <a href="https://www.instagram.com/javizapien?igsh=OG5pZTh5OGZ4Y2t1&utm_source=qr" target="_blank">Instagram</a>
+        <a href="https://www.linkedin.com/in/javier-villarreal-zapien/" target="_blank">LinkedIn</a>
+        <a href="https://www.behance.net/Javizapien" target="_blank">Behance</a>
+        <a href="https://dribbble.com/Javizapien" target="_blank">Dribble</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">CONTACT</p>
+        <a href="mailto:hola.javierzapien@gmail.com">Hola.javierzapien<br>@gmail.com</a>
+      </div>
+    </div>
+    <p class="footer-bottom">2026 ALL RIGHTS RESERVED.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
