@@ -14,23 +14,22 @@
       height: 700px;
       position: relative;
       overflow: hidden;
-      background: var(--dark);
     }
     .hero-slide {
       position: absolute;
       inset: 0;
       opacity: 0;
-      transition: opacity 1s ease-in-out;
+      transition: opacity 1.2s ease-in-out;
     }
     .hero-slide.active { opacity: 1; }
-    .hero-slide img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
     .hero-caption {
-      padding: 28px var(--right-margin) 0 var(--left-margin);
+      padding: 24px var(--right-margin) 0 12px;
       font-size: 19px;
       color: var(--dark);
-      line-height: 1.4;
-      min-height: 228px;
+      line-height: 1.45;
+      min-height: 120px;
     }
   </style>
 </head>
@@ -65,20 +64,9 @@
 
   <div class="hero">
     <div class="hero-slide active">
-      <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/desterrados-01.jpg" alt="Desterrados">
+      <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/inicio-hero.jpg" alt="Desterrados">
     </div>
-    <div class="hero-slide">
-      <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/amargo-mezcal-01.jpg" alt="Amargo Mezcal">
-    </div>
-    <div class="hero-slide">
-      <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/chachalaca-01.jpg" alt="Chachalaca">
-    </div>
-    <div class="hero-slide">
-      <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/say-carbon-yachts-01.jpg" alt="SAY Carbon Yachts">
-    </div>
-    <div class="hero-slide">
-      <img src="https://res.cloudinary.com/jd15bq4d/image/upload/portfolio/anillos-mezcal-01.jpg" alt="Anillos Mezcal">
-    </div>
+    <!-- Slides 2–5 se agregan aquí cuando las imágenes hero estén listas -->
   </div>
 
   <div class="hero-caption">
@@ -115,21 +103,20 @@
 
   <script src="script.js"></script>
   <script>
+    // Slideshow — agregar más slides y captions cuando las imágenes hero estén listas
     const slides = document.querySelectorAll('.hero-slide');
     const captions = [
       'Desterrados<br>Brand Identity, Illustration<br>Espina Studio, 2024',
-      'Amargo Mezcal<br>Design Direction<br>FRWARD Branding',
-      'Chachalaca Café<br>Branding, Illustration<br>Espina Studio',
-      'SAY Carbon Yachts<br>Brand System<br>Ground Rising',
-      'Anillos Mezcal<br>Branding, Illustration<br>Ground Rising',
     ];
     let current = 0;
-    setInterval(() => {
-      slides[current].classList.remove('active');
-      current = (current + 1) % slides.length;
-      slides[current].classList.add('active');
-      document.getElementById('caption-text').innerHTML = captions[current];
-    }, 4000);
+    if (slides.length > 1) {
+      setInterval(() => {
+        slides[current].classList.remove('active');
+        current = (current + 1) % slides.length;
+        slides[current].classList.add('active');
+        document.getElementById('caption-text').innerHTML = captions[current];
+      }, 4000);
+    }
   </script>
 </body>
 </html>

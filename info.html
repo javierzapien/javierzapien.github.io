@@ -7,116 +7,101 @@
   <link rel="icon" type="image/svg+xml" href="Images/zapien_.svg">
   <link rel="stylesheet" href="style.css">
   <style>
-    body { background: var(--dark); color: #fff; }
+    body { background: #fff; color: var(--dark); }
+
+    /* Flower stays dark on light header */
     .site-header.dark .flower { filter: invert(1); }
 
     /* ─── INFO CONTENT ───────────────────────────────────────── */
-    .info-body {
-      padding: 64px var(--right-margin) 80px var(--left-margin);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0 80px;
+    .info-content {
+      background: #fff;
+      padding: 64px var(--right-margin) 0 var(--left-margin);
     }
 
-    /* left col */
-    .info-left {}
+    /* Top section: BIO | CONTACT | LINKS */
+    .info-top {
+      display: grid;
+      grid-template-columns: 1fr 220px 200px;
+      gap: 0 48px;
+      padding-bottom: 72px;
+      border-bottom: 1px solid #d0ccc9;
+    }
 
-    .info-section {
-      margin-bottom: 56px;
+    /* Bottom section: SERVICES | EXPERIENCE */
+    .info-bottom {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 0 48px;
+      padding-top: 56px;
+      padding-bottom: 80px;
     }
 
     .info-label {
-      font-family: var(--font-code);
-      font-weight: 700;
-      font-size: 19px;
-      color: var(--gray);
-      margin-bottom: 20px;
-      letter-spacing: 0.05em;
-    }
-
-    .bio-text {
       font-family: var(--font-mono);
       font-size: 19px;
-      color: #fff;
-      line-height: 1.55;
-      max-width: 560px;
+      color: var(--gray);
+      margin-bottom: 18px;
+      display: block;
     }
 
+    /* BIO */
+    .bio-text {
+      font-size: 19px;
+      color: var(--dark);
+      line-height: 1.5;
+    }
+    .bio-text p + p { margin-top: 18px; }
+
+    /* CONTACT */
+    .contact-email {
+      font-size: 19px;
+      color: var(--dark);
+      line-height: 1.45;
+    }
+    .contact-email a { color: var(--dark); }
+    .contact-email a:hover { opacity: 0.6; }
+
+    /* LINKS */
+    .links-list {
+      list-style: none;
+    }
+    .links-list li { font-size: 19px; line-height: 1.65; }
+    .links-list a { color: var(--dark); }
+    .links-list a:hover { opacity: 0.6; }
+
+    /* SERVICES */
     .services-list {
       list-style: none;
     }
     .services-list li {
       font-size: 19px;
-      color: #fff;
-      padding: 14px 0;
-      border-top: 1px solid #3a3a3a;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      color: var(--dark);
+      padding: 6px 0;
     }
-    .services-list li:last-child {
-      border-bottom: 1px solid #3a3a3a;
+    .services-list li::before {
+      content: '• ';
+      color: var(--gray);
     }
 
-    /* right col */
-    .info-right {}
-
-    .experience-item {
-      border-top: 1px solid #3a3a3a;
-      padding: 18px 0;
-    }
-    .experience-item:last-child {
-      border-bottom: 1px solid #3a3a3a;
-    }
-    .exp-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 6px;
+    /* EXPERIENCE */
+    .exp-item {
+      border-top: 1px solid #d0ccc9;
+      padding: 16px 0;
     }
     .exp-company {
-      font-family: var(--font-code);
-      font-weight: 700;
+      font-family: var(--font-mono);
       font-size: 19px;
-      color: #fff;
+      font-weight: bold;
+      color: var(--dark);
+      display: block;
     }
-    .exp-years {
+    .exp-role, .exp-type, .exp-location, .exp-dates {
       font-size: 19px;
-      color: var(--gray);
+      color: var(--dark);
+      line-height: 1.5;
+      display: block;
     }
-    .exp-role {
-      font-size: 19px;
-      color: var(--gray);
-    }
-
-    .clients-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-    }
-    .clients-grid span {
-      font-size: 19px;
-      color: var(--gray);
-      padding: 10px 0;
-      border-top: 1px solid #3a3a3a;
-    }
-
-    .awards-list {
-      list-style: none;
-    }
-    .awards-list li {
-      font-size: 19px;
-      color: var(--gray);
-      padding: 12px 0;
-      border-top: 1px solid #3a3a3a;
-    }
-    .awards-list li:last-child {
-      border-bottom: 1px solid #3a3a3a;
-    }
-    .award-year {
-      color: #fff;
-      margin-right: 16px;
-    }
+    .exp-dates { color: var(--gray); }
   </style>
 </head>
 <body>
@@ -148,110 +133,114 @@
     </div>
   </header>
 
-  <main class="info-body">
+  <main class="info-content">
 
-    <!-- LEFT COLUMN -->
-    <div class="info-left">
+    <!-- TOP ROW: BIO | CONTACT | LINKS -->
+    <div class="info-top">
 
-      <div class="info-section">
-        <p class="info-label">BIO</p>
-        <p class="bio-text">
-          I'm a graphic designer and 3D illustrator from Monterrey, Mexico, currently based in Dubai, UAE. I specialize in brand identity, illustration, and custom typography — building visual worlds that are both memorable and precise.<br><br>
-          Over the past decade I've worked with agencies, startups, and international brands across food &amp; beverage, sport, luxury, and culture. My process blends strategy with craft — each project starts from a clear idea and ends with a system that scales.<br><br>
-          Currently available for freelance projects and long-term brand partnerships.
+      <div class="info-bio">
+        <span class="info-label">BIO</span>
+        <div class="bio-text">
+          <p>I am a graphic designer based in Dubai, United Arab Emirates, with ten years of experience working in design studios.</p>
+          <p>My expertise spans branding, typography, illustration, and design direction, always with a focus on delivering strong, original, and impactful concepts.</p>
+          <p>I am passionate about taking on projects that present creative challenges and generate value through thoughtful, strategic solutions.</p>
+          <p>Over the course of my career, I have collaborated with design studios across the globe, an experience that has broadened my perspective and allowed me to approach each project with versatility and a well-rounded vision.</p>
+        </div>
+      </div>
+
+      <div class="info-contact">
+        <span class="info-label">CONTACT</span>
+        <p class="contact-email">
+          <a href="mailto:hola.javierzapien@gmail.com">Hola.javierzapien<br>@gmail.com</a>
         </p>
       </div>
 
-      <div class="info-section">
-        <p class="info-label">SERVICES</p>
-        <ul class="services-list">
-          <li>Brand Identity &amp; Strategy</li>
-          <li>Logo Design &amp; Typography</li>
-          <li>3D Illustration</li>
-          <li>Packaging Design</li>
-          <li>Art Direction</li>
-          <li>Custom Typeface Design</li>
-          <li>Editorial &amp; Print Design</li>
-          <li>Motion &amp; Digital</li>
+      <div class="info-links">
+        <span class="info-label">LINKS</span>
+        <ul class="links-list">
+          <li><a href="https://www.instagram.com/javizapien?igsh=OG5pZTh5OGZ4Y2t1&utm_source=qr" target="_blank">Instagram</a></li>
+          <li><a href="https://www.linkedin.com/in/javier-villarreal-zapien/" target="_blank">LinkedIn</a></li>
+          <li><a href="https://www.behance.net/Javizapien" target="_blank">Behance</a></li>
+          <li><a href="https://dribbble.com/Javizapien" target="_blank">Dribble</a></li>
         </ul>
-      </div>
-
-      <div class="info-section">
-        <p class="info-label">CONTACT</p>
-        <p class="bio-text">
-          <a href="mailto:hola.javierzapien@gmail.com" style="color: var(--accent);">hola.javierzapien@gmail.com</a><br><br>
-          Available for projects worldwide.<br>
-          Based in Dubai, UAE.
-        </p>
       </div>
 
     </div>
 
-    <!-- RIGHT COLUMN -->
-    <div class="info-right">
+    <!-- BOTTOM ROW: SERVICES | EXPERIENCE -->
+    <div class="info-bottom">
 
-      <div class="info-section">
-        <p class="info-label">EXPERIENCE</p>
-        <div class="experience-item">
-          <div class="exp-header">
-            <span class="exp-company">FRWARD BRANDING</span>
-            <span class="exp-years">2022 — Present</span>
-          </div>
-          <p class="exp-role">Senior Brand Designer — Dubai, UAE</p>
-        </div>
-        <div class="experience-item">
-          <div class="exp-header">
-            <span class="exp-company">GROUND RISING</span>
-            <span class="exp-years">2020 — 2022</span>
-          </div>
-          <p class="exp-role">Brand Designer — Monterrey, MX</p>
-        </div>
-        <div class="experience-item">
-          <div class="exp-header">
-            <span class="exp-company">ESPINA STUDIO</span>
-            <span class="exp-years">2018 — 2020</span>
-          </div>
-          <p class="exp-role">Graphic Designer &amp; Illustrator — Monterrey, MX</p>
-        </div>
-        <div class="experience-item">
-          <div class="exp-header">
-            <span class="exp-company">FREELANCE</span>
-            <span class="exp-years">2015 — 2018</span>
-          </div>
-          <p class="exp-role">Brand Identity &amp; Illustration</p>
-        </div>
-      </div>
-
-      <div class="info-section">
-        <p class="info-label">SELECTED CLIENTS</p>
-        <div class="clients-grid">
-          <span>Deus Ex Machina</span>
-          <span>SAY Carbon Yachts</span>
-          <span>Sushiitto</span>
-          <span>Chachalaca Café</span>
-          <span>Amargo Mezcal</span>
-          <span>Anillos Mezcal</span>
-          <span>Desterrados</span>
-          <span>Goldstorm</span>
-          <span>Estral Sport</span>
-          <span>Voi Coffee</span>
-          <span>Llano Colorado</span>
-          <span>Koelleza</span>
-          <span>Sucanto</span>
-          <span>Patio Sunline</span>
-          <span>Compa</span>
-          <span>Blüm</span>
-        </div>
-      </div>
-
-      <div class="info-section">
-        <p class="info-label">TOOLS</p>
-        <ul class="awards-list">
-          <li>Adobe Illustrator, Photoshop, InDesign</li>
-          <li>Cinema 4D, Octane Render</li>
-          <li>Figma</li>
-          <li>Procreate</li>
+      <div class="info-services">
+        <span class="info-label">SERVICES</span>
+        <ul class="services-list">
+          <li>Brand Identity</li>
+          <li>Illustration</li>
+          <li>Art Direction</li>
+          <li>Packaging</li>
+          <li>3D Modeling</li>
+          <li>Typography</li>
         </ul>
+      </div>
+
+      <div class="info-experience">
+        <span class="info-label">EXPERIENCE</span>
+
+        <div class="exp-item">
+          <span class="exp-company">Ground Rising</span>
+          <span class="exp-role">Sr. Brand Designer</span>
+          <span class="exp-type">Full-time</span>
+          <span class="exp-location">Dubai, UAE</span>
+          <span class="exp-dates">Current</span>
+        </div>
+
+        <div class="exp-item">
+          <span class="exp-company">Espina Studio</span>
+          <span class="exp-role">Sr. Brand Designer</span>
+          <span class="exp-type">Full-time</span>
+          <span class="exp-location">Mexico city, MX</span>
+          <span class="exp-dates">06.23 — 07.24</span>
+        </div>
+
+        <div class="exp-item">
+          <span class="exp-company">Landor &amp; Fitch</span>
+          <span class="exp-role">Design Director</span>
+          <span class="exp-type">Full-time</span>
+          <span class="exp-location">Mexico city, MX</span>
+          <span class="exp-dates">06.22 — 05.23</span>
+        </div>
+
+        <div class="exp-item">
+          <span class="exp-company">Anagrama</span>
+          <span class="exp-role">Design Director</span>
+          <span class="exp-type">Full-time</span>
+          <span class="exp-location">Mexico city, MX</span>
+          <span class="exp-dates">09.20 — 05.22</span>
+        </div>
+
+        <div class="exp-item">
+          <span class="exp-company">La Tortilleria</span>
+          <span class="exp-role">Graphic Designer</span>
+          <span class="exp-type">Full-time</span>
+          <span class="exp-location">Monterrey, MX</span>
+          <span class="exp-dates">11.18 — 02.20</span>
+        </div>
+
+        <div class="exp-item">
+          <span class="exp-company">The Hungry Design Co.</span>
+          <span class="exp-role">Illustrator</span>
+          <span class="exp-type">Full-time</span>
+          <span class="exp-location">Monterrey, MX</span>
+          <span class="exp-dates">01.17 — 11.18</span>
+        </div>
+
+        <div class="exp-item">
+          <span class="exp-company">La Sociedad</span>
+          <span class="exp-role">Graphic Designer</span>
+          <span class="exp-type">Full-time</span>
+          <span class="exp-location">Monterrey, MX</span>
+          <span class="exp-dates">01.16 — 01.17</span>
+        </div>
+
       </div>
 
     </div>
