@@ -72,25 +72,29 @@
 
     .info-label {
       font-family: var(--font-mono);
-      font-size: 19px;
+      font-size: 13px;
       color: var(--gray);
-      margin-bottom: 18px;
+      margin-bottom: 14px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       display: block;
     }
 
     /* BIO */
     .bio-text {
-      font-size: 19px;
+      font-size: 13px;
       color: var(--dark);
-      line-height: 1.5;
+      line-height: 1.6;
+      letter-spacing: 0.02em;
     }
-    .bio-text p + p { margin-top: 18px; }
+    .bio-text p + p { margin-top: 14px; }
 
     /* CONTACT */
     .contact-email {
-      font-size: 19px;
+      font-size: 13px;
       color: var(--dark);
-      line-height: 1.45;
+      line-height: 1.6;
+      letter-spacing: 0.02em;
     }
     .contact-email a { color: var(--dark); }
     .contact-email a:hover { opacity: 0.6; }
@@ -99,7 +103,7 @@
     .links-list {
       list-style: none;
     }
-    .links-list li { font-size: 19px; line-height: 1.65; }
+    .links-list li { font-size: 13px; line-height: 1.7; letter-spacing: 0.02em; }
     .links-list a { color: var(--dark); }
     .links-list a:hover { opacity: 0.6; }
 
@@ -108,9 +112,10 @@
       list-style: none;
     }
     .services-list li {
-      font-size: 19px;
+      font-size: 13px;
       color: var(--dark);
-      padding: 6px 0;
+      padding: 4px 0;
+      letter-spacing: 0.02em;
     }
     .services-list li::before {
       content: '• ';
@@ -120,19 +125,22 @@
     /* EXPERIENCE */
     .exp-item {
       border-top: 1px solid #d0ccc9;
-      padding: 16px 0;
+      padding: 12px 0;
     }
     .exp-company {
       font-family: var(--font-mono);
-      font-size: 19px;
-      font-weight: bold;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
       color: var(--dark);
       display: block;
     }
     .exp-role, .exp-type, .exp-location, .exp-dates {
-      font-size: 19px;
+      font-size: 13px;
       color: var(--dark);
-      line-height: 1.5;
+      line-height: 1.6;
+      letter-spacing: 0.02em;
       display: block;
     }
     .exp-dates { color: var(--gray); }
