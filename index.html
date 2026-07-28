@@ -24,11 +24,20 @@
   <style>
     body { background: #fff; color: var(--dark); }
 
+    body { display: flex; flex-direction: column; min-height: 100vh; }
     .hero {
       width: 100%;
-      height: calc(100vh - 310px);
+      flex: 1;
       position: relative;
       overflow: hidden;
+    }
+    .copyright {
+      background: var(--footer-bg);
+      color: var(--dark);
+      padding: 20px var(--left-margin);
+      font-size: 1rem;
+      opacity: 0.6;
+      letter-spacing: 0.06em;
     }
     .hero-slide {
       position: absolute;
@@ -77,33 +86,7 @@
     <!-- Slides 2–5 se agregan aquí cuando las imágenes hero estén listas -->
   </div>
 
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-col">
-        <p class="footer-col-title">JAVIER ZAPIEN</p>
-        <p>graphic design,3d<br>illustration, custom<br>type, illustration.</p>
-      </div>
-      <div class="footer-col">
-        <p class="footer-col-title">SITE</p>
-        <a href="index.html">Home</a>
-        <a href="portfolio.html">Portfolio</a>
-        <a href="info.html">Info</a>
-        <a href="logofolio.html">Logofolio</a>
-      </div>
-      <div class="footer-col">
-        <p class="footer-col-title">LINKS</p>
-        <a href="https://www.instagram.com/javizapien?igsh=OG5pZTh5OGZ4Y2t1&utm_source=qr" target="_blank">Instagram</a>
-        <a href="https://www.linkedin.com/in/javier-villarreal-zapien/" target="_blank">LinkedIn</a>
-        <a href="https://www.behance.net/Javizapien" target="_blank">Behance</a>
-        <a href="https://dribbble.com/Javizapien" target="_blank">Dribble</a>
-      </div>
-      <div class="footer-col">
-        <p class="footer-col-title">CONTACT</p>
-        <a href="mailto:hola.javierzapien@gmail.com">Hola.javierzapien<br>@gmail.com</a>
-      </div>
-    </div>
-    <p class="footer-bottom">2026 ALL RIGHTS RESERVED.</p>
-  </footer>
+  <p class="copyright">2026 ALL RIGHTS RESERVED.</p>
 
   <script src="script.js"></script>
   <script>
