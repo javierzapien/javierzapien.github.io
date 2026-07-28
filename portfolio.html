@@ -20,6 +20,12 @@
   <style>
     body { background: var(--dark); color: #fff; }
 
+    /* content area (below each gallery) is white */
+    .project { background: #fff; }
+    .project-name { color: var(--dark); }
+    .project-meta { background: #fff; }
+    .project-desc, .project-credits { color: var(--gray); }
+
     /* invert flower to white on dark bg */
     .site-header.dark .flower { filter: invert(1); }
 
@@ -33,10 +39,10 @@
 
     .project-name {
       font-family: var(--font-mono);
-      font-weight: 400;
+      font-weight: 700;
       font-size: 13px;
       padding: 12px 0 10px;
-      color: var(--gray);
+      color: var(--dark);
       letter-spacing: 0.1em;
       text-transform: uppercase;
     }
@@ -70,7 +76,7 @@
     .project-meta {
       display: flex;
       justify-content: space-between;
-      padding: 10px 0 32px;
+      padding: 10px 0 82px;
       gap: 40px;
     }
     .project-desc {
