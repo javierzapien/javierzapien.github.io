@@ -116,10 +116,12 @@ img {
 
 /* ─── HEADER ─────────────────────────────────────────────── */
 .site-header {
-  height: 310px;
   position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  padding: 28px 0 32px;
+  min-height: 360px;
 }
 .site-header.light { background: #fff; color: var(--dark); }
 .site-header.dark  { background: var(--dark); color: #fff; }
@@ -128,7 +130,7 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding: 22px var(--right-content) 0 var(--left-margin);
+  padding: 0 var(--right-content) 0 var(--left-margin);
 }
 
 .site-name {
@@ -149,23 +151,22 @@ img {
 
 .header-body {
   display: flex;
-  align-items: flex-start;
+  align-items: flex-end;
   padding: 0 var(--right-margin) 0 52px;
-  margin-top: 35px;
   gap: 0;
-  flex: 1;
 }
 
 .flower-col {
   width: 195px;
   flex-shrink: 0;
+  align-self: center;
 }
 
 .title-col {
   flex: 1;
   display: flex;
   flex-direction: column;
-  height: 165px;
+  gap: 20px;
 }
 
 .page-title {
