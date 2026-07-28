@@ -145,7 +145,7 @@ img {
 .site-nav a { color: var(--gray); }
 .site-nav a:hover { color: inherit; }
 .site-nav a.active { color: var(--accent); }
-.site-nav span { color: var(--gray); margin: 0 10px; }
+.site-nav span { color: var(--gray); margin: 0 16px; }
 
 .header-body {
   display: flex;
