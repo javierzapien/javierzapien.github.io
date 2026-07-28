@@ -151,7 +151,7 @@ img {
   display: flex;
   align-items: flex-start;
   padding: 0 var(--right-margin) 0 52px;
-  margin-top: 35px;
+  margin-top: 14px;
   gap: 0;
   flex: 1;
 }
