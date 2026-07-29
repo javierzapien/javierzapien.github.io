@@ -1,0 +1,8 @@
+.DS_Store
+node_modules/
+IMG/
+exports/
+upload.js
+cloudinary-urls.json
+.claude/
+package-lock.json
