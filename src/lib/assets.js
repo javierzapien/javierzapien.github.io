@@ -30,10 +30,11 @@ export function asset(id) {
   return byId.get(id) ?? null;
 }
 
-/** Sorted list of gallery image ids for a project ("projects/<slug>/01", …). */
+/** Sorted gallery image ids for a project, relative to projects/ ("<slug>/01", …). */
 export function galleryIds(slug) {
   const prefix = `projects/${slug}/`;
   return [...byId.keys()]
     .filter((k) => k.startsWith(prefix) && /\/\d+$/.test(k))
-    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
+    .map((k) => k.slice('projects/'.length));
 }

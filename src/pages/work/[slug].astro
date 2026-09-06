@@ -3,7 +3,7 @@ import Base from '../../layouts/Base.astro';
 import MoreProjects from '../../components/MoreProjects.astro';
 import Img from '../../components/Img.astro';
 import { projects, getProject } from '../../data/projects.js';
-import { galleryIds } from '../../lib/assets.js';
+import { asset, galleryIds } from '../../lib/assets.js';
 
 export function getStaticPaths() {
   return projects.map((p) => ({ params: { slug: p.slug } }));
@@ -17,19 +17,30 @@ if (!project) return Astro.redirect('/portfolio');
 // 'half' spans that pair 2-up, forced Figma aspect ratios), use it. Otherwise
 // auto-discover every NN.jpg for the project and stack them full-width at their
 // natural aspect ratio.
-let rows = [];
-if (project.gallery?.length) {
-  for (const item of project.gallery) {
-    const last = rows[rows.length - 1];
-    if (item.span === 'half' && last?.kind === 'half' && last.items.length === 1) {
-      last.items.push(item.id);
-    } else {
-      rows.push({ kind: item.span === 'half' ? 'half' : 'full', natural: false, items: [item.id] });
-    }
+const rows = [];
+const push = (kind, id) => {
+  const last = rows[rows.length - 1];
+  if (kind === 'half' && last?.kind === 'half' && last.items.length === 1) {
+    last.items.push(id);
+  } else {
+    rows.push({ kind, items: [id] });
   }
+};
+
+if (project.gallery?.length) {
+  // Explicit arrangement from projects.js.
+  for (const item of project.gallery) push(item.span === 'half' ? 'half' : 'full', item.id);
 } else {
-  rows = galleryIds(slug).map((id) => ({ kind: 'full', natural: true, items: [id] }));
+  // Auto: portrait images pair 2-up, landscape images go full-width — matches
+  // how the Figma project frames are laid out.
+  for (const id of galleryIds(slug)) {
+    const meta = asset(`projects/${id}`);
+    const portrait = meta && meta.height > meta.width * 1.1;
+    push(portrait ? 'half' : 'full', id);
+  }
 }
+// A lone unpaired portrait renders centred, not stretched across a 2-up row.
+for (const row of rows) if (row.kind === 'half' && row.items.length === 1) row.kind = 'half-solo';
 ---
 
 <Base
@@ -63,15 +74,15 @@ if (project.gallery?.length) {
     {rows.length > 0 && (
       <div class="gallery">
         {rows.map((row) => (
-          <div class:list={['gallery__row', `gallery__row--${row.kind}`, row.natural && 'gallery__row--natural']}>
+          <div class:list={['gallery__row', `gallery__row--${row.kind}`]}>
             {row.items.map((id) => (
               <Img
                 id={`projects/${id}`}
                 alt=""
-                ratio={row.kind === 'half' ? '683 / 890' : '1390 / 805'}
+                ratio={row.kind.startsWith('half') ? '683 / 890' : '1390 / 805'}
                 class="gallery__img"
-                sizes={row.kind === 'half' ? '(min-width: 768px) 50vw, 100vw' : '100vw'}
-                widths={row.kind === 'half' ? [480, 768, 1200] : [768, 1280, 1920, 2560]}
+                sizes={row.kind === 'half' ? '(min-width: 768px) 50vw, 100vw' : '(min-width: 768px) 60vw, 100vw'}
+                widths={row.kind.startsWith('half') ? [480, 768, 1200] : [768, 1280, 1920, 2560]}
               />
             ))}
           </div>
@@ -145,18 +156,20 @@ if (project.gallery?.length) {
   .gallery__row--full :global(.gallery__img) {
     aspect-ratio: 1390 / 805;
   }
-  .gallery__row--half :global(.gallery__img) {
+  .gallery__row--half :global(.gallery__img),
+  .gallery__row--half-solo :global(.gallery__img) {
     aspect-ratio: 683 / 890;
   }
-  /* auto galleries: keep each image's own proportions */
-  .gallery__row--natural :global(.gallery__img) {
-    aspect-ratio: auto;
-    object-fit: contain;
+  .gallery__row--half-solo {
+    justify-items: center;
   }
 
   @media (min-width: 768px) {
     .gallery__row--half {
       grid-template-columns: 1fr 1fr;
+    }
+    .gallery__row--half-solo :global(.gallery__img) {
+      width: calc(50% - var(--gallery-gap) / 2);
     }
   }
 
