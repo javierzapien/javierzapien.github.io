@@ -94,20 +94,20 @@ import { img } from '../lib/images.js';
   @media (min-width: 1024px) {
     .about__intro {
       grid-template-columns: minmax(0, 49%) 1fr;
-      gap: 108px;
+      gap: clamp(48px, 7vw, 180px);
       align-items: start;
     }
     .about__photo {
       justify-self: end;
-      max-width: 504px;
+      max-width: clamp(420px, 35vw, 720px);
     }
     .about__xp-label {
-      margin-top: 100px;
+      margin-top: calc(var(--space-section-top) * 1.4);
     }
     .about__xp {
       grid-template-columns: repeat(4, 1fr);
-      column-gap: 35px;
-      row-gap: 35px;
+      column-gap: var(--grid-gap-x);
+      row-gap: clamp(28px, 2.4vw, 56px);
     }
   }
 </style>

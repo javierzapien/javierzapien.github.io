@@ -49,6 +49,13 @@
   --layout-margin: 24px;
   --layout-content: 327px;
 
+  /* Max content width. Mobile/tablet: content simply fills the viewport minus
+     the margins. Desktop overrides this with a large fluid cap (see below) so
+     the design fills big monitors instead of sitting boxed at 1440. Defined
+     here (before the media queries) so the desktop override wins on source
+     order. */
+  --site-max: calc(var(--layout-content) + var(--layout-margin) * 2);
+
   --grid-columns: 1;
   --grid-gap-x: 0px;
   --grid-gap-y: 52px;
@@ -125,36 +132,40 @@
    ============================================================ */
 @media (min-width: 1024px) {
   :root {
-    --layout-margin: 25px;
+    /* Fluid layout. Every value equals its Figma spec at a 1440px viewport and
+       scales with the window between the min/max bounds — the design fills the
+       screen on large monitors instead of sitting boxed at 1440. */
+    --layout-margin: clamp(25px, 1.9vw, 64px);
     --layout-content: 1390px;
+    --site-max: 2560px;
 
     --grid-columns: 4;
-    --grid-gap-x: 25px;
-    --grid-gap-y: 70px;
+    --grid-gap-x: clamp(20px, 1.9vw, 52px);
+    --grid-gap-y: clamp(56px, 4.9vw, 116px);
 
-    --type-nav: 20px;
-    --type-tagline: 20px;
-    --type-clock: 20px;
-    --type-section-label: 19px;
-    --type-body: 20px;
-    --type-body-large: 36px;
+    --type-nav: clamp(17px, 1.39vw, 30px);
+    --type-tagline: clamp(17px, 1.39vw, 30px);
+    --type-clock: clamp(17px, 1.39vw, 30px);
+    --type-section-label: clamp(16px, 1.32vw, 28px);
+    --type-body: clamp(17px, 1.39vw, 28px);
+    --type-body-large: clamp(28px, 2.5vw, 60px);
     --type-legal: 11px;
 
-    --space-header-y: 31px;
-    --space-content-top: 51px;
-    --space-section-top: 70px;
-    --space-section-label-gap: 48px;
-    --space-footer-top: 70px;
+    --space-header-y: clamp(28px, 2.15vw, 50px);
+    --space-content-top: clamp(40px, 3.5vw, 84px);
+    --space-section-top: clamp(56px, 4.9vw, 120px);
+    --space-section-label-gap: clamp(36px, 3.3vw, 78px);
+    --space-footer-top: clamp(56px, 4.9vw, 120px);
 
-    --nav-gap: 32px;
+    --nav-gap: clamp(24px, 2.2vw, 52px);
     --flower-size: 124px;
 
-    --hero-height: 800px;
-    --hero-gap-top: 90px;
+    --hero-height: clamp(560px, 55.5vw, 1200px);
+    --hero-gap-top: clamp(64px, 6.25vw, 140px);
     --card-image-height: 220px;
 
-    --footer-margin: 45px;
-    --footer-pad-top: 91px;
+    --footer-margin: clamp(32px, 3.1vw, 88px);
+    --footer-pad-top: clamp(64px, 6.3vw, 150px);
     --footer-rule-gap: 30px;
     --footer-label-gap: 16px;
   }
@@ -198,13 +209,8 @@
 /* ============================================================
    Layout primitives
    ============================================================ */
-/* Max content width — 1440 on desktop, matches the Figma frame. Header, footer
-   and page content all share this so their left/right edges line up on any
-   screen wider than the design. */
-:root {
-  --site-max: calc(var(--layout-content) + var(--layout-margin) * 2);
-}
-
+/* Header, footer and page content all share --site-max and --layout-margin so
+   their left/right edges line up at any viewport width. */
 .container {
   width: 100%;
   max-width: var(--site-max);
