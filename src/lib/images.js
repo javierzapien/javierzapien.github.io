@@ -19,6 +19,19 @@ export const CLOUDINARY_READY = false;
 
 const BASE = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload`;
 
+/** Deterministic inline-SVG placeholder (no network) until Cloudinary is wired. */
+function placeholder(publicId, w, h) {
+  const label = (publicId || 'image').split('/').slice(-2).join('/');
+  let hash = 0;
+  for (let i = 0; i < (publicId || '').length; i++) hash = (hash * 31 + publicId.charCodeAt(i)) | 0;
+  const hue = Math.abs(hash) % 360;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+<rect width="100%" height="100%" fill="hsl(${hue} 12% 86%)"/>
+<text x="50%" y="50%" fill="hsl(${hue} 15% 40%)" font-family="monospace" font-size="${Math.round(w / 24)}" text-anchor="middle" dominant-baseline="middle">${label}</text>
+</svg>`;
+  return `data:image/svg+xml,${encodeURIComponent(svg)}`;
+}
+
 // Transformation presets per image slot. f_auto + q_auto everywhere.
 const PRESETS = {
   thumb: 'f_auto,q_auto,c_fill,g_auto,w_900,ar_4:3',
@@ -34,15 +47,13 @@ const PRESETS = {
  */
 export function img(publicId, slot = 'thumb') {
   if (!CLOUDINARY_READY || !publicId) {
-    // Deterministic placeholder so layouts have real dimensions to work with.
-    const seed = encodeURIComponent(publicId || 'zapien');
     const [w, h] =
       slot === 'hero' ? [1800, 1125]
       : slot === 'heroMobile' ? [800, 1000]
       : slot === 'gallery' ? [1600, 1100]
       : slot === 'og' ? [1200, 630]
       : [900, 675];
-    return `https://picsum.photos/seed/${seed}/${w}/${h}`;
+    return placeholder(publicId, w, h);
   }
   const t = PRESETS[slot] ?? PRESETS.thumb;
   return `${BASE}/${t}/${publicId}`;
