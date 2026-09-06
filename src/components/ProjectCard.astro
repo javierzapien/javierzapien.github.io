@@ -1,5 +1,5 @@
 ---
-import { img, srcset } from '../lib/images.js';
+import Img from './Img.astro';
 
 interface Props {
   project: {
@@ -7,7 +7,6 @@ interface Props {
     title: string;
     excerpt: string;
     tags: string[];
-    thumb: string;
   };
   headingLevel?: 'h2' | 'h3';
   loading?: 'eager' | 'lazy';
@@ -19,15 +18,15 @@ const Heading = headingLevel;
 
 <a class="card" href={`/work/${project.slug}`}>
   <span class="card__media">
-    <img
-      src={img(project.thumb, 'thumb')}
-      srcset={srcset(project.thumb, [480, 768, 1200])}
-      sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
+    <Img
+      id={`projects/${project.slug}/thumb`}
+      fallbackId={`projects/${project.slug}/hero`}
       alt={project.title}
+      ratio="3 / 2"
+      class="card__img"
+      sizes="(min-width: 1024px) 24vw, (min-width: 768px) 48vw, 100vw"
+      widths={[400, 680, 900]}
       loading={loading}
-      decoding="async"
-      width="900"
-      height="675"
     />
   </span>
   <Heading class="card__title t-meta">{project.title}</Heading>
@@ -45,13 +44,13 @@ const Heading = headingLevel;
     background: var(--color-surface);
     aspect-ratio: 3 / 2;
   }
-  .card__media img {
+  .card__media :global(.card__img) {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform var(--transition-base) var(--ease);
   }
-  .card:hover .card__media img {
+  .card:hover .card__media :global(.card__img) {
     transform: scale(1.02);
   }
   .card__title {
@@ -65,7 +64,7 @@ const Heading = headingLevel;
     color: var(--color-ink);
   }
   @media (prefers-reduced-motion: reduce) {
-    .card__media img {
+    .card__media :global(.card__img) {
       transition: none;
     }
   }

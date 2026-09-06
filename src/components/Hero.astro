@@ -1,21 +1,20 @@
 ---
 import { heroSlides, HERO_INTERVAL_MS } from '../data/projects.js';
-import { img } from '../lib/images.js';
+import Img from './Img.astro';
 ---
 
 <section class="hero" aria-label="Selected work" data-interval={HERO_INTERVAL_MS}>
   {
     heroSlides.map((slide, i) => (
       <a class:list={['hero__slide', i === 0 && 'is-active']} href={`/work/${slide.slug}`}>
-        <picture>
-          <source media="(max-width: 767px)" srcset={img(slide.src, 'heroMobile')} />
-          <img
-            src={img(slide.src, 'hero')}
-            alt={slide.alt}
-            loading={i === 0 ? 'eager' : 'lazy'}
-            decoding="async"
-          />
-        </picture>
+        <Img
+          id={`hero/${slide.src}`}
+          alt={slide.alt}
+          class="hero__img"
+          sizes="100vw"
+          widths={[600, 900, 1400, 1920, 2560]}
+          loading={i === 0 ? 'eager' : 'lazy'}
+        />
       </a>
     ))
   }
@@ -39,7 +38,7 @@ import { img } from '../lib/images.js';
   .hero__slide.is-active {
     opacity: 1;
   }
-  .hero__slide img {
+  .hero__slide :global(.hero__img) {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -64,8 +63,6 @@ import { img } from '../lib/images.js';
       slides[i]?.classList.remove('is-active');
       i = (n + slides.length) % slides.length;
       slides[i]?.classList.add('is-active');
-      const next = slides[(i + 1) % slides.length]?.querySelector('img');
-      next?.setAttribute('loading', 'eager');
     }
     function start() {
       if (!reduce && slides.length > 1 && !timer) timer = setInterval(() => show(i + 1), interval);

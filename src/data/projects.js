@@ -3,9 +3,11 @@
  * Order here = order in the grid on /portfolio and the rotation in "More projects".
  * Add or remove a project here and every page updates. Nothing else to touch.
  *
- * `thumb` / `hero` / `gallery[]` are Cloudinary public ids (see src/lib/images.js).
- * Convention: "portfolio/<slug>/thumb", "portfolio/<slug>/hero",
- * "portfolio/<slug>/01" … for gallery frames.
+ * `thumb` / `hero` / `gallery[].id` are image ids under src/assets/projects/,
+ * e.g. "goldstorm/hero" -> src/assets/projects/goldstorm/hero.jpg. Astro
+ * optimises them at build (see src/lib/assets.js + src/components/Img.astro).
+ * Missing files fall back to a placeholder, so a project without images still
+ * renders. `thumb` falls back to `hero`.
  */
 
 export const SITE = {
@@ -34,8 +36,8 @@ export const projects = [
     intro:
       "A mezcal my wife and I built from the ground up — concept, name, and design, all ours. Inspired by Oaxaca's traditions, where great mezcal works like good medicine.",
     tags: ['BRANDING', 'ILLUSTRATION', 'PACKAGING'],
-    thumb: 'portfolio/amargo-mezcal/thumb',
-    hero: 'portfolio/amargo-mezcal/hero',
+    thumb: 'amargo-mezcal/thumb',
+    hero: 'amargo-mezcal/hero',
     gallery: [],
   },
   {
@@ -46,8 +48,8 @@ export const projects = [
     intro:
       'Full visual identity for a super-luxury carbon yacht brand in Wangen im Allgäu, Germany. A mark, type system, and material palette built to feel as considered as the yachts themselves.',
     tags: ['BRANDING', 'IDENTITY SYSTEM'],
-    thumb: 'portfolio/say-carbon-yachts/thumb',
-    hero: 'portfolio/say-carbon-yachts/hero',
+    thumb: 'say-carbon-yachts/thumb',
+    hero: 'say-carbon-yachts/hero',
     gallery: [],
   },
   {
@@ -58,8 +60,8 @@ export const projects = [
     intro:
       "3D illustrations for Sushiitto's digital menu, bringing each dish to life with color, character, and motion — turning browsing into part of the experience.",
     tags: ['3D ILLUSTRATION'],
-    thumb: 'portfolio/sushiitto/thumb',
-    hero: 'portfolio/sushiitto/hero',
+    thumb: 'sushiitto/thumb',
+    hero: 'sushiitto/hero',
     gallery: [],
   },
   {
@@ -70,8 +72,8 @@ export const projects = [
     intro:
       'Collector badges for t-shirts and motorcycle graphics, blending biker culture with Eastern motifs — built around symbolism, craft, and the open road.',
     tags: ['MERCH', 'ILLUSTRATION'],
-    thumb: 'portfolio/deus-ex-machina/thumb',
-    hero: 'portfolio/deus-ex-machina/hero',
+    thumb: 'deus-ex-machina/thumb',
+    hero: 'deus-ex-machina/hero',
     gallery: [],
   },
   {
@@ -82,8 +84,8 @@ export const projects = [
     intro:
       'Identity for a Chihuahua-born taquería expanding into Mexico City. Desert fauna and flora meet bold hand-built type, carrying its regional roots into a new market.',
     tags: ['BRANDING', 'ILLUSTRATION'],
-    thumb: 'portfolio/desterrados/thumb',
-    hero: 'portfolio/desterrados/hero',
+    thumb: 'desterrados/thumb',
+    hero: 'desterrados/hero',
     gallery: [],
   },
   {
@@ -94,8 +96,8 @@ export const projects = [
     intro:
       'A bar where every drink costs 18 pesos. Loud, playful, and unapologetically fun — built for a concept that skips the pretension and goes straight to a good time.',
     tags: ['BRANDING', 'ILLUSTRATION', 'PACKAGING'],
-    thumb: 'portfolio/bar-18/thumb',
-    hero: 'portfolio/bar-18/hero',
+    thumb: 'bar-18/thumb',
+    hero: 'bar-18/hero',
     gallery: [],
   },
   {
@@ -106,8 +108,8 @@ export const projects = [
     intro:
       "Artisanal chocolate from Mazatán, Chiapas, rooted in harvest, nature, and indigenous tradition. Branding and packaging honor the cacao's origin, from bean to bar.",
     tags: ['BRANDING', 'ILLUSTRATION', 'PACKAGING'],
-    thumb: 'portfolio/sucanto/thumb',
-    hero: 'portfolio/sucanto/hero',
+    thumb: 'sucanto/thumb',
+    hero: 'sucanto/hero',
     gallery: [],
   },
   {
@@ -118,8 +120,8 @@ export const projects = [
     intro:
       "A café named after Chiapas's loud, lively bird. The identity channels that same energy — playful and colorful, carried through packaging, signage, and in-store details.",
     tags: ['BRANDING', 'ILLUSTRATION', 'PACKAGING'],
-    thumb: 'portfolio/chachalaca-cafe/thumb',
-    hero: 'portfolio/chachalaca-cafe/hero',
+    thumb: 'chachalaca-cafe/thumb',
+    hero: 'chachalaca-cafe/hero',
     gallery: [],
   },
   {
@@ -130,8 +132,8 @@ export const projects = [
     intro:
       '3D illustrations for stage design and promotional materials at a Monterrey music festival — work meant to be seen large, loud, and larger than life.',
     tags: ['3D ILLUSTRATION', 'STAGE DESIGN'],
-    thumb: 'portfolio/hellow-festival/thumb',
-    hero: 'portfolio/hellow-festival/hero',
+    thumb: 'hellow-festival/thumb',
+    hero: 'hellow-festival/hero',
     gallery: [],
   },
   {
@@ -142,18 +144,18 @@ export const projects = [
     intro:
       'Identity for a highly specialized asset management firm. Restrained typography and a confident visual language communicate trust, security, and abundance.',
     tags: ['BRANDING', 'IDENTITY SYSTEM'],
-    thumb: 'portfolio/goldstorm/thumb',
-    hero: 'portfolio/goldstorm/hero',
+    thumb: 'goldstorm/thumb',
+    hero: 'goldstorm/hero',
     // span: 'full' (default, landscape) or 'half' (portrait; consecutive halves
     // pair 2-up on tablet/desktop, stack on mobile). Arrangement per the Figma
     // frame Desktop_Project_goldstorm_1440.
     gallery: [
-      { id: 'portfolio/goldstorm/01' },
-      { id: 'portfolio/goldstorm/02', span: 'half' },
-      { id: 'portfolio/goldstorm/03', span: 'half' },
-      { id: 'portfolio/goldstorm/04' },
-      { id: 'portfolio/goldstorm/05' },
-      { id: 'portfolio/goldstorm/06' },
+      { id: 'goldstorm/01' },
+      { id: 'goldstorm/02', span: 'half' },
+      { id: 'goldstorm/03', span: 'half' },
+      { id: 'goldstorm/04' },
+      { id: 'goldstorm/05' },
+      { id: 'goldstorm/06' },
     ],
   },
   {
@@ -164,8 +166,8 @@ export const projects = [
     intro:
       'Logo and brand system for a Colombian insurance company, designed to feel approachable and trustworthy — friendly without losing credibility.',
     tags: ['BRANDING', 'ILLUSTRATION'],
-    thumb: 'portfolio/compa/thumb',
-    hero: 'portfolio/compa/hero',
+    thumb: 'compa/thumb',
+    hero: 'compa/hero',
     gallery: [],
   },
   {
@@ -176,8 +178,8 @@ export const projects = [
     intro:
       'Brand identity for a professional esports team from Monterrey, built for intensity, motion, and team pride at the highest level of competition.',
     tags: ['BRANDING', 'ILLUSTRATION'],
-    thumb: 'portfolio/estral-sport/thumb',
-    hero: 'portfolio/estral-sport/hero',
+    thumb: 'estral-sport/thumb',
+    hero: 'estral-sport/hero',
     gallery: [],
   },
   {
@@ -188,8 +190,8 @@ export const projects = [
     intro:
       'Brand identity for Patio Sunline, a pergola and outdoor living company with presence across California. The palette leans tropical and warm, evoking an outdoor lifestyle that inspires customers to live more fully in their own backyard.',
     tags: ['BRANDING', 'ILLUSTRATION'],
-    thumb: 'portfolio/patio-sunline/thumb',
-    hero: 'portfolio/patio-sunline/hero',
+    thumb: 'patio-sunline/thumb',
+    hero: 'patio-sunline/hero',
     gallery: [],
   },
   {
@@ -200,8 +202,8 @@ export const projects = [
     intro:
       'Created for two former NBA stars, this mezcal brand is built around rings and smoke — tying athletic legacy to craft and ritual.',
     tags: ['BRANDING', 'ILLUSTRATION', 'PACKAGING'],
-    thumb: 'portfolio/anillos-mezcal/thumb',
-    hero: 'portfolio/anillos-mezcal/hero',
+    thumb: 'anillos-mezcal/thumb',
+    hero: 'anillos-mezcal/hero',
     gallery: [],
   },
   {
@@ -212,8 +214,8 @@ export const projects = [
     intro:
       'Visual identity for an online Korean skincare retailer, built with a pixel-art aesthetic and kawaii elements to connect with a young, culture-loving audience.',
     tags: ['BRANDING', 'ILLUSTRATION'],
-    thumb: 'portfolio/koelleza/thumb',
-    hero: 'portfolio/koelleza/hero',
+    thumb: 'koelleza/thumb',
+    hero: 'koelleza/hero',
     gallery: [],
   },
   {
@@ -224,8 +226,8 @@ export const projects = [
     intro:
       'A design system for a flower shop in Ecuador — colorful, playful, and warm, built to carry that joy across packaging, signage, and everyday touchpoints.',
     tags: ['BRANDING', 'ILLUSTRATION', 'PACKAGING'],
-    thumb: 'portfolio/blum/thumb',
-    hero: 'portfolio/blum/hero',
+    thumb: 'blum/thumb',
+    hero: 'blum/hero',
     gallery: [],
   },
 ];
@@ -254,11 +256,11 @@ export const about = {
 
 /** Slides for the rotating hero on the home page. Order = rotation order. */
 export const heroSlides = [
-  { slug: 'sushiitto', src: 'hero/sushiitto', alt: 'Sushiitto storefront in magenta' },
-  { slug: 'sucanto', src: 'hero/sucanto', alt: 'Sucanto chocolate bar wrappers' },
-  { slug: 'goldstorm', src: 'hero/goldstorm', alt: 'Goldstorm identity detail' },
-  { slug: 'anillos-mezcal', src: 'hero/anillos-mezcal-01', alt: 'Anillos Mezcal bottle' },
-  { slug: 'anillos-mezcal', src: 'hero/anillos-mezcal-04', alt: 'Anillos Mezcal packaging' },
+  { slug: 'sushiitto', src: 'sushiitto', alt: 'Sushiitto storefront in magenta' },
+  { slug: 'sucanto', src: 'sucanto', alt: 'Sucanto chocolate bar wrappers' },
+  { slug: 'goldstorm', src: 'goldstorm', alt: 'Goldstorm identity detail' },
+  { slug: 'anillos-mezcal', src: 'anillos-mezcal-01', alt: 'Anillos Mezcal bottle' },
+  { slug: 'anillos-mezcal', src: 'anillos-mezcal-04', alt: 'Anillos Mezcal packaging' },
 ];
 
 /**

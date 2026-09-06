@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { about } from '../data/projects.js';
-import { img } from '../lib/images.js';
+import Img from '../components/Img.astro';
 ---
 
 <Base title="About — Javier Zapien">
@@ -13,12 +13,13 @@ import { img } from '../lib/images.js';
         {about.bio.map((p) => <p>{p}</p>)}
       </div>
       <figure class="about__photo">
-        <img
-          src={img(about.portrait, 'portrait')}
+        <Img
+          id="about/portrait"
           alt={about.portraitAlt}
-          width="1000"
-          height="1250"
-          decoding="async"
+          ratio="4 / 5"
+          class="about__photo-img"
+          sizes="(min-width: 1024px) 40vw, 100vw"
+          widths={[480, 720, 1000]}
         />
       </figure>
     </div>
@@ -57,7 +58,7 @@ import { img } from '../lib/images.js';
   .about__photo {
     margin: 0;
   }
-  .about__photo img {
+  .about__photo :global(.about__photo-img) {
     width: 100%;
     height: auto;
     aspect-ratio: 4 / 5;

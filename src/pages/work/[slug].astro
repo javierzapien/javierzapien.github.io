@@ -1,8 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
 import MoreProjects from '../../components/MoreProjects.astro';
+import Img from '../../components/Img.astro';
 import { projects, getProject } from '../../data/projects.js';
-import { img, srcset } from '../../lib/images.js';
 
 export function getStaticPaths() {
   return projects.map((p) => ({ params: { slug: p.slug } }));
@@ -27,7 +27,6 @@ for (const item of project.gallery ?? []) {
 <Base
   title={`${project.breadcrumb} — Javier Zapien`}
   description={project.excerpt}
-  ogImage={img(project.hero, 'og')}
   bleed
 >
   <article class="project">
@@ -36,14 +35,14 @@ for (const item of project.gallery ?? []) {
     </p>
 
     <div class="project__hero">
-      <img
-        src={img(project.hero, 'hero')}
-        srcset={srcset(project.hero, [768, 1280, 1920])}
-        sizes="100vw"
+      <Img
+        id={`projects/${project.slug}/hero`}
         alt={project.title}
-        width="1440"
-        height="900"
-        decoding="async"
+        ratio="16 / 10"
+        class="project__hero-img"
+        sizes="100vw"
+        widths={[768, 1280, 1920, 2560]}
+        loading="eager"
       />
     </div>
 
@@ -58,11 +57,13 @@ for (const item of project.gallery ?? []) {
         {rows.map((row) => (
           <div class:list={['gallery__row', `gallery__row--${row.kind}`]}>
             {row.items.map((it) => (
-              <img
-                src={img(it.id, row.kind === 'half' ? 'gallery' : 'gallery')}
+              <Img
+                id={`projects/${it.id}`}
                 alt=""
-                loading="lazy"
-                decoding="async"
+                ratio={row.kind === 'half' ? '683 / 890' : '1390 / 805'}
+                class="gallery__img"
+                sizes={row.kind === 'half' ? '(min-width: 768px) 50vw, 100vw' : '100vw'}
+                widths={row.kind === 'half' ? [480, 768, 1200] : [768, 1280, 1920, 2560]}
               />
             ))}
           </div>
@@ -90,7 +91,7 @@ for (const item of project.gallery ?? []) {
   .project__hero {
     width: 100%;
   }
-  .project__hero img {
+  .project__hero :global(.project__hero-img) {
     width: 100%;
     height: auto;
     aspect-ratio: 16 / 10;
@@ -127,16 +128,16 @@ for (const item of project.gallery ?? []) {
     display: grid;
     gap: var(--gallery-gap);
   }
-  .gallery__row img {
+  .gallery__row :global(.gallery__img) {
     width: 100%;
     height: auto;
     object-fit: cover;
     background: var(--color-surface);
   }
-  .gallery__row--full img {
+  .gallery__row--full :global(.gallery__img) {
     aspect-ratio: 1390 / 805;
   }
-  .gallery__row--half img {
+  .gallery__row--half :global(.gallery__img) {
     aspect-ratio: 683 / 890;
   }
 
