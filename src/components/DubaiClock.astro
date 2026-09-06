@@ -1,0 +1,43 @@
+---
+import { SITE } from '../data/projects.js';
+---
+
+<span class="clock t-meta" aria-live="off">
+  <span class="clock__label">{SITE.location} <span aria-hidden="true">&rarr;</span></span>
+  <span class="clock__time" data-dubai-clock>—</span>
+</span>
+
+<style>
+  .clock {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0 var(--space-8);
+    color: var(--color-ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .clock__time {
+    white-space: nowrap;
+  }
+</style>
+
+<script>
+  const TZ = 'Asia/Dubai';
+  const fmt = new Intl.DateTimeFormat('en-US', {
+    timeZone: TZ,
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  });
+  const nodes = document.querySelectorAll('[data-dubai-clock]');
+  function tick() {
+    const s = fmt.format(new Date()).replace(' at ', ' ');
+    nodes.forEach((n) => (n.textContent = s));
+  }
+  tick();
+  setInterval(tick, 1000);
+</script>

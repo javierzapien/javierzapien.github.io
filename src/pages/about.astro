@@ -1,0 +1,59 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../data/projects.js';
+
+// TODO: replace with the real bio copy from the Figma About frame.
+const bio = [
+  'Javier Zapien is a graphic designer and 3D illustrator based in Dubai, working across brand identity, illustration, custom type, and art direction.',
+  'He has built identities and visual systems for clients across Mexico, the US, Europe, and the Middle East — from mezcal and specialty coffee to asset management and carbon yachts.',
+];
+
+const services = [
+  'Brand identity',
+  'Illustration',
+  '3D illustration',
+  'Custom type',
+  'Packaging',
+  'Art direction',
+];
+---
+
+<Base title="About — Javier Zapien">
+  <section class="about">
+    <h1 class="section-label">About <span class="arrow" aria-hidden="true">&larr;</span></h1>
+    <div class="about__body">
+      {bio.map((p) => <p class="t-body-large">{p}</p>)}
+    </div>
+
+    <h2 class="section-label about__services-label">Services <span class="arrow" aria-hidden="true">&larr;</span></h2>
+    <ul class="about__services t-body">
+      {services.map((s) => <li>{s}</li>)}
+    </ul>
+
+    <p class="about__contact t-body">
+      <a class="u-link" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+    </p>
+  </section>
+</Base>
+
+<style>
+  .about {
+    padding-block: var(--space-section-top);
+    max-width: 42rem;
+  }
+  .about__body {
+    display: grid;
+    gap: var(--space-20);
+  }
+  .about__services-label {
+    margin-top: var(--space-section-top);
+  }
+  .about__services {
+    display: grid;
+    gap: var(--space-8);
+    list-style: none;
+  }
+  .about__contact {
+    margin-top: var(--space-40);
+  }
+</style>

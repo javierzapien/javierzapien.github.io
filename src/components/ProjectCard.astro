@@ -1,0 +1,71 @@
+---
+import { img, srcset } from '../lib/images.js';
+
+interface Props {
+  project: {
+    slug: string;
+    title: string;
+    excerpt: string;
+    tags: string[];
+    thumb: string;
+  };
+  headingLevel?: 'h2' | 'h3';
+  loading?: 'eager' | 'lazy';
+}
+
+const { project, headingLevel = 'h2', loading = 'lazy' } = Astro.props;
+const Heading = headingLevel;
+---
+
+<a class="card" href={`/work/${project.slug}`}>
+  <span class="card__media">
+    <img
+      src={img(project.thumb, 'thumb')}
+      srcset={srcset(project.thumb, [480, 768, 1200])}
+      sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
+      alt={project.title}
+      loading={loading}
+      decoding="async"
+      width="900"
+      height="675"
+    />
+  </span>
+  <Heading class="card__title t-meta">{project.title}</Heading>
+  <p class="card__excerpt t-body">{project.excerpt}</p>
+  <p class="card__tags t-meta">{project.tags.join(', ')}</p>
+</a>
+
+<style>
+  .card {
+    display: block;
+  }
+  .card__media {
+    display: block;
+    overflow: hidden;
+    background: var(--color-surface);
+  }
+  .card__media img {
+    width: 100%;
+    height: var(--card-image-height);
+    object-fit: cover;
+    transition: transform var(--transition-base) var(--ease);
+  }
+  .card:hover .card__media img {
+    transform: scale(1.02);
+  }
+  .card__title {
+    margin-top: 14px;
+  }
+  .card__excerpt {
+    margin-top: 12px;
+  }
+  .card__tags {
+    margin-top: 14px;
+    color: var(--color-ink);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card__media img {
+      transition: none;
+    }
+  }
+</style>

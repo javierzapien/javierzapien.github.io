@@ -1,0 +1,48 @@
+---
+/**
+ * The spinning flower mark. The animation phase is continuous across page
+ * navigations (stored in sessionStorage) so it never appears to jump.
+ */
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<img class:list={['flower', className]} src="/flower.svg" alt="Javier Zapien" width="152" height="165" />
+
+<style>
+  .flower {
+    width: 100%;
+    height: auto;
+    animation: flower-spin 12s linear infinite;
+    will-change: transform;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .flower {
+      animation: none;
+    }
+  }
+  @keyframes flower-spin {
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+</style>
+
+<script>
+  // Keep every flower on the site spinning from the same phase.
+  const PERIOD = 12000;
+  const KEY = 'flowerStart';
+  let start = parseInt(sessionStorage.getItem(KEY) || '', 10);
+  if (!start || Number.isNaN(start)) {
+    start = Date.now();
+    try {
+      sessionStorage.setItem(KEY, String(start));
+    } catch {}
+  }
+  const elapsed = (Date.now() - start) % PERIOD;
+  document.querySelectorAll<HTMLElement>('.flower').forEach((el) => {
+    el.style.animationDelay = `-${elapsed}ms`;
+  });
+</script>

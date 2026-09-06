@@ -1,0 +1,83 @@
+---
+import { heroSlides, HERO_INTERVAL_MS } from '../data/projects.js';
+import { img } from '../lib/images.js';
+---
+
+<section class="hero" aria-label="Selected work" data-interval={HERO_INTERVAL_MS}>
+  {
+    heroSlides.map((slide, i) => (
+      <a class:list={['hero__slide', i === 0 && 'is-active']} href={`/work/${slide.slug}`}>
+        <picture>
+          <source media="(max-width: 767px)" srcset={img(slide.src, 'heroMobile')} />
+          <img
+            src={img(slide.src, 'hero')}
+            alt={slide.alt}
+            loading={i === 0 ? 'eager' : 'lazy'}
+            decoding="async"
+          />
+        </picture>
+      </a>
+    ))
+  }
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    width: 100%;
+    height: var(--hero-height);
+    overflow: hidden;
+    background: var(--color-surface);
+  }
+  .hero__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 600ms ease-in-out;
+  }
+  .hero__slide.is-active {
+    opacity: 1;
+  }
+  .hero__slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero__slide {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const hero = document.querySelector<HTMLElement>('.hero');
+  if (hero) {
+    const slides = Array.from(hero.querySelectorAll<HTMLElement>('.hero__slide'));
+    const interval = Number(hero.dataset.interval) || 5000;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let i = 0;
+    let timer: ReturnType<typeof setInterval> | undefined;
+
+    function show(n: number) {
+      slides[i]?.classList.remove('is-active');
+      i = (n + slides.length) % slides.length;
+      slides[i]?.classList.add('is-active');
+      const next = slides[(i + 1) % slides.length]?.querySelector('img');
+      next?.setAttribute('loading', 'eager');
+    }
+    function start() {
+      if (!reduce && slides.length > 1 && !timer) timer = setInterval(() => show(i + 1), interval);
+    }
+    function stop() {
+      if (timer) {
+        clearInterval(timer);
+        timer = undefined;
+      }
+    }
+    document.addEventListener('visibilitychange', () =>
+      document.visibilityState === 'hidden' ? stop() : start()
+    );
+    start();
+  }
+</script>

@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { projects } from '../data/projects.js';
+---
+
+<Base title="Portfolio — Javier Zapien">
+  <section class="portfolio">
+    <h1 class="section-label">Projects <span class="arrow" aria-hidden="true">&larr;</span></h1>
+    <div class="project-grid">
+      {projects.map((p, i) => (
+        <ProjectCard project={p} headingLevel="h2" loading={i < 4 ? 'eager' : 'lazy'} />
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .portfolio {
+    padding-block: var(--space-section-top);
+  }
+</style>

@@ -1,0 +1,184 @@
+/**
+ * Design tokens for zapien.xyz
+ * Mirrors the "Primitives" and "Responsive" variable collections in
+ * Figma → Portfolio 20206 → PORTFOLIO_MCP_DESING_010826.
+ *
+ * Mobile-first. Every responsive token is redeclared at each breakpoint,
+ * so components only ever reference the token, never a raw value.
+ */
+
+:root {
+  /* ---- Color ---- */
+  --color-ink: #000000;
+  --color-paper: #ffffff;
+  --color-surface: #fafafa; /* footer band */
+  --color-rule: #d9d9d9;    /* hairlines in the footer */
+
+  /* ---- Font families ---- */
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, monospace;
+
+  /* ---- Tracking ---- */
+  --tracking-sans: 0;
+  --tracking-mono: 0.05em; /* 5% — all Space Mono labels */
+
+  /* ---- Spacing scale ---- */
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-28: 28px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-48: 48px;
+  --space-56: 56px;
+  --space-64: 64px;
+  --space-70: 70px;
+
+  /* ---- Motion ---- */
+  --hero-interval: 5000ms;
+  --transition-fast: 150ms;
+  --transition-base: 250ms;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ============================================================
+     RESPONSIVE TOKENS — Mobile (default, < 768px)
+     ============================================================ */
+  --layout-margin: 24px;
+  --layout-content: 327px;
+
+  --grid-columns: 1;
+  --grid-gap-x: 0px;
+  --grid-gap-y: 52px;
+
+  --type-nav: 13px;
+  --type-tagline: 15px;
+  --type-section-label: 17px;
+  --type-body: 15px;
+  --type-body-large: 17px;
+  --type-meta: 11px;
+  --type-legal: 10px;
+
+  --space-header-y: 28px;
+  --space-section-top: 56px;
+  --space-section-label-gap: 28px;
+  --space-footer-top: 56px;
+
+  --hero-height: 420px;
+  --card-image-height: 219px;
+}
+
+/* ============================================================
+   Tablet — 768px and up
+   ============================================================ */
+@media (min-width: 768px) {
+  :root {
+    --layout-margin: 32px;
+    --layout-content: 704px;
+
+    --grid-columns: 2;
+    --grid-gap-x: 16px;
+    --grid-gap-y: 56px;
+
+    --type-nav: 14px;
+    --type-tagline: 14px;
+    --type-section-label: 17px;
+    --type-body: 15px;
+    --type-body-large: 20px;
+
+    --space-header-y: 26px;
+
+    --hero-height: 500px;
+    --card-image-height: 227px;
+  }
+}
+
+/* ============================================================
+   Desktop — 1024px and up (design reference is 1440px)
+   ============================================================ */
+@media (min-width: 1024px) {
+  :root {
+    --layout-margin: 25px;
+    --layout-content: 1390px;
+
+    --grid-columns: 4;
+    --grid-gap-x: 25px;
+    --grid-gap-y: 70px;
+
+    --type-nav: 20px;
+    --type-tagline: 20px;
+    --type-section-label: 19px;
+    --type-body: 20px;
+    --type-body-large: 36px;
+    --type-legal: 11px;
+
+    --space-header-y: 31px;
+    --space-section-top: 70px;
+    --space-section-label-gap: 33px;
+    --space-footer-top: 70px;
+
+    --hero-height: 800px;
+    --card-image-height: 220px;
+  }
+}
+
+/* ============================================================
+   Type roles — use these, not raw sizes
+   ============================================================ */
+.t-nav {
+  font-family: var(--font-sans);
+  font-size: var(--type-nav);
+  letter-spacing: var(--tracking-sans);
+}
+.t-tagline {
+  font-family: var(--font-sans);
+  font-size: var(--type-tagline);
+}
+.t-section-label {
+  font-family: var(--font-sans);
+  font-size: var(--type-section-label);
+}
+.t-body {
+  font-family: var(--font-sans);
+  font-size: var(--type-body);
+}
+.t-body-large {
+  font-family: var(--font-sans);
+  font-size: var(--type-body-large);
+}
+.t-meta {
+  font-family: var(--font-mono);
+  font-size: var(--type-meta);
+  letter-spacing: var(--tracking-mono);
+}
+.t-legal {
+  font-family: var(--font-mono);
+  font-size: var(--type-legal);
+  letter-spacing: var(--tracking-mono);
+}
+
+/* ============================================================
+   Layout primitives
+   ============================================================ */
+.container {
+  width: 100%;
+  max-width: calc(var(--layout-content) + var(--layout-margin) * 2);
+  margin-inline: auto;
+  padding-inline: var(--layout-margin);
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  column-gap: var(--grid-gap-x);
+  row-gap: var(--grid-gap-y);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0ms;
+    --transition-base: 0ms;
+  }
+}

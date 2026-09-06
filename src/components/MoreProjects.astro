@@ -1,0 +1,56 @@
+---
+import { moreProjects } from '../data/projects.js';
+import ProjectCard from './ProjectCard.astro';
+
+interface Props {
+  currentSlug: string;
+}
+const { currentSlug } = Astro.props;
+const items = moreProjects(currentSlug);
+---
+
+<section class="more">
+  <h2 class="section-label">More projects <span class="arrow" aria-hidden="true">&larr;</span></h2>
+  <div class="more__row">
+    {items.map((p) => (
+      <div class="more__item">
+        <ProjectCard project={p} headingLevel="h3" />
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .more {
+    margin-top: var(--space-section-top);
+  }
+  .more__row {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 82%;
+    gap: var(--grid-gap-x, 16px);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    margin-inline: calc(var(--layout-margin) * -1);
+    padding-inline: var(--layout-margin);
+  }
+  .more__row::-webkit-scrollbar {
+    display: none;
+  }
+  .more__item {
+    scroll-snap-align: start;
+  }
+  @media (min-width: 768px) {
+    .more__row {
+      grid-auto-columns: 46%;
+    }
+  }
+  @media (min-width: 1024px) {
+    .more__row {
+      grid-auto-columns: calc((100% - 3 * var(--grid-gap-x)) / 4);
+      margin-inline: 0;
+      padding-inline: 0;
+    }
+  }
+</style>

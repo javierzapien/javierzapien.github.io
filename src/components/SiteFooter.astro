@@ -1,0 +1,75 @@
+---
+import { SITE } from '../data/projects.js';
+
+const year = new Date().getFullYear();
+const siteLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'Portfolio', href: '/portfolio' },
+  { label: 'About', href: '/about' },
+  { label: 'Logofolio', href: '/logofolio' },
+];
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__cols">
+      <div class="site-footer__col">
+        <p class="t-meta">SOCIAL</p>
+        {SITE.social.map((s) => (
+          <a class="u-link t-body" href={s.href} target="_blank" rel="noopener">{s.label}</a>
+        ))}
+      </div>
+
+      <div class="site-footer__col">
+        <p class="t-meta">SITE</p>
+        {siteLinks.map((l) => <a class="u-link t-body" href={l.href}>{l.label}</a>)}
+      </div>
+
+      <div class="site-footer__col">
+        <p class="t-meta">CONTACT</p>
+        <a class="u-link t-body" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+      </div>
+
+      <div class="site-footer__col">
+        <p class="t-meta">JAVIER ZAPIEN</p>
+        <p class="t-body">{SITE.tagline}</p>
+      </div>
+    </div>
+
+    <p class="site-footer__legal t-legal">&copy; {year} All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: var(--space-footer-top);
+    padding-block: var(--space-40);
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-rule);
+  }
+  .site-footer__cols {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-28);
+  }
+  .site-footer__col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+  .site-footer__col .t-meta {
+    margin-bottom: var(--space-4);
+  }
+  .site-footer__legal {
+    margin-top: var(--space-32);
+    padding-top: var(--space-16);
+    border-top: 1px solid var(--color-rule);
+    color: var(--color-ink);
+  }
+  @media (min-width: 1024px) {
+    .site-footer__cols {
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-24);
+    }
+  }
+</style>

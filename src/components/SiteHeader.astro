@@ -1,0 +1,121 @@
+---
+import { SITE } from '../data/projects.js';
+import Flower from './Flower.astro';
+import DubaiClock from './DubaiClock.astro';
+
+const { pathname } = Astro.url;
+const nav = [
+  { label: 'Portfolio', href: '/portfolio' },
+  { label: 'Logofolio', href: '/logofolio' },
+  { label: 'About', href: '/about' },
+];
+const isCurrent = (href) => pathname === href || pathname.startsWith(href + '/');
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a href="/" class="site-header__home" aria-label={`${SITE.name} — home`}>
+      <span class="flower-wrap"><Flower /></span>
+    </a>
+
+    <p class="site-header__tagline t-tagline">{SITE.tagline}</p>
+
+    <div class="site-header__clock"><DubaiClock /></div>
+
+    <nav class="site-header__nav t-nav" aria-label="Primary">
+      {
+        nav.map((item) => (
+          <a
+            class="u-link"
+            href={item.href}
+            aria-current={isCurrent(item.href) ? 'page' : undefined}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    padding-top: var(--space-header-y);
+  }
+  .site-header__inner {
+    display: grid;
+    justify-items: center;
+    gap: 18px;
+    text-align: center;
+  }
+  .flower-wrap {
+    display: block;
+    width: 96px;
+  }
+  .site-header__home {
+    order: 2;
+  }
+  .site-header__nav {
+    order: 1;
+    display: flex;
+    gap: var(--space-16);
+  }
+  .site-header__tagline {
+    order: 3;
+    color: var(--color-ink);
+  }
+  .site-header__clock {
+    order: 4;
+  }
+
+  /* Tablet: left column (tagline / clock) · mark · nav, top-aligned */
+  @media (min-width: 768px) {
+    .site-header__inner {
+      grid-template-columns: 1fr auto 1fr;
+      align-items: start;
+      justify-items: stretch;
+      text-align: left;
+      gap: 0 var(--space-24);
+    }
+    .site-header__tagline {
+      order: 1;
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .site-header__clock {
+      order: 2;
+      grid-column: 1;
+      grid-row: 2;
+      margin-top: var(--space-8);
+    }
+    .site-header__home {
+      order: 3;
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      align-self: center;
+      justify-self: center;
+    }
+    .flower-wrap {
+      width: 120px;
+    }
+    .site-header__nav {
+      order: 4;
+      grid-column: 3;
+      grid-row: 1;
+      justify-content: flex-end;
+    }
+  }
+
+  /* Desktop: tagline top-left, clock below, mark centred, nav top-right */
+  @media (min-width: 1024px) {
+    .site-header__inner {
+      gap: 0 var(--space-40);
+    }
+    .flower-wrap {
+      width: 152px;
+    }
+    .site-header__nav {
+      gap: var(--space-24);
+    }
+  }
+</style>
