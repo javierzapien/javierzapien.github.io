@@ -43,6 +43,9 @@ const isCurrent = (href) => pathname === href || pathname.startsWith(href + '/')
     background: var(--color-paper);
   }
   .hdr__inner {
+    width: 100%;
+    max-width: var(--site-max);
+    margin-inline: auto;
     padding: var(--space-header-y) var(--layout-margin) 0;
   }
 

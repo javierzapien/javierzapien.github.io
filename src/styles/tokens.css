@@ -64,9 +64,15 @@
 
   --space-header-y: 28px;
   --space-header-gap: 18px; /* between stacked header items on mobile */
+  --space-content-top: 28px; /* header -> first section label */
   --space-section-top: 56px;
-  --space-section-label-gap: 28px;
+  --space-section-label-gap: 28px; /* section label -> its content */
   --space-footer-top: 56px;
+
+  /* Project card internal gaps */
+  --card-gap-img: 11px;
+  --card-gap-title: 16px;
+  --card-gap-excerpt: 16px;
 
   --nav-gap: 20px;
   --flower-size: 56px;
@@ -103,6 +109,7 @@
     --type-body-large: 20px;
 
     --space-header-y: 26px;
+    --space-content-top: 40px;
     --nav-gap: 22px;
     --flower-size: 46px;
 
@@ -134,8 +141,9 @@
     --type-legal: 11px;
 
     --space-header-y: 31px;
+    --space-content-top: 51px;
     --space-section-top: 70px;
-    --space-section-label-gap: 33px;
+    --space-section-label-gap: 48px;
     --space-footer-top: 70px;
 
     --nav-gap: 32px;
@@ -190,9 +198,16 @@
 /* ============================================================
    Layout primitives
    ============================================================ */
+/* Max content width — 1440 on desktop, matches the Figma frame. Header, footer
+   and page content all share this so their left/right edges line up on any
+   screen wider than the design. */
+:root {
+  --site-max: calc(var(--layout-content) + var(--layout-margin) * 2);
+}
+
 .container {
   width: 100%;
-  max-width: calc(var(--layout-content) + var(--layout-margin) * 2);
+  max-width: var(--site-max);
   margin-inline: auto;
   padding-inline: var(--layout-margin);
 }

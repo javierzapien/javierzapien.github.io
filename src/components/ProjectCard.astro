@@ -43,10 +43,11 @@ const Heading = headingLevel;
     display: block;
     overflow: hidden;
     background: var(--color-surface);
+    aspect-ratio: 3 / 2;
   }
   .card__media img {
     width: 100%;
-    height: var(--card-image-height);
+    height: 100%;
     object-fit: cover;
     transition: transform var(--transition-base) var(--ease);
   }
@@ -54,13 +55,13 @@ const Heading = headingLevel;
     transform: scale(1.02);
   }
   .card__title {
-    margin-top: 14px;
+    margin-top: var(--card-gap-img);
   }
   .card__excerpt {
-    margin-top: 12px;
+    margin-top: var(--card-gap-title);
   }
   .card__tags {
-    margin-top: 14px;
+    margin-top: var(--card-gap-excerpt);
     color: var(--color-ink);
   }
   @media (prefers-reduced-motion: reduce) {

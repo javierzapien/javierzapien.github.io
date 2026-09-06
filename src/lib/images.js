@@ -38,6 +38,7 @@ const PRESETS = {
   hero: 'f_auto,q_auto,c_fill,g_auto,w_1800,ar_16:10',
   heroMobile: 'f_auto,q_auto,c_fill,g_auto,w_800,ar_4:5',
   gallery: 'f_auto,q_auto,w_1600',
+  portrait: 'f_auto,q_auto,c_fill,g_auto,w_1000,ar_4:5',
   og: 'f_jpg,q_auto,c_fill,w_1200,h_630',
 };
 
@@ -51,6 +52,7 @@ export function img(publicId, slot = 'thumb') {
       slot === 'hero' ? [1800, 1125]
       : slot === 'heroMobile' ? [800, 1000]
       : slot === 'gallery' ? [1600, 1100]
+      : slot === 'portrait' ? [1000, 1250]
       : slot === 'og' ? [1200, 630]
       : [900, 675];
     return placeholder(publicId, w, h);

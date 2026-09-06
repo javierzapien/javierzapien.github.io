@@ -220,6 +220,28 @@ export const projects = [
   },
 ];
 
+/** About page — bio, portrait, and work history. Source: Figma Desktop_About_1440. */
+export const about = {
+  label: 'About me',
+  bio: [
+    'I am a graphic designer based in Dubai, United Arab Emirates, with ten years of experience working in design studios.',
+    'My expertise spans branding, typography, illustration, and design direction, always with a focus on delivering strong, original, and impactful concepts.',
+    'I am passionate about taking on projects that present creative challenges and generate value through thoughtful, strategic solutions.',
+    'Over the course of my career, I have collaborated with design studios across the globe, an experience that has broadened my perspective and allowed me to approach each project with versatility and a well-rounded vision.',
+  ],
+  portrait: 'about/portrait',
+  portraitAlt: 'Javier Zapien outside a Coffee and Bikes storefront',
+  experience: [
+    { company: 'Ground Rising', role: 'Sr. Brand Designer', type: 'Full-time', location: 'Dubái, UAE', dates: 'Current' },
+    { company: 'Espina Studio', role: 'Sr. Brand Designer', type: 'Full-time', location: 'Mexico city, MX', dates: '06.23 - 07.24' },
+    { company: 'Landor & Fitch', role: 'Design Director', type: 'Full-time', location: 'Mexico city, MX', dates: '06.22 - 05.23' },
+    { company: 'Anagrama', role: 'Design Director', type: 'Full-time', location: 'Mexico city, MX', dates: '09.20 - 05.22' },
+    { company: 'La Tortilleria', role: 'Graphic Designer', type: 'Full-time', location: 'Monterrey, MX', dates: '11.18 - 02.20' },
+    { company: 'T.H.D Co.', role: 'Illustrator', type: 'Full-time', location: 'Monterrey, MX', dates: '01.17 - 11.18' },
+    { company: 'La Sociedad', role: 'Graphic Designer', type: 'Full-time', location: 'Monterrey, MX', dates: '01.16 - 01.17' },
+  ],
+};
+
 /** Slides for the rotating hero on the home page. Order = rotation order. */
 export const heroSlides = [
   { slug: 'sushiitto', src: 'hero/sushiitto', alt: 'Sushiitto storefront in magenta' },
