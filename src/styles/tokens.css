@@ -143,12 +143,14 @@
     --grid-gap-x: clamp(20px, 1.9vw, 52px);
     --grid-gap-y: clamp(56px, 4.9vw, 116px);
 
-    --type-nav: clamp(17px, 1.39vw, 30px);
-    --type-tagline: clamp(17px, 1.39vw, 30px);
-    --type-clock: clamp(17px, 1.39vw, 30px);
-    --type-section-label: clamp(16px, 1.32vw, 28px);
-    --type-body: clamp(17px, 1.39vw, 28px);
-    --type-body-large: clamp(28px, 2.5vw, 60px);
+    /* Anchored to the Figma sizes at 1440px, then scaled gently (~+10% by
+       2560px) so large monitors don't get oversized text. */
+    --type-nav: clamp(18px, 15.5px + 0.3vw, 24px);
+    --type-tagline: clamp(18px, 15.5px + 0.3vw, 24px);
+    --type-clock: clamp(18px, 15.5px + 0.3vw, 24px);
+    --type-section-label: clamp(17px, 15px + 0.28vw, 23px);
+    --type-body: clamp(18px, 15.5px + 0.3vw, 24px);
+    --type-body-large: clamp(28px, 25px + 0.76vw, 44px);
     --type-legal: 11px;
 
     --space-header-y: clamp(28px, 2.15vw, 50px);
