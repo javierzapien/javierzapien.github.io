@@ -3,7 +3,7 @@ import Base from '../../layouts/Base.astro';
 import MoreProjects from '../../components/MoreProjects.astro';
 import Img from '../../components/Img.astro';
 import { projects, getProject } from '../../data/projects.js';
-import { asset, galleryIds } from '../../lib/assets.js';
+import { asset, video, galleryIds } from '../../lib/assets.js';
 
 export function getStaticPaths() {
   return projects.map((p) => ({ params: { slug: p.slug } }));
@@ -35,7 +35,10 @@ if (project.gallery?.length) {
   // how the Figma project frames are laid out.
   for (const id of galleryIds(slug)) {
     const meta = asset(`projects/${id}`);
-    const portrait = meta && meta.height > meta.width * 1.1;
+    const vid = video(`projects/${id}`);
+    // videos: default to a 2-up slot (portrait motion clips); a landscape
+    // still next to it just pairs. bitmaps: portrait -> half.
+    const portrait = vid ? true : meta && meta.height > meta.width * 1.1;
     push(portrait ? 'half' : 'full', id);
   }
 }
@@ -75,16 +78,28 @@ for (const row of rows) if (row.kind === 'half' && row.items.length === 1) row.k
       <div class="gallery">
         {rows.map((row) => (
           <div class:list={['gallery__row', `gallery__row--${row.kind}`]}>
-            {row.items.map((id) => (
-              <Img
-                id={`projects/${id}`}
-                alt=""
-                ratio={row.kind.startsWith('half') ? '683 / 890' : '1390 / 805'}
-                class="gallery__img"
-                sizes={row.kind === 'half' ? '(min-width: 768px) 50vw, 100vw' : '(min-width: 768px) 60vw, 100vw'}
-                widths={row.kind.startsWith('half') ? [480, 768, 1200] : [768, 1280, 1920, 2560]}
-              />
-            ))}
+            {row.items.map((id) =>
+              video(`projects/${id}`) ? (
+                <video
+                  class="gallery__img"
+                  src={video(`projects/${id}`)}
+                  autoplay
+                  loop
+                  muted
+                  playsinline
+                  preload="metadata"
+                />
+              ) : (
+                <Img
+                  id={`projects/${id}`}
+                  alt=""
+                  ratio={row.kind.startsWith('half') ? '683 / 890' : '1390 / 805'}
+                  class="gallery__img"
+                  sizes={row.kind === 'half' ? '(min-width: 768px) 50vw, 100vw' : '(min-width: 768px) 60vw, 100vw'}
+                  widths={row.kind.startsWith('half') ? [480, 768, 1200] : [768, 1280, 1920, 2560]}
+                />
+              )
+            )}
           </div>
         ))}
       </div>

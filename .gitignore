@@ -26,3 +26,6 @@ upload.js
 .DS_Store
 .idea/
 .vscode/
+
+# raw GIFs — convert to .mp4 before committing (see docs/IMAGES.md)
+*.gif
