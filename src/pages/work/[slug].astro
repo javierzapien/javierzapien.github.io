@@ -13,37 +13,61 @@ const { slug } = Astro.params;
 const project = getProject(slug);
 if (!project) return Astro.redirect('/portfolio');
 
-// Gallery rows. If projects.js defines an explicit `gallery` (with optional
-// 'half' spans that pair 2-up, forced Figma aspect ratios), use it. Otherwise
-// auto-discover every NN.jpg for the project and stack them full-width at their
-// natural aspect ratio.
-const rows = [];
-const push = (kind, id) => {
-  const last = rows[rows.length - 1];
-  if (kind === 'half' && last?.kind === 'half' && last.items.length === 1) {
-    last.items.push(id);
-  } else {
-    rows.push({ kind, items: [id] });
+// Gallery rows. If projects.js defines an explicit `gallery` (half/full spans),
+// use it. Otherwise auto-discover every NN.{jpg,mp4} and lay them out like the
+// Figma project frames: landscape images full-width; consecutive portrait
+// images grouped into rows (pairs, or trios where they divide evenly — the
+// tail row on several projects is a 3-up).
+let rows = [];
+
+// Split a run of N portraits into row sizes, preferring 3s but never orphaning 1.
+function splitRun(n) {
+  if (n <= 3) return [n];
+  const sizes = [];
+  let rem = n;
+  while (rem > 4) {
+    sizes.push(3);
+    rem -= 3;
   }
-};
+  if (rem === 4) sizes.push(2, 2);
+  else sizes.push(rem);
+  return sizes;
+}
+const kindFor = (size) => (size === 3 ? 'triple' : size === 2 ? 'half' : 'half-solo');
 
 if (project.gallery?.length) {
-  // Explicit arrangement from projects.js.
-  for (const item of project.gallery) push(item.span === 'half' ? 'half' : 'full', item.id);
-} else {
-  // Auto: portrait images pair 2-up, landscape images go full-width — matches
-  // how the Figma project frames are laid out.
-  for (const id of galleryIds(slug)) {
-    const meta = asset(`projects/${id}`);
-    const vid = video(`projects/${id}`);
-    // videos: default to a 2-up slot (portrait motion clips); a landscape
-    // still next to it just pairs. bitmaps: portrait -> half.
-    const portrait = vid ? true : meta && meta.height > meta.width * 1.1;
-    push(portrait ? 'half' : 'full', id);
+  for (const item of project.gallery) {
+    const kind = item.span === 'half' ? 'half' : 'full';
+    const last = rows[rows.length - 1];
+    if (kind === 'half' && last?.kind === 'half' && last.items.length === 1) last.items.push(item.id);
+    else rows.push({ kind, items: [item.id] });
   }
+  for (const row of rows) if (row.kind === 'half' && row.items.length === 1) row.kind = 'half-solo';
+} else {
+  const ids = galleryIds(slug);
+  const isPortrait = (id) => {
+    if (video(`projects/${id}`)) return true;
+    const m = asset(`projects/${id}`);
+    return m && m.height > m.width * 1.1;
+  };
+  let run = [];
+  const flushRun = () => {
+    let i = 0;
+    for (const size of splitRun(run.length)) {
+      rows.push({ kind: kindFor(size), items: run.slice(i, i + size) });
+      i += size;
+    }
+    run = [];
+  };
+  for (const id of ids) {
+    if (isPortrait(id)) run.push(id);
+    else {
+      flushRun();
+      rows.push({ kind: 'full', items: [id] });
+    }
+  }
+  flushRun();
 }
-// A lone unpaired portrait renders centred, not stretched across a 2-up row.
-for (const row of rows) if (row.kind === 'half' && row.items.length === 1) row.kind = 'half-solo';
 ---
 
 <Base
@@ -93,10 +117,16 @@ for (const row of rows) if (row.kind === 'half' && row.items.length === 1) row.k
                 <Img
                   id={`projects/${id}`}
                   alt=""
-                  ratio={row.kind.startsWith('half') ? '683 / 890' : '1390 / 805'}
+                  ratio={row.kind === 'full' ? '1390 / 805' : '683 / 890'}
                   class="gallery__img"
-                  sizes={row.kind === 'half' ? '(min-width: 768px) 50vw, 100vw' : '(min-width: 768px) 60vw, 100vw'}
-                  widths={row.kind.startsWith('half') ? [480, 768, 1200] : [768, 1280, 1920, 2560]}
+                  sizes={
+                    row.kind === 'full'
+                      ? '(min-width: 768px) 60vw, 100vw'
+                      : row.kind === 'triple'
+                        ? '(min-width: 768px) 33vw, 100vw'
+                        : '(min-width: 768px) 50vw, 100vw'
+                  }
+                  widths={row.kind === 'full' ? [768, 1280, 1920, 2560] : [480, 768, 1200]}
                 />
               )
             )}
@@ -172,7 +202,8 @@ for (const row of rows) if (row.kind === 'half' && row.items.length === 1) row.k
     aspect-ratio: 1390 / 805;
   }
   .gallery__row--half :global(.gallery__img),
-  .gallery__row--half-solo :global(.gallery__img) {
+  .gallery__row--half-solo :global(.gallery__img),
+  .gallery__row--triple :global(.gallery__img) {
     aspect-ratio: 683 / 890;
   }
   .gallery__row--half-solo {
@@ -182,6 +213,9 @@ for (const row of rows) if (row.kind === 'half' && row.items.length === 1) row.k
   @media (min-width: 768px) {
     .gallery__row--half {
       grid-template-columns: 1fr 1fr;
+    }
+    .gallery__row--triple {
+      grid-template-columns: 1fr 1fr 1fr;
     }
     .gallery__row--half-solo :global(.gallery__img) {
       width: calc(50% - var(--gallery-gap) / 2);
