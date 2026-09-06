@@ -2,32 +2,39 @@
 import { SITE } from '../data/projects.js';
 ---
 
-<span class="clock t-meta" aria-live="off">
-  <span class="clock__label">{SITE.location} <span aria-hidden="true">&rarr;</span></span>
-  <span class="clock__time" data-dubai-clock>—</span>
+<span class="clock" aria-live="off">
+  <span class="clock__loc">{SITE.location} <span aria-hidden="true">&rarr;</span></span>
+  <span class="clock__ts" data-dubai-clock>&nbsp;</span>
 </span>
 
 <style>
   .clock {
-    display: inline-flex;
-    flex-wrap: wrap;
-    gap: 0 var(--space-8);
+    display: flex;
+    align-items: baseline;
+    gap: 0.4em;
+    font-family: var(--font-sans);
     color: var(--color-ink);
-    font-variant-numeric: tabular-nums;
   }
-  .clock__time {
+  .clock__loc {
     white-space: nowrap;
+  }
+  .clock__ts {
+    /* wraps to "…, 2026" / "HH:MM:SS" like the Figma frames */
+    max-width: 15ch;
   }
 </style>
 
 <script>
   const TZ = 'Asia/Dubai';
-  const fmt = new Intl.DateTimeFormat('en-US', {
+  const dateFmt = new Intl.DateTimeFormat('en-US', {
     timeZone: TZ,
     weekday: 'long',
     year: 'numeric',
     month: 'long',
     day: 'numeric',
+  });
+  const timeFmt = new Intl.DateTimeFormat('en-US', {
+    timeZone: TZ,
     hour: '2-digit',
     minute: '2-digit',
     second: '2-digit',
@@ -35,7 +42,8 @@ import { SITE } from '../data/projects.js';
   });
   const nodes = document.querySelectorAll('[data-dubai-clock]');
   function tick() {
-    const s = fmt.format(new Date()).replace(' at ', ' ');
+    const now = new Date();
+    const s = `${dateFmt.format(now)} ${timeFmt.format(now)}`;
     nodes.forEach((n) => (n.textContent = s));
   }
   tick();

@@ -55,6 +55,7 @@
 
   --type-nav: 13px;
   --type-tagline: 15px;
+  --type-clock: 14px;
   --type-section-label: 17px;
   --type-body: 15px;
   --type-body-large: 17px;
@@ -62,12 +63,24 @@
   --type-legal: 10px;
 
   --space-header-y: 28px;
+  --space-header-gap: 18px; /* between stacked header items on mobile */
   --space-section-top: 56px;
   --space-section-label-gap: 28px;
   --space-footer-top: 56px;
 
+  --nav-gap: 20px;
+  --flower-size: 56px;
+
   --hero-height: 420px;
+  --hero-gap-top: 0px; /* white space between header and the home hero */
   --card-image-height: 219px;
+
+  /* Footer */
+  --footer-margin: 24px;
+  --footer-pad-top: 56px;
+  --footer-block-gap: 28px; /* between stacked footer blocks */
+  --footer-rule-gap: 28px;  /* hairline -> label */
+  --footer-label-gap: 12px; /* label -> links */
 }
 
 /* ============================================================
@@ -84,14 +97,19 @@
 
     --type-nav: 14px;
     --type-tagline: 14px;
+    --type-clock: 14px;
     --type-section-label: 17px;
     --type-body: 15px;
     --type-body-large: 20px;
 
     --space-header-y: 26px;
+    --nav-gap: 22px;
+    --flower-size: 46px;
 
     --hero-height: 500px;
     --card-image-height: 227px;
+
+    --footer-margin: 32px;
   }
 }
 
@@ -109,6 +127,7 @@
 
     --type-nav: 20px;
     --type-tagline: 20px;
+    --type-clock: 20px;
     --type-section-label: 19px;
     --type-body: 20px;
     --type-body-large: 36px;
@@ -119,8 +138,17 @@
     --space-section-label-gap: 33px;
     --space-footer-top: 70px;
 
+    --nav-gap: 32px;
+    --flower-size: 124px;
+
     --hero-height: 800px;
+    --hero-gap-top: 90px;
     --card-image-height: 220px;
+
+    --footer-margin: 45px;
+    --footer-pad-top: 91px;
+    --footer-rule-gap: 30px;
+    --footer-label-gap: 16px;
   }
 }
 

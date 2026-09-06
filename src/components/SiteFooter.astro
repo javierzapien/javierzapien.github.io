@@ -10,66 +10,112 @@ const siteLinks = [
 ];
 ---
 
-<footer class="site-footer">
-  <div class="container">
-    <div class="site-footer__cols">
-      <div class="site-footer__col">
-        <p class="t-meta">SOCIAL</p>
-        {SITE.social.map((s) => (
-          <a class="u-link t-body" href={s.href} target="_blank" rel="noopener">{s.label}</a>
-        ))}
+<footer class="ftr">
+  <div class="ftr__wrap">
+    <div class="ftr__cols">
+      <div class="ftr__col">
+        <p class="ftr__label t-meta">SOCIAL</p>
+        <div class="ftr__links">
+          {SITE.social.map((s) => (
+            <a class="u-link" href={s.href} target="_blank" rel="noopener">{s.label}</a>
+          ))}
+        </div>
       </div>
 
-      <div class="site-footer__col">
-        <p class="t-meta">SITE</p>
-        {siteLinks.map((l) => <a class="u-link t-body" href={l.href}>{l.label}</a>)}
+      <div class="ftr__col">
+        <p class="ftr__label t-meta">SITE</p>
+        <div class="ftr__links">
+          {siteLinks.map((l) => <a class="u-link" href={l.href}>{l.label}</a>)}
+        </div>
       </div>
 
-      <div class="site-footer__col">
-        <p class="t-meta">CONTACT</p>
-        <a class="u-link t-body" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+      <div class="ftr__col">
+        <p class="ftr__label t-meta">CONTACT</p>
+        <div class="ftr__links">
+          <a class="u-link" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        </div>
       </div>
 
-      <div class="site-footer__col">
-        <p class="t-meta">JAVIER ZAPIEN</p>
-        <p class="t-body">{SITE.tagline}</p>
+      <div class="ftr__col ftr__col--tagline">
+        <p class="ftr__tagline">{SITE.tagline}</p>
       </div>
+
+      <div class="ftr__col ftr__col--spacer" aria-hidden="true"></div>
     </div>
 
-    <p class="site-footer__legal t-legal">&copy; {year} All rights reserved.</p>
+    <p class="ftr__legal t-legal">&copy; {year} All rights reserved.</p>
   </div>
 </footer>
 
 <style>
-  .site-footer {
-    margin-top: var(--space-footer-top);
-    padding-block: var(--space-40);
-    background: var(--color-surface);
-    border-top: 1px solid var(--color-rule);
+  .ftr {
+    background: var(--color-paper);
   }
-  .site-footer__cols {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-28);
+  .ftr__wrap {
+    padding: var(--footer-pad-top) var(--footer-margin) var(--space-40);
   }
-  .site-footer__col {
+
+  .ftr__cols {
     display: flex;
     flex-direction: column;
-    gap: var(--space-8);
+    gap: var(--footer-block-gap);
+    border-top: 1px solid var(--color-rule);
+    padding-top: var(--footer-rule-gap);
   }
-  .site-footer__col .t-meta {
-    margin-bottom: var(--space-4);
+
+  .ftr__col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--footer-label-gap);
   }
-  .site-footer__legal {
-    margin-top: var(--space-32);
-    padding-top: var(--space-16);
+  .ftr__col--spacer {
+    display: none;
+  }
+
+  .ftr__label {
+    color: var(--color-ink);
+  }
+
+  .ftr__links {
+    display: flex;
+    flex-direction: column;
+  }
+  .ftr__links a,
+  .ftr__tagline {
+    font-family: var(--font-sans);
+    font-size: var(--type-body);
+    line-height: 1.3;
+    color: var(--color-ink);
+  }
+
+  .ftr__legal {
+    margin-top: var(--footer-block-gap);
+    padding-top: var(--footer-rule-gap);
     border-top: 1px solid var(--color-rule);
     color: var(--color-ink);
   }
+
+  /* ---------- Desktop: 5-column grid, hairline per column ---------- */
   @media (min-width: 1024px) {
-    .site-footer__cols {
-      grid-template-columns: repeat(4, 1fr);
-      gap: var(--space-24);
+    .ftr__cols {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      column-gap: var(--grid-gap-x);
+      row-gap: 0;
+      border-top: 0;
+      padding-top: 0;
+    }
+    .ftr__col {
+      border-top: 1px solid var(--color-rule);
+      padding-top: var(--footer-rule-gap);
+    }
+    .ftr__col--spacer {
+      display: block;
+    }
+    .ftr__legal {
+      margin-top: var(--space-40);
+      padding-top: 0;
+      border-top: 0;
     }
   }
 </style>

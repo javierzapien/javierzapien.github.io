@@ -12,17 +12,17 @@ const nav = [
 const isCurrent = (href) => pathname === href || pathname.startsWith(href + '/');
 ---
 
-<header class="site-header">
-  <div class="container site-header__inner">
-    <a href="/" class="site-header__home" aria-label={`${SITE.name} — home`}>
-      <span class="flower-wrap"><Flower /></span>
+<header class="hdr">
+  <div class="hdr__inner">
+    <p class="hdr__tagline">{SITE.tagline}</p>
+
+    <div class="hdr__clock"><DubaiClock /></div>
+
+    <a class="hdr__home" href="/" aria-label={`${SITE.name} — home`}>
+      <span class="hdr__flower"><Flower /></span>
     </a>
 
-    <p class="site-header__tagline t-tagline">{SITE.tagline}</p>
-
-    <div class="site-header__clock"><DubaiClock /></div>
-
-    <nav class="site-header__nav t-nav" aria-label="Primary">
+    <nav class="hdr__nav" aria-label="Primary">
       {
         nav.map((item) => (
           <a
@@ -39,83 +39,98 @@ const isCurrent = (href) => pathname === href || pathname.startsWith(href + '/')
 </header>
 
 <style>
-  .site-header {
-    padding-top: var(--space-header-y);
+  .hdr {
+    background: var(--color-paper);
   }
-  .site-header__inner {
-    display: grid;
-    justify-items: center;
-    gap: 18px;
-    text-align: center;
-  }
-  .flower-wrap {
-    display: block;
-    width: 96px;
-  }
-  .site-header__home {
-    order: 2;
-  }
-  .site-header__nav {
-    order: 1;
-    display: flex;
-    gap: var(--space-16);
-  }
-  .site-header__tagline {
-    order: 3;
-    color: var(--color-ink);
-  }
-  .site-header__clock {
-    order: 4;
+  .hdr__inner {
+    padding: var(--space-header-y) var(--layout-margin) 0;
   }
 
-  /* Tablet: left column (tagline / clock) · mark · nav, top-aligned */
+  .hdr__flower {
+    display: block;
+    width: var(--flower-size);
+  }
+  .hdr__nav {
+    display: flex;
+    gap: var(--nav-gap);
+    font-family: var(--font-sans);
+    font-size: var(--type-nav);
+    white-space: nowrap;
+  }
+  .hdr__tagline {
+    font-family: var(--font-sans);
+    font-size: var(--type-tagline);
+    color: var(--color-ink);
+  }
+  .hdr__clock {
+    font-size: var(--type-clock);
+  }
+
+  /* ---------- Mobile: vertical, centred ---------- */
+  @media (max-width: 767px) {
+    .hdr__inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-header-gap);
+      padding-bottom: 26px;
+      text-align: center;
+    }
+    .hdr__nav {
+      order: 1;
+    }
+    .hdr__home {
+      order: 2;
+    }
+    .hdr__tagline {
+      order: 3;
+      max-width: 20em;
+    }
+    .hdr__clock {
+      order: 4;
+    }
+  }
+
+  /* ---------- Tablet + Desktop: 3-zone row ---------- */
   @media (min-width: 768px) {
-    .site-header__inner {
+    .hdr__inner {
+      display: grid;
       grid-template-columns: 1fr auto 1fr;
       align-items: start;
-      justify-items: stretch;
-      text-align: left;
-      gap: 0 var(--space-24);
+      column-gap: var(--space-24);
     }
-    .site-header__tagline {
-      order: 1;
+    .hdr__tagline {
       grid-column: 1;
       grid-row: 1;
+      max-width: 13em;
     }
-    .site-header__clock {
-      order: 2;
+    .hdr__clock {
       grid-column: 1;
       grid-row: 2;
       margin-top: var(--space-8);
     }
-    .site-header__home {
-      order: 3;
+    .hdr__home {
       grid-column: 2;
       grid-row: 1 / span 2;
-      align-self: center;
       justify-self: center;
+      align-self: center;
     }
-    .flower-wrap {
-      width: 120px;
-    }
-    .site-header__nav {
-      order: 4;
+    .hdr__nav {
       grid-column: 3;
       grid-row: 1;
       justify-content: flex-end;
     }
   }
 
-  /* Desktop: tagline top-left, clock below, mark centred, nav top-right */
   @media (min-width: 1024px) {
-    .site-header__inner {
-      gap: 0 var(--space-40);
+    .hdr__inner {
+      column-gap: var(--space-40);
     }
-    .flower-wrap {
-      width: 152px;
+    .hdr__tagline {
+      max-width: 17em;
     }
-    .site-header__nav {
-      gap: var(--space-24);
+    .hdr__clock {
+      margin-top: 12px;
     }
   }
 </style>
