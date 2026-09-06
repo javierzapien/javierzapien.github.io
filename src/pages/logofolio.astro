@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
 import { logos } from '../data/projects.js';
 ---
 
@@ -7,13 +8,9 @@ import { logos } from '../data/projects.js';
   <section class="logofolio">
     <h1 class="section-label">Logofolio <span class="arrow" aria-hidden="true">&larr;</span></h1>
     <div class="logo-grid">
-      {logos.map((logo, i) => (
+      {logos.map((logo) => (
         <div class="logo-tile">
-          {logo.mark ? (
-            <img src={logo.mark} alt={logo.name} loading="lazy" decoding="async" />
-          ) : (
-            <span class="logo-tile__ph">{String(i + 1).padStart(2, '0')}</span>
-          )}
+          <Img id={`logos/${logo.id}`} alt={logo.name} class="logo-tile__mark" />
         </div>
       ))}
     </div>
@@ -39,17 +36,11 @@ import { logos } from '../data/projects.js';
     place-items: center;
     background: var(--color-logo-tile);
   }
-  .logo-tile img {
-    max-width: 30%;
-    max-height: 42%;
+  .logo-tile :global(.logo-tile__mark) {
+    max-width: 34%;
+    max-height: 46%;
     width: auto;
     height: auto;
-  }
-  .logo-tile__ph {
-    font-family: var(--font-mono);
-    font-size: var(--type-meta);
-    letter-spacing: var(--tracking-mono);
-    color: rgba(255, 255, 255, 0.25);
   }
 
   @media (min-width: 768px) {

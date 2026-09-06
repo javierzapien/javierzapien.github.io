@@ -254,23 +254,32 @@ export const about = {
   ],
 };
 
-/** Slides for the rotating hero on the home page. Order = rotation order. */
+/**
+ * Slides for the rotating hero on the home page. Order = rotation order.
+ * `src` = file in src/assets/hero/. `slug` = project it links to.
+ */
 export const heroSlides = [
+  { slug: null, src: 'inicio', alt: 'Desert landscape with hand-drawn illustrations' },
   { slug: 'sushiitto', src: 'sushiitto', alt: 'Sushiitto storefront in magenta' },
-  { slug: 'sucanto', src: 'sucanto', alt: 'Sucanto chocolate bar wrappers' },
+  { slug: 'sucanto', src: '12', alt: 'Sucanto chocolate wrappers in neon colours' },
   { slug: 'goldstorm', src: 'goldstorm', alt: 'Goldstorm identity detail' },
+  { slug: 'chachalaca-cafe', src: 'chachalaca-cafe', alt: 'Chachalaca Café branding' },
   { slug: 'anillos-mezcal', src: 'anillos-mezcal-01', alt: 'Anillos Mezcal bottle' },
-  { slug: 'anillos-mezcal', src: 'anillos-mezcal-04', alt: 'Anillos Mezcal packaging' },
+  { slug: 'desterrados', src: 'desterrados-01', alt: 'Desterrados taquería identity' },
+  { slug: 'sucanto', src: 'sucanto', alt: 'Sucanto chocolate packaging' },
+  { slug: 'estral-sport', src: 'estral-sport', alt: 'Estral Sport esports identity' },
+  { slug: 'anillos-mezcal', src: 'anillos-mezcal-02', alt: 'Anillos Mezcal packaging' },
+  { slug: 'koelleza', src: 'koelleza', alt: 'Koelleza pixel-art skincare branding' },
+  { slug: 'desterrados', src: 'desterrados-02', alt: 'Desterrados packaging' },
 ];
 
 /**
- * Logofolio grid — HANDOFF §4: 30 dark tiles, white SVG mark centred, 1.9:1.
- * `mark` is a path in /public/logos/<slug>.svg once the marks are exported.
+ * Logofolio grid — 30 dark tiles, grey SVG mark centred, 1.9:1.
+ * Marks live in src/assets/logos/logo-NN.svg.
  */
 export const logos = Array.from({ length: 30 }, (_, i) => ({
-  slug: `logo-${String(i + 1).padStart(2, '0')}`,
+  id: `logo-${String(i + 1).padStart(2, '0')}`,
   name: `Logo ${i + 1}`,
-  mark: null,
 }));
 
 export const HERO_INTERVAL_MS = 5000;

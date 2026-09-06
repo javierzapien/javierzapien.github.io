@@ -1,22 +1,28 @@
 /**
  * Local image resolver.
  *
- * Project imagery lives in `src/assets/projects/<slug>/` and is committed to the
- * repo. Astro optimises it at build time (responsive webp/avif) — no external
- * image host. See src/components/Img.astro for the render side.
+ * Project imagery lives in `src/assets/` and is committed to the repo. Astro
+ * optimises the bitmaps at build time (responsive webp/avif). SVGs are served
+ * as-is. See src/components/Img.astro for the render side.
  *
  * `id` is the path under src/assets without extension, e.g.
- * "projects/goldstorm/hero". Returns Astro's ImageMetadata, or null if the file
- * isn't in the repo yet (Img.astro then shows a placeholder).
+ * "projects/goldstorm/hero" or "logos/logo-01".
  */
-const files = import.meta.glob('/src/assets/**/*.{jpg,jpeg,png,webp,avif}', {
+const bitmaps = import.meta.glob('/src/assets/**/*.{jpg,jpeg,png,webp,avif}', {
   eager: true,
+});
+const svgs = import.meta.glob('/src/assets/**/*.svg', {
+  eager: true,
+  query: '?url',
+  import: 'default',
 });
 
 const byId = new Map();
-for (const [path, mod] of Object.entries(files)) {
-  const id = path.replace('/src/assets/', '').replace(/\.[^.]+$/, '');
-  byId.set(id, mod.default);
+for (const [path, mod] of Object.entries(bitmaps)) {
+  byId.set(path.replace('/src/assets/', '').replace(/\.[^.]+$/, ''), mod.default);
+}
+for (const [path, url] of Object.entries(svgs)) {
+  byId.set(path.replace('/src/assets/', '').replace(/\.svg$/, ''), url);
 }
 
 export function asset(id) {
@@ -24,6 +30,10 @@ export function asset(id) {
   return byId.get(id) ?? null;
 }
 
-export function hasAsset(id) {
-  return byId.has(id);
+/** Sorted list of gallery image ids for a project ("projects/<slug>/01", …). */
+export function galleryIds(slug) {
+  const prefix = `projects/${slug}/`;
+  return [...byId.keys()]
+    .filter((k) => k.startsWith(prefix) && /\/\d+$/.test(k))
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
 }

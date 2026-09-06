@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import MoreProjects from '../../components/MoreProjects.astro';
 import Img from '../../components/Img.astro';
 import { projects, getProject } from '../../data/projects.js';
+import { galleryIds } from '../../lib/assets.js';
 
 export function getStaticPaths() {
   return projects.map((p) => ({ params: { slug: p.slug } }));
@@ -12,15 +13,22 @@ const { slug } = Astro.params;
 const project = getProject(slug);
 if (!project) return Astro.redirect('/portfolio');
 
-// Group the gallery: consecutive `half` items pair into one 2-up row.
-const rows = [];
-for (const item of project.gallery ?? []) {
-  const last = rows[rows.length - 1];
-  if (item.span === 'half' && last?.kind === 'half' && last.items.length === 1) {
-    last.items.push(item);
-  } else {
-    rows.push({ kind: item.span === 'half' ? 'half' : 'full', items: [item] });
+// Gallery rows. If projects.js defines an explicit `gallery` (with optional
+// 'half' spans that pair 2-up, forced Figma aspect ratios), use it. Otherwise
+// auto-discover every NN.jpg for the project and stack them full-width at their
+// natural aspect ratio.
+let rows = [];
+if (project.gallery?.length) {
+  for (const item of project.gallery) {
+    const last = rows[rows.length - 1];
+    if (item.span === 'half' && last?.kind === 'half' && last.items.length === 1) {
+      last.items.push(item.id);
+    } else {
+      rows.push({ kind: item.span === 'half' ? 'half' : 'full', natural: false, items: [item.id] });
+    }
   }
+} else {
+  rows = galleryIds(slug).map((id) => ({ kind: 'full', natural: true, items: [id] }));
 }
 ---
 
@@ -55,10 +63,10 @@ for (const item of project.gallery ?? []) {
     {rows.length > 0 && (
       <div class="gallery">
         {rows.map((row) => (
-          <div class:list={['gallery__row', `gallery__row--${row.kind}`]}>
-            {row.items.map((it) => (
+          <div class:list={['gallery__row', `gallery__row--${row.kind}`, row.natural && 'gallery__row--natural']}>
+            {row.items.map((id) => (
               <Img
-                id={`projects/${it.id}`}
+                id={`projects/${id}`}
                 alt=""
                 ratio={row.kind === 'half' ? '683 / 890' : '1390 / 805'}
                 class="gallery__img"
@@ -139,6 +147,11 @@ for (const item of project.gallery ?? []) {
   }
   .gallery__row--half :global(.gallery__img) {
     aspect-ratio: 683 / 890;
+  }
+  /* auto galleries: keep each image's own proportions */
+  .gallery__row--natural :global(.gallery__img) {
+    aspect-ratio: auto;
+    object-fit: contain;
   }
 
   @media (min-width: 768px) {

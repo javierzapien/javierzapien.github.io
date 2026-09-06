@@ -24,11 +24,11 @@ const {
   fallbackId,
 } = Astro.props;
 
-const meta = asset(id) ?? (fallbackId ? asset(fallbackId) : null);
+const resolved = asset(id) ?? (fallbackId ? asset(fallbackId) : null);
+const isBitmap = resolved && typeof resolved === 'object';
+const isUrl = typeof resolved === 'string';
 
-const [rw, rh] = ratio
-  ? ratio.split('/').map((n) => Number(n.trim()))
-  : [3, 2];
+const [rw, rh] = ratio ? ratio.split('/').map((n) => Number(n.trim())) : [3, 2];
 const w = 1200;
 const h = Math.round((w * rh) / rw);
 
@@ -43,15 +43,10 @@ function placeholder(seed, width, height) {
 ---
 
 {
-  meta ? (
-    <Image
-      src={meta}
-      alt={alt}
-      widths={widths}
-      sizes={sizes}
-      class={className}
-      loading={loading}
-    />
+  isBitmap ? (
+    <Image src={resolved} alt={alt} widths={widths} sizes={sizes} class={className} loading={loading} />
+  ) : isUrl ? (
+    <img src={resolved} alt={alt} class={className} loading={loading} decoding="async" />
   ) : (
     <img
       src={placeholder(id, w, h)}
