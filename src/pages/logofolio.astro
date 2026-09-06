@@ -7,11 +7,13 @@ import { logos } from '../data/projects.js';
   <section class="logofolio">
     <h1 class="section-label">Logofolio <span class="arrow" aria-hidden="true">&larr;</span></h1>
     <div class="logo-grid">
-      {logos.map((logo) => (
-        <div class="logo-tile" aria-label={logo.name}>
-          {logo.mark
-            ? <img src={logo.mark} alt={logo.name} loading="lazy" />
-            : <span class="logo-tile__placeholder t-meta">{logo.name}</span>}
+      {logos.map((logo, i) => (
+        <div class="logo-tile">
+          {logo.mark ? (
+            <img src={logo.mark} alt={logo.name} loading="lazy" decoding="async" />
+          ) : (
+            <span class="logo-tile__ph">{String(i + 1).padStart(2, '0')}</span>
+          )}
         </div>
       ))}
     </div>
@@ -20,28 +22,36 @@ import { logos } from '../data/projects.js';
 
 <style>
   .logofolio {
-    padding-block: var(--space-section-top);
+    padding-top: var(--space-content-top);
   }
+  .logofolio .section-label {
+    margin-bottom: var(--space-24);
+  }
+
   .logo-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 19px;
   }
   .logo-tile {
-    aspect-ratio: 1.9 / 1;
+    aspect-ratio: 327 / 172;
     display: grid;
     place-items: center;
-    background: #1a1a1a;
-    color: #fff;
-    padding: 12%;
+    background: var(--color-logo-tile);
   }
   .logo-tile img {
-    max-height: 100%;
+    max-width: 30%;
+    max-height: 42%;
     width: auto;
+    height: auto;
   }
-  .logo-tile__placeholder {
-    opacity: 0.5;
+  .logo-tile__ph {
+    font-family: var(--font-mono);
+    font-size: var(--type-meta);
+    letter-spacing: var(--tracking-mono);
+    color: rgba(255, 255, 255, 0.25);
   }
+
   @media (min-width: 768px) {
     .logo-grid {
       grid-template-columns: repeat(2, 1fr);

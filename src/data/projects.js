@@ -144,7 +144,17 @@ export const projects = [
     tags: ['BRANDING', 'IDENTITY SYSTEM'],
     thumb: 'portfolio/goldstorm/thumb',
     hero: 'portfolio/goldstorm/hero',
-    gallery: [],
+    // span: 'full' (default, landscape) or 'half' (portrait; consecutive halves
+    // pair 2-up on tablet/desktop, stack on mobile). Arrangement per the Figma
+    // frame Desktop_Project_goldstorm_1440.
+    gallery: [
+      { id: 'portfolio/goldstorm/01' },
+      { id: 'portfolio/goldstorm/02', span: 'half' },
+      { id: 'portfolio/goldstorm/03', span: 'half' },
+      { id: 'portfolio/goldstorm/04' },
+      { id: 'portfolio/goldstorm/05' },
+      { id: 'portfolio/goldstorm/06' },
+    ],
   },
   {
     slug: 'compa',

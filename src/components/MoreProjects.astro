@@ -22,13 +22,14 @@ const items = moreProjects(currentSlug);
 
 <style>
   .more {
+    --more-gap: 24px;
     margin-top: var(--space-section-top);
   }
   .more__row {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: 82%;
-    gap: var(--grid-gap-x, 16px);
+    grid-auto-columns: 78%;
+    gap: var(--more-gap);
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
@@ -42,13 +43,19 @@ const items = moreProjects(currentSlug);
     scroll-snap-align: start;
   }
   @media (min-width: 768px) {
+    .more {
+      --more-gap: 32px;
+    }
     .more__row {
       grid-auto-columns: 46%;
     }
   }
   @media (min-width: 1024px) {
+    .more {
+      --more-gap: clamp(32px, 3.5vw, 52px);
+    }
     .more__row {
-      grid-auto-columns: calc((100% - 3 * var(--grid-gap-x)) / 4);
+      grid-auto-columns: calc((100% - 3 * var(--more-gap)) / 4);
       margin-inline: 0;
       padding-inline: 0;
     }

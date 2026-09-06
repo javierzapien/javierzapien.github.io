@@ -11,8 +11,9 @@
   /* ---- Color ---- */
   --color-ink: #000000;
   --color-paper: #ffffff;
-  --color-surface: #fafafa; /* footer band */
-  --color-rule: #d9d9d9;    /* hairlines in the footer */
+  --color-surface: #fafafa;    /* image placeholder / loading ground */
+  --color-rule: #d9d9d9;       /* hairlines in the footer */
+  --color-logo-tile: #272727;  /* logofolio tile background */
 
   /* ---- Font families ---- */
   --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
@@ -88,6 +89,8 @@
   --hero-gap-top: 0px; /* white space between header and the home hero */
   --card-image-height: 219px;
 
+  --gallery-gap: 16px; /* between rows on a project page */
+
   /* Footer */
   --footer-margin: 24px;
   --footer-pad-top: 56px;
@@ -122,6 +125,7 @@
 
     --hero-height: 500px;
     --card-image-height: 227px;
+    --gallery-gap: 24px;
 
     --footer-margin: 32px;
   }
@@ -165,6 +169,7 @@
     --hero-height: clamp(560px, 55.5vw, 1200px);
     --hero-gap-top: clamp(64px, 6.25vw, 140px);
     --card-image-height: 220px;
+    --gallery-gap: clamp(24px, 2.4vw, 44px);
 
     --footer-margin: clamp(32px, 3.1vw, 88px);
     --footer-pad-top: clamp(64px, 6.3vw, 150px);
