@@ -58,6 +58,15 @@ a {
   margin-left: 0.4em;
 }
 
+/* "Scoop corner" media frame — top corners lightly rounded, bottom corners
+   pulled into a deep concave curve. The shape lives once in <ScoopEffect>
+   (src/components/ScoopEffect.astro) and redraws on scroll, so every .scoop
+   element pinches a little more as you scroll and relaxes at rest. Works on
+   <img> and <video> alike since it's just a clip-path. */
+.scoop {
+  clip-path: url(#scoop-clip);
+}
+
 /* Link + footer-link hover underline — HANDOFF §6 */
 .u-link {
   transition: opacity var(--transition-fast) var(--ease);
