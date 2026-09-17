@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Not found — Javier Zapien">
+  <section class="notfound">
+    <h1 class="section-label">404 <span class="arrow" aria-hidden="true">&larr;</span></h1>
+    <p class="t-body-large">That page doesn&rsquo;t exist.</p>
+    <p class="t-body"><a class="u-link" href="/">Back home</a> &middot; <a class="u-link" href="/portfolio">See the work</a></p>
+  </section>
+</Base>
+
+<style>
+  .notfound {
+    padding-block: var(--space-section-top);
+    display: grid;
+    gap: var(--space-16);
+  }
+</style>

@@ -1,0 +1,71 @@
+---
+import Img from './Img.astro';
+
+interface Props {
+  project: {
+    slug: string;
+    title: string;
+    excerpt: string;
+    tags: string[];
+  };
+  headingLevel?: 'h2' | 'h3';
+  loading?: 'eager' | 'lazy';
+}
+
+const { project, headingLevel = 'h2', loading = 'lazy' } = Astro.props;
+const Heading = headingLevel;
+---
+
+<a class="card" href={`/work/${project.slug}`}>
+  <span class="card__media">
+    <Img
+      id={`projects/${project.slug}/thumb`}
+      fallbackId={`projects/${project.slug}/hero`}
+      alt={project.title}
+      ratio="3 / 2"
+      class="card__img"
+      sizes="(min-width: 1024px) 24vw, (min-width: 768px) 48vw, 100vw"
+      widths={[400, 680, 900]}
+      loading={loading}
+    />
+  </span>
+  <Heading class="card__title t-meta">{project.title}</Heading>
+  <p class="card__excerpt t-body">{project.excerpt}</p>
+  <p class="card__tags t-meta">{project.tags.join(', ')}</p>
+</a>
+
+<style>
+  .card {
+    display: block;
+  }
+  .card__media {
+    display: block;
+    overflow: hidden;
+    background: var(--color-surface);
+    aspect-ratio: 3 / 2;
+  }
+  .card__media :global(.card__img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-base) var(--ease);
+  }
+  .card:hover .card__media :global(.card__img) {
+    transform: scale(1.02);
+  }
+  .card__title {
+    margin-top: var(--card-gap-img);
+  }
+  .card__excerpt {
+    margin-top: var(--card-gap-title);
+  }
+  .card__tags {
+    margin-top: var(--card-gap-excerpt);
+    color: var(--color-ink);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card__media :global(.card__img) {
+      transition: none;
+    }
+  }
+</style>

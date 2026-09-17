@@ -1,0 +1,139 @@
+---
+import { SITE } from '../data/projects.js';
+import Flower from './Flower.astro';
+import DubaiClock from './DubaiClock.astro';
+
+const { pathname } = Astro.url;
+const nav = [
+  { label: 'Portfolio', href: '/portfolio' },
+  { label: 'Logofolio', href: '/logofolio' },
+  { label: 'About', href: '/about' },
+];
+const isCurrent = (href) => pathname === href || pathname.startsWith(href + '/');
+---
+
+<header class="hdr">
+  <div class="hdr__inner">
+    <p class="hdr__tagline">{SITE.tagline}</p>
+
+    <div class="hdr__clock"><DubaiClock /></div>
+
+    <a class="hdr__home" href="/" aria-label={`${SITE.name} — home`}>
+      <span class="hdr__flower"><Flower /></span>
+    </a>
+
+    <nav class="hdr__nav" aria-label="Primary">
+      {
+        nav.map((item) => (
+          <a
+            class="u-link"
+            href={item.href}
+            aria-current={isCurrent(item.href) ? 'page' : undefined}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>
+
+<style>
+  .hdr {
+    background: var(--color-paper);
+  }
+  .hdr__inner {
+    width: 100%;
+    max-width: var(--site-max);
+    margin-inline: auto;
+    padding: var(--space-header-y) var(--layout-margin) 0;
+  }
+
+  .hdr__flower {
+    display: block;
+    width: var(--flower-size);
+  }
+  .hdr__nav {
+    display: flex;
+    gap: var(--nav-gap);
+    font-family: var(--font-sans);
+    font-size: var(--type-nav);
+    white-space: nowrap;
+  }
+  .hdr__tagline {
+    font-family: var(--font-sans);
+    font-size: var(--type-tagline);
+    color: var(--color-ink);
+  }
+  .hdr__clock {
+    font-size: var(--type-clock);
+  }
+
+  /* ---------- Mobile: vertical, centred ---------- */
+  @media (max-width: 767px) {
+    .hdr__inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-header-gap);
+      padding-bottom: 26px;
+      text-align: center;
+    }
+    .hdr__nav {
+      order: 1;
+    }
+    .hdr__home {
+      order: 2;
+    }
+    .hdr__tagline {
+      order: 3;
+      max-width: 20em;
+    }
+    .hdr__clock {
+      order: 4;
+    }
+  }
+
+  /* ---------- Tablet + Desktop: 3-zone row ---------- */
+  @media (min-width: 768px) {
+    .hdr__inner {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: start;
+      column-gap: var(--space-24);
+    }
+    .hdr__tagline {
+      grid-column: 1;
+      grid-row: 1;
+      max-width: 13em;
+    }
+    .hdr__clock {
+      grid-column: 1;
+      grid-row: 2;
+      margin-top: var(--space-8);
+    }
+    .hdr__home {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      justify-self: center;
+      align-self: center;
+    }
+    .hdr__nav {
+      grid-column: 3;
+      grid-row: 1;
+      justify-content: flex-end;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hdr__inner {
+      column-gap: var(--space-40);
+    }
+    .hdr__tagline {
+      max-width: 17em;
+    }
+    .hdr__clock {
+      margin-top: 12px;
+    }
+  }
+</style>

@@ -1,0 +1,114 @@
+---
+import Base from '../layouts/Base.astro';
+import { about } from '../data/projects.js';
+import Img from '../components/Img.astro';
+---
+
+<Base title="About — Javier Zapien">
+  <section class="about">
+    <h1 class="section-label">About me <span class="arrow" aria-hidden="true">&larr;</span></h1>
+
+    <div class="about__intro">
+      <div class="about__bio">
+        {about.bio.map((p) => <p>{p}</p>)}
+      </div>
+      <figure class="about__photo">
+        <Img
+          id="about/portrait"
+          alt={about.portraitAlt}
+          ratio="4 / 5"
+          class="about__photo-img"
+          sizes="(min-width: 1024px) 40vw, 100vw"
+          widths={[480, 720, 1000]}
+        />
+      </figure>
+    </div>
+
+    <h2 class="section-label about__xp-label">Experience <span class="arrow" aria-hidden="true">&larr;</span></h2>
+    <ul class="about__xp">
+      {about.experience.map((job) => (
+        <li>
+          <span>{job.company}</span>
+          <span>{job.role}</span>
+          <span>{job.type}</span>
+          <span>{job.location}</span>
+          <span>{job.dates}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Base>
+
+<style>
+  .about {
+    padding-top: var(--space-content-top);
+  }
+
+  .about__intro {
+    display: grid;
+    gap: var(--space-40);
+  }
+  .about__bio {
+    display: grid;
+    gap: 1em;
+    font-family: var(--font-sans);
+    font-size: var(--type-body-large);
+    line-height: normal;
+  }
+  .about__photo {
+    margin: 0;
+  }
+  .about__photo :global(.about__photo-img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    background: var(--color-surface);
+  }
+
+  .about__xp-label {
+    margin-top: var(--space-section-top);
+  }
+  .about__xp {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .about__xp li {
+    display: grid;
+    font-family: var(--font-sans);
+    font-size: var(--type-body-large);
+    line-height: normal;
+  }
+
+  /* ---------- Tablet ---------- */
+  @media (min-width: 768px) {
+    .about__xp {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 35px;
+      row-gap: 48px;
+    }
+  }
+
+  /* ---------- Desktop ---------- */
+  @media (min-width: 1024px) {
+    .about__intro {
+      grid-template-columns: minmax(0, 49%) 1fr;
+      gap: clamp(48px, 7vw, 180px);
+      align-items: start;
+    }
+    .about__photo {
+      justify-self: end;
+      max-width: clamp(420px, 35vw, 720px);
+    }
+    .about__xp-label {
+      margin-top: calc(var(--space-section-top) * 1.4);
+    }
+    .about__xp {
+      grid-template-columns: repeat(4, 1fr);
+      column-gap: var(--grid-gap-x);
+      row-gap: clamp(28px, 2.4vw, 56px);
+    }
+  }
+</style>

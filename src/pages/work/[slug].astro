@@ -1,0 +1,237 @@
+---
+import Base from '../../layouts/Base.astro';
+import MoreProjects from '../../components/MoreProjects.astro';
+import Img from '../../components/Img.astro';
+import { projects, getProject } from '../../data/projects.js';
+import { asset, video, galleryIds } from '../../lib/assets.js';
+
+export function getStaticPaths() {
+  return projects.map((p) => ({ params: { slug: p.slug } }));
+}
+
+const { slug } = Astro.params;
+const project = getProject(slug);
+if (!project) return Astro.redirect('/portfolio');
+
+// Gallery rows. If projects.js defines an explicit `gallery` (half/full spans),
+// use it. Otherwise auto-discover every NN.{jpg,mp4} and lay them out like the
+// Figma project frames: landscape images full-width; consecutive portrait
+// images grouped into rows (pairs, or trios where they divide evenly — the
+// tail row on several projects is a 3-up).
+let rows = [];
+
+// Split a run of N portraits into row sizes, preferring 3s but never orphaning 1.
+function splitRun(n) {
+  if (n <= 3) return [n];
+  const sizes = [];
+  let rem = n;
+  while (rem > 4) {
+    sizes.push(3);
+    rem -= 3;
+  }
+  if (rem === 4) sizes.push(2, 2);
+  else sizes.push(rem);
+  return sizes;
+}
+const kindFor = (size) => (size === 3 ? 'triple' : size === 2 ? 'half' : 'half-solo');
+
+if (project.gallery?.length) {
+  for (const item of project.gallery) {
+    const kind = item.span === 'half' ? 'half' : 'full';
+    const last = rows[rows.length - 1];
+    if (kind === 'half' && last?.kind === 'half' && last.items.length === 1) last.items.push(item.id);
+    else rows.push({ kind, items: [item.id] });
+  }
+  for (const row of rows) if (row.kind === 'half' && row.items.length === 1) row.kind = 'half-solo';
+} else {
+  const ids = galleryIds(slug);
+  const isPortrait = (id) => {
+    if (video(`projects/${id}`)) return true;
+    const m = asset(`projects/${id}`);
+    return m && m.height > m.width * 1.1;
+  };
+  let run = [];
+  const flushRun = () => {
+    let i = 0;
+    for (const size of splitRun(run.length)) {
+      rows.push({ kind: kindFor(size), items: run.slice(i, i + size) });
+      i += size;
+    }
+    run = [];
+  };
+  for (const id of ids) {
+    if (isPortrait(id)) run.push(id);
+    else {
+      flushRun();
+      rows.push({ kind: 'full', items: [id] });
+    }
+  }
+  flushRun();
+}
+---
+
+<Base
+  title={`${project.breadcrumb} — Javier Zapien`}
+  description={project.excerpt}
+  bleed
+>
+  <article class="project">
+    <p class="project__crumb container section-label">
+      {project.breadcrumb} <span class="arrow" aria-hidden="true">&larr;</span>
+    </p>
+
+    <div class="project__hero">
+      <Img
+        id={`projects/${project.slug}/hero`}
+        alt={project.title}
+        ratio="16 / 10"
+        class="project__hero-img"
+        sizes="100vw"
+        widths={[768, 1280, 1920, 2560]}
+        loading="eager"
+      />
+    </div>
+
+    <div class="project__intro container">
+      <hr class="project__rule" />
+      <p class="project__tags t-meta">{project.tags.join(', ')}</p>
+      <p class="project__text">{project.intro}</p>
+    </div>
+
+    {rows.length > 0 && (
+      <div class="gallery">
+        {rows.map((row) => (
+          <div class:list={['gallery__row', `gallery__row--${row.kind}`]}>
+            {row.items.map((id) =>
+              video(`projects/${id}`) ? (
+                <video
+                  class="gallery__img"
+                  src={video(`projects/${id}`)}
+                  autoplay
+                  loop
+                  muted
+                  playsinline
+                  preload="metadata"
+                />
+              ) : (
+                <Img
+                  id={`projects/${id}`}
+                  alt=""
+                  ratio={row.kind === 'full' ? '1390 / 805' : '683 / 890'}
+                  class="gallery__img"
+                  sizes={
+                    row.kind === 'full'
+                      ? '(min-width: 768px) 60vw, 100vw'
+                      : row.kind === 'triple'
+                        ? '(min-width: 768px) 33vw, 100vw'
+                        : '(min-width: 768px) 50vw, 100vw'
+                  }
+                  widths={row.kind === 'full' ? [768, 1280, 1920, 2560] : [480, 768, 1200]}
+                />
+              )
+            )}
+          </div>
+        ))}
+      </div>
+    )}
+
+    <div class="container">
+      <MoreProjects currentSlug={project.slug} />
+    </div>
+  </article>
+</Base>
+
+<style>
+  .project {
+    padding-top: var(--space-content-top);
+  }
+
+  /* Breadcrumb */
+  .project__crumb {
+    margin-bottom: 16px;
+  }
+
+  /* Hero — full-bleed on every breakpoint */
+  .project__hero {
+    width: 100%;
+  }
+  .project__hero :global(.project__hero-img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    background: var(--color-surface);
+  }
+
+  /* Intro block */
+  .project__intro {
+    margin-top: var(--space-24);
+  }
+  .project__rule {
+    border: 0;
+    border-top: 1px solid var(--color-rule);
+    margin: 0 0 var(--space-24);
+  }
+  .project__tags {
+    color: var(--color-ink);
+    margin-bottom: var(--space-16);
+  }
+  .project__text {
+    font-family: var(--font-sans);
+    font-size: var(--type-body-large);
+    line-height: normal;
+  }
+
+  /* Gallery — full-bleed on mobile/tablet, inset to the content column on desktop */
+  .gallery {
+    margin-top: var(--space-section-top);
+    display: grid;
+    gap: var(--gallery-gap);
+  }
+  .gallery__row {
+    display: grid;
+    gap: var(--gallery-gap);
+  }
+  .gallery__row :global(.gallery__img) {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    background: var(--color-surface);
+  }
+  .gallery__row--full :global(.gallery__img) {
+    aspect-ratio: 1390 / 805;
+  }
+  .gallery__row--half :global(.gallery__img),
+  .gallery__row--half-solo :global(.gallery__img),
+  .gallery__row--triple :global(.gallery__img) {
+    aspect-ratio: 683 / 890;
+  }
+  .gallery__row--half-solo {
+    justify-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .gallery__row--half {
+      grid-template-columns: 1fr 1fr;
+    }
+    .gallery__row--triple {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    .gallery__row--half-solo :global(.gallery__img) {
+      width: calc(50% - var(--gallery-gap) / 2);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    /* the paragraph is a centred column, per the Figma frame */
+    .project__text {
+      max-width: 62ch;
+      margin-inline: auto;
+    }
+    .gallery {
+      max-width: var(--site-max);
+      margin-inline: auto;
+      padding-inline: var(--layout-margin);
+    }
+  }
+</style>

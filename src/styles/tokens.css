@@ -1,0 +1,240 @@
+/**
+ * Design tokens for zapien.xyz
+ * Mirrors the "Primitives" and "Responsive" variable collections in
+ * Figma → Portfolio 20206 → PORTFOLIO_MCP_DESING_010826.
+ *
+ * Mobile-first. Every responsive token is redeclared at each breakpoint,
+ * so components only ever reference the token, never a raw value.
+ */
+
+:root {
+  /* ---- Color ---- */
+  --color-ink: #000000;
+  --color-paper: #ffffff;
+  --color-surface: #fafafa;    /* image placeholder / loading ground */
+  --color-rule: #d9d9d9;       /* hairlines in the footer */
+  --color-logo-tile: #272727;  /* logofolio tile background */
+
+  /* ---- Font families ---- */
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, monospace;
+
+  /* ---- Tracking ---- */
+  --tracking-sans: 0;
+  --tracking-mono: 0.05em; /* 5% — all Space Mono labels */
+
+  /* ---- Spacing scale ---- */
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-28: 28px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-48: 48px;
+  --space-56: 56px;
+  --space-64: 64px;
+  --space-70: 70px;
+
+  /* ---- Motion ---- */
+  --hero-interval: 5000ms;
+  --transition-fast: 150ms;
+  --transition-base: 250ms;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ============================================================
+     RESPONSIVE TOKENS — Mobile (default, < 768px)
+     ============================================================ */
+  --layout-margin: 24px;
+  --layout-content: 327px;
+
+  /* Max content width. Mobile/tablet: content simply fills the viewport minus
+     the margins. Desktop overrides this with a large fluid cap (see below) so
+     the design fills big monitors instead of sitting boxed at 1440. Defined
+     here (before the media queries) so the desktop override wins on source
+     order. */
+  --site-max: calc(var(--layout-content) + var(--layout-margin) * 2);
+
+  --grid-columns: 1;
+  --grid-gap-x: 0px;
+  --grid-gap-y: 52px;
+
+  --type-nav: 13px;
+  --type-tagline: 15px;
+  --type-clock: 14px;
+  --type-section-label: 17px;
+  --type-body: 15px;
+  --type-body-large: 17px;
+  --type-meta: 11px;
+  --type-legal: 10px;
+
+  --space-header-y: 28px;
+  --space-header-gap: 18px; /* between stacked header items on mobile */
+  --space-content-top: 28px; /* header -> first section label */
+  --space-section-top: 56px;
+  --space-section-label-gap: 28px; /* section label -> its content */
+  --space-footer-top: 56px;
+
+  /* Project card internal gaps */
+  --card-gap-img: 11px;
+  --card-gap-title: 16px;
+  --card-gap-excerpt: 16px;
+
+  --nav-gap: 20px;
+  --flower-size: 56px;
+
+  --hero-height: 420px;
+  --hero-gap-top: 0px; /* white space between header and the home hero */
+  --card-image-height: 219px;
+
+  --gallery-gap: 16px; /* between rows on a project page */
+
+  /* Footer */
+  --footer-margin: 24px;
+  --footer-pad-top: 56px;
+  --footer-block-gap: 28px; /* between stacked footer blocks */
+  --footer-rule-gap: 28px;  /* hairline -> label */
+  --footer-label-gap: 12px; /* label -> links */
+}
+
+/* ============================================================
+   Tablet — 768px and up
+   ============================================================ */
+@media (min-width: 768px) {
+  :root {
+    --layout-margin: 32px;
+    --layout-content: 704px;
+
+    --grid-columns: 2;
+    --grid-gap-x: 16px;
+    --grid-gap-y: 56px;
+
+    --type-nav: 14px;
+    --type-tagline: 14px;
+    --type-clock: 14px;
+    --type-section-label: 17px;
+    --type-body: 15px;
+    --type-body-large: 20px;
+
+    --space-header-y: 26px;
+    --space-content-top: 40px;
+    --nav-gap: 22px;
+    --flower-size: 46px;
+
+    --hero-height: 500px;
+    --card-image-height: 227px;
+    --gallery-gap: 24px;
+
+    --footer-margin: 32px;
+  }
+}
+
+/* ============================================================
+   Desktop — 1024px and up (design reference is 1440px)
+   ============================================================ */
+@media (min-width: 1024px) {
+  :root {
+    /* Fluid layout. Every value equals its Figma spec at a 1440px viewport and
+       scales with the window between the min/max bounds — the design fills the
+       screen on large monitors instead of sitting boxed at 1440. */
+    --layout-margin: clamp(25px, 1.9vw, 64px);
+    --layout-content: 1390px;
+    --site-max: 2560px;
+
+    --grid-columns: 4;
+    --grid-gap-x: clamp(20px, 1.9vw, 52px);
+    --grid-gap-y: clamp(56px, 4.9vw, 116px);
+
+    /* Anchored to the Figma sizes at 1440px, then scaled gently (~+10% by
+       2560px) so large monitors don't get oversized text. */
+    --type-nav: clamp(18px, 15.5px + 0.3vw, 24px);
+    --type-tagline: clamp(18px, 15.5px + 0.3vw, 24px);
+    --type-clock: clamp(18px, 15.5px + 0.3vw, 24px);
+    --type-section-label: clamp(17px, 15px + 0.28vw, 23px);
+    --type-body: clamp(18px, 15.5px + 0.3vw, 24px);
+    --type-body-large: clamp(28px, 25px + 0.76vw, 44px);
+    --type-legal: 11px;
+
+    --space-header-y: clamp(28px, 2.15vw, 50px);
+    --space-content-top: clamp(40px, 3.5vw, 84px);
+    --space-section-top: clamp(56px, 4.9vw, 120px);
+    --space-section-label-gap: clamp(36px, 3.3vw, 78px);
+    --space-footer-top: clamp(56px, 4.9vw, 120px);
+
+    --nav-gap: clamp(24px, 2.2vw, 52px);
+    --flower-size: 124px;
+
+    --hero-height: clamp(560px, 55.5vw, 1200px);
+    --hero-gap-top: clamp(64px, 6.25vw, 140px);
+    --card-image-height: 220px;
+    --gallery-gap: clamp(24px, 2.4vw, 44px);
+
+    --footer-margin: clamp(32px, 3.1vw, 88px);
+    --footer-pad-top: clamp(64px, 6.3vw, 150px);
+    --footer-rule-gap: 30px;
+    --footer-label-gap: 16px;
+  }
+}
+
+/* ============================================================
+   Type roles — use these, not raw sizes
+   ============================================================ */
+.t-nav {
+  font-family: var(--font-sans);
+  font-size: var(--type-nav);
+  letter-spacing: var(--tracking-sans);
+}
+.t-tagline {
+  font-family: var(--font-sans);
+  font-size: var(--type-tagline);
+}
+.t-section-label {
+  font-family: var(--font-sans);
+  font-size: var(--type-section-label);
+}
+.t-body {
+  font-family: var(--font-sans);
+  font-size: var(--type-body);
+}
+.t-body-large {
+  font-family: var(--font-sans);
+  font-size: var(--type-body-large);
+}
+.t-meta {
+  font-family: var(--font-mono);
+  font-size: var(--type-meta);
+  letter-spacing: var(--tracking-mono);
+}
+.t-legal {
+  font-family: var(--font-mono);
+  font-size: var(--type-legal);
+  letter-spacing: var(--tracking-mono);
+}
+
+/* ============================================================
+   Layout primitives
+   ============================================================ */
+/* Header, footer and page content all share --site-max and --layout-margin so
+   their left/right edges line up at any viewport width. */
+.container {
+  width: 100%;
+  max-width: var(--site-max);
+  margin-inline: auto;
+  padding-inline: var(--layout-margin);
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  column-gap: var(--grid-gap-x);
+  row-gap: var(--grid-gap-y);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0ms;
+    --transition-base: 0ms;
+  }
+}

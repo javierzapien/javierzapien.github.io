@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+import { logos } from '../data/projects.js';
+---
+
+<Base title="Logofolio — Javier Zapien">
+  <section class="logofolio">
+    <h1 class="section-label">Logofolio <span class="arrow" aria-hidden="true">&larr;</span></h1>
+    <div class="logo-grid">
+      {logos.map((logo) => (
+        <div class="logo-tile">
+          <Img id={`logos/${logo.id}`} alt={logo.name} class="logo-tile__mark" />
+        </div>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .logofolio {
+    padding-top: var(--space-content-top);
+  }
+  .logofolio .section-label {
+    margin-bottom: var(--space-24);
+  }
+
+  .logo-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 19px;
+  }
+  .logo-tile {
+    aspect-ratio: 327 / 172;
+    display: grid;
+    place-items: center;
+    background: var(--color-logo-tile);
+  }
+  .logo-tile :global(.logo-tile__mark) {
+    max-width: 34%;
+    max-height: 46%;
+    width: auto;
+    height: auto;
+  }
+
+  @media (min-width: 768px) {
+    .logo-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .logo-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>
