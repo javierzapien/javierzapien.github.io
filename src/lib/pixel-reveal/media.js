@@ -25,6 +25,12 @@ export default class Media {
     this.currentScroll = (-window.scrollY * this.sizes.height) / window.innerHeight;
     this.lastScroll = this.currentScroll;
 
+    // Some cards (the "More projects" row) sit inside their own horizontally
+    // scrolling track — that scroll never touches window.scrollY, so it needs
+    // its own delta tracking or the mesh stays put while the row slides under it.
+    this.scrollContainer = this.findScrollContainer(element);
+    this.lastScrollLeft = this.scrollContainer ? this.scrollContainer.scrollLeft : 0;
+
     this.geometry = new THREE.PlaneGeometry(1, 1, 1, 1);
     this.material = new THREE.ShaderMaterial({
       vertexShader,
@@ -48,6 +54,18 @@ export default class Media {
     this.setTexture();
 
     this.scene.add(this.mesh);
+  }
+
+  findScrollContainer(el) {
+    let node = el.parentElement;
+    while (node && node !== document.body) {
+      const style = getComputedStyle(node);
+      if ((style.overflowX === 'auto' || style.overflowX === 'scroll') && node.scrollWidth > node.clientWidth) {
+        return node;
+      }
+      node = node.parentElement;
+    }
+    return null;
   }
 
   setNodeBounds() {
@@ -91,6 +109,14 @@ export default class Media {
     this.lastScroll = this.currentScroll;
     this.meshPosition.y -= delta;
     this.mesh.position.y = this.meshPosition.y;
+
+    if (this.scrollContainer) {
+      const scrollLeft = this.scrollContainer.scrollLeft;
+      const deltaX = (scrollLeft - this.lastScrollLeft) * (this.sizes.width / window.innerWidth);
+      this.lastScrollLeft = scrollLeft;
+      this.meshPosition.x -= deltaX;
+      this.mesh.position.x = this.meshPosition.x;
+    }
   }
 
   observe() {
@@ -112,6 +138,10 @@ export default class Media {
     this.setNodeBounds();
     this.setMeshDimensions();
     this.setMeshPosition();
+    // setMeshPosition() just recomputed x/y from the current (post-resize)
+    // bounding rect, so re-seed both scroll baselines here too — same reason
+    // as the constructor comment above.
+    this.lastScrollLeft = this.scrollContainer ? this.scrollContainer.scrollLeft : 0;
     this.material.uniforms.uContainerRes.value.set(this.nodeDimensions.width, this.nodeDimensions.height);
   }
 
