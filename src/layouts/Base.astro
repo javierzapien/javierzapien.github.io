@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import PixelReveal from '../components/PixelReveal.astro';
 import { SITE } from '../data/projects.js';
 
 interface Props {
@@ -46,6 +47,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
   <body>
+    <PixelReveal />
     <SiteHeader />
     <main class:list={[!bleed && 'container']}>
       <slot />

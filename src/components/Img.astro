@@ -11,6 +11,7 @@ interface Props {
   class?: string;
   loading?: 'eager' | 'lazy';
   fallbackId?: string;
+  reveal?: boolean; // opt into the pixel-block scroll reveal (see PixelReveal.astro)
 }
 
 const {
@@ -22,6 +23,7 @@ const {
   class: className,
   loading = 'lazy',
   fallbackId,
+  reveal = false,
 } = Astro.props;
 
 const resolved = asset(id) ?? (fallbackId ? asset(fallbackId) : null);
@@ -44,7 +46,15 @@ function placeholder(seed, width, height) {
 
 {
   isBitmap ? (
-    <Image src={resolved} alt={alt} widths={widths} sizes={sizes} class={className} loading={loading} />
+    <Image
+      src={resolved}
+      alt={alt}
+      widths={widths}
+      sizes={sizes}
+      class={className}
+      loading={loading}
+      data-pixel-reveal={reveal ? true : undefined}
+    />
   ) : isUrl ? (
     <img src={resolved} alt={alt} class={className} loading={loading} decoding="async" />
   ) : (
