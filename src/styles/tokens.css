@@ -11,6 +11,8 @@
   /* ---- Color ---- */
   --color-ink: #000000;
   --color-paper: #ffffff;
+  --color-tint-pale: #fbf1b8;   /* scroll tint: top of gradient */
+  --color-tint: #f2d544;        /* scroll tint: warm yellow */
   --color-surface: #fafafa;    /* image placeholder / loading ground */
   --color-rule: #d9d9d9;       /* hairlines in the footer */
   --color-logo-tile: #272727;  /* logofolio tile background */

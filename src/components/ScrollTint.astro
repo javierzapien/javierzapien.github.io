@@ -1,0 +1,47 @@
+---
+/**
+ * Scroll-linked background: a fixed yellow gradient layer behind the page whose
+ * opacity follows scroll depth, so white eases into yellow (top → bottom) as
+ * you read down. Without JS or with reduced motion it simply stays white.
+ */
+---
+
+<div id="scroll-tint" aria-hidden="true"></div>
+
+<style>
+  #scroll-tint {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0;
+    background: linear-gradient(180deg, var(--color-tint-pale) 0%, var(--color-tint) 100%);
+    will-change: opacity;
+  }
+</style>
+
+<script>
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const el = document.getElementById('scroll-tint');
+    let target = 0;
+    let current = 0;
+    let raf = 0;
+
+    const measure = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      // Saturates a bit before the very bottom so the yellow is fully there at the end.
+      target = max > 0 ? Math.min(1, Math.max(0, window.scrollY / (max * 0.85))) : 0;
+      if (!raf) raf = requestAnimationFrame(step);
+    };
+    const step = () => {
+      current += (target - current) * 0.12; // eased follow
+      if (Math.abs(target - current) < 0.001) current = target;
+      if (el) el.style.opacity = current.toFixed(3);
+      raf = current === target ? 0 : requestAnimationFrame(step);
+    };
+
+    addEventListener('scroll', measure, { passive: true });
+    addEventListener('resize', measure);
+    measure();
+  }
+</script>
