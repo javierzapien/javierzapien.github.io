@@ -1,4 +1,5 @@
 ---
+import { getImage } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import MoreProjects from '../../components/MoreProjects.astro';
 import Img from '../../components/Img.astro';
@@ -12,6 +13,13 @@ export function getStaticPaths() {
 const { slug } = Astro.params;
 const project = getProject(slug);
 if (!project) return Astro.redirect('/portfolio');
+
+// Optional animated hero: drop `hero.mp4` next to `hero.jpg`. The jpg stays —
+// it is the poster here and the thumbnail on cards, the OG image fallback, etc.
+const heroVideo = video(`projects/${slug}/hero`);
+const heroMeta = asset(`projects/${slug}/hero`);
+const heroPoster =
+  heroVideo && heroMeta ? (await getImage({ src: heroMeta, width: 1280, format: 'webp' })).src : undefined;
 
 // Gallery rows. If projects.js defines an explicit `gallery` (half/full spans),
 // use it. Otherwise auto-discover every NN.{jpg,mp4} and lay them out like the
@@ -80,15 +88,27 @@ if (project.gallery?.length) {
     </p>
 
     <div class="project__hero">
-      <Img
-        id={`projects/${project.slug}/hero`}
-        alt={project.title}
-        ratio="16 / 10"
-        class="project__hero-img"
-        sizes="100vw"
-        widths={[768, 1280, 1920, 2560]}
-        loading="eager"
-      />
+      {heroVideo ? (
+        <video
+          class="project__hero-img"
+          src={heroVideo}
+          poster={heroPoster}
+          autoplay
+          loop
+          muted
+          playsinline
+        />
+      ) : (
+        <Img
+          id={`projects/${project.slug}/hero`}
+          alt={project.title}
+          ratio="16 / 10"
+          class="project__hero-img"
+          sizes="100vw"
+          widths={[768, 1280, 1920, 2560]}
+          loading="eager"
+        />
+      )}
     </div>
 
     <div class="project__intro container">
