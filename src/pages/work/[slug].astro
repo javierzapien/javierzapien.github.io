@@ -3,7 +3,7 @@ import Base from '../../layouts/Base.astro';
 import MoreProjects from '../../components/MoreProjects.astro';
 import Img from '../../components/Img.astro';
 import { projects, getProject } from '../../data/projects.js';
-import { asset, video, galleryIds } from '../../lib/assets.js';
+import { asset, video, videoSize, galleryIds } from '../../lib/assets.js';
 
 export function getStaticPaths() {
   return projects.map((p) => ({ params: { slug: p.slug } }));
@@ -46,8 +46,7 @@ if (project.gallery?.length) {
 } else {
   const ids = galleryIds(slug);
   const isPortrait = (id) => {
-    if (video(`projects/${id}`)) return true;
-    const m = asset(`projects/${id}`);
+    const m = video(`projects/${id}`) ? videoSize(`projects/${id}`) : asset(`projects/${id}`);
     return m && m.height > m.width * 1.1;
   };
   let run = [];
