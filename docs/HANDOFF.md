@@ -130,7 +130,16 @@ Tags render as a comma-separated uppercase string joined from the `tags` array.
 
 ### Hero (home only)
 Full-bleed, edge to edge, no container padding. Height is `--hero-height`.
-Five slides cross-fading on a 5-second interval (§5).
+Eleven slides cross-fading on a 5-second interval (§5), in the order of the
+`Desktop_Home_1440` frames in Figma.
+
+Desktop (>=1024px) follows Figma: the hero is a **1440x620** window sitting flush
+under the header and flush against the footer (`--hero-height: 43.06vw`,
+`--hero-gap-top: 0.97vw`, both clamped). Each slide image is the Figma `inicio-hero`
+frame exported at 2x (2880x1240) into `src/assets/hero-desktop/<name>.jpg`.
+Mobile and tablet keep their own crops in `src/assets/hero/<name>.jpg` with the
+fixed 420 / 500px heights. Same file name in both folders = same slide
+(`heroSlides[].src`).
 
 ### Logo grid (logofolio only)
 Thirty cells, each a dark tile with a centred logo mark, aspect ratio **1.9:1**.

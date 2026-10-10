@@ -255,22 +255,25 @@ export const about = {
 };
 
 /**
- * Slides for the rotating hero on the home page. Order = rotation order.
- * `src` = file in src/assets/hero/. `slug` = project it links to.
+ * Slides for the rotating hero on the home page. Order = rotation order
+ * (same order as the Desktop_Home_1440 frames in Figma).
+ * `src` = file name (no extension), looked up in two folders:
+ *   src/assets/hero-desktop/  desktop (>=1024px), exported from Figma at 2x, 1440x620 frame
+ *   src/assets/hero/          mobile + tablet crop
+ * `slug` = project it links to.
  */
 export const heroSlides = [
   { slug: null, src: 'inicio', alt: 'Desert landscape with hand-drawn illustrations' },
-  { slug: 'sushiitto', src: 'sushiitto', alt: 'Sushiitto storefront in magenta' },
-  { slug: 'sucanto', src: '12', alt: 'Sucanto chocolate wrappers in neon colours' },
-  { slug: 'goldstorm', src: 'goldstorm', alt: 'Goldstorm identity detail' },
-  { slug: 'chachalaca-cafe', src: 'chachalaca-cafe', alt: 'Chachalaca Café branding' },
+  { slug: 'anillos-mezcal', src: 'anillos-mezcal-02', alt: 'Anillos Mezcal bottles in a radial arrangement' },
   { slug: 'anillos-mezcal', src: 'anillos-mezcal-01', alt: 'Anillos Mezcal bottle' },
+  { slug: 'goldstorm', src: 'goldstorm', alt: 'Goldstorm identity detail' },
+  { slug: 'sucanto', src: '12', alt: 'Sucanto chocolate wrappers in neon colours' },
+  { slug: 'sushiitto', src: 'sushiitto', alt: 'Sushiitto storefront in magenta' },
   { slug: 'desterrados', src: 'desterrados-01', alt: 'Desterrados taquería identity' },
   { slug: 'sucanto', src: 'sucanto', alt: 'Sucanto chocolate packaging' },
-  { slug: 'estral-sport', src: 'estral-sport', alt: 'Estral Sport esports identity' },
-  { slug: 'anillos-mezcal', src: 'anillos-mezcal-02', alt: 'Anillos Mezcal packaging' },
   { slug: 'koelleza', src: 'koelleza', alt: 'Koelleza pixel-art skincare branding' },
-  { slug: 'desterrados', src: 'desterrados-02', alt: 'Desterrados packaging' },
+  { slug: 'chachalaca-cafe', src: 'chachalaca-cafe', alt: 'Chachalaca Café branding' },
+  { slug: 'estral-sport', src: 'estral-sport', alt: 'Estral Sport esports identity' },
 ];
 
 /**

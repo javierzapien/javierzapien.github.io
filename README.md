@@ -26,7 +26,7 @@ npm run preview
 src/
   data/projects.js     # single source of truth: projects, hero slides, logos, SITE meta
   lib/assets.js         # resolves image/video ids (e.g. `<slug>/hero`) to files in src/assets
-  assets/               # projects/<slug>/, hero/, logos/, about/
+  assets/               # projects/<slug>/, hero/ (mobile+tablet), hero-desktop/ (>=1024px), logos/, about/
   styles/tokens.css     # design tokens, mirrors Figma variable collections
   styles/global.css     # reset + base + type roles
   layouts/Base.astro    # <html> shell, header, footer, meta
