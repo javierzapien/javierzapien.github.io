@@ -51,6 +51,15 @@ export const projects = [
     thumb: 'say-carbon-yachts/thumb',
     hero: 'say-carbon-yachts/hero',
     gallery: [],
+    credits: {
+      team: 'Ground Rising',
+      roles: [
+        ['Creative Direction', 'Hassanayn Rauf'],
+        ['Project Manager', 'Kariman Abou Elkheir'],
+        ['Strategy, Concept', 'Sajida Elrayih'],
+        ['Graphic Design', 'Javier Zapien, Kist Collins, Maddison Grant, Malak Elzahed'],
+      ],
+    },
   },
   {
     slug: 'sushiitto',
@@ -63,6 +72,13 @@ export const projects = [
     thumb: 'sushiitto/thumb',
     hero: 'sushiitto/hero',
     gallery: [],
+    credits: {
+      team: 'Espina Studio',
+      roles: [
+        ['Creative Direction', 'Carolina Ortiz'],
+        ['3D Illustration', 'Javier Zapien'],
+      ],
+    },
   },
   {
     slug: 'deus-ex-machina',
@@ -87,6 +103,18 @@ export const projects = [
     thumb: 'desterrados/thumb',
     hero: 'desterrados/hero',
     gallery: [],
+    credits: {
+      team: 'Espina Studio',
+      roles: [
+        ['Creative Direction', 'Carolina Ortiz'],
+        ['Art Direction', 'Osvaldo Vázquez'],
+        ['Project Manager', 'Marysol Rubio'],
+        ['Strategy, Concept & Naming', 'Angel Gomez, Alessandra Baragiotta, Fernando García'],
+        ['Graphic Design', 'Marco Herrera, Israel Herrera, Javier Zapien, Aranza Grajeda, Maximiliano Cano'],
+        ['Portafolio', 'Fernanda Gómez, Pamela García, Angel Gómez'],
+        ['Photography', 'Rocket Science'],
+      ],
+    },
   },
   {
     slug: 'bar-18',
@@ -157,6 +185,15 @@ export const projects = [
       { id: 'goldstorm/05' },
       { id: 'goldstorm/06' },
     ],
+    credits: {
+      team: 'La Tortilleria',
+      roles: [
+        ['Creative Direction', 'Zita Arcq'],
+        ['Graphic Design', 'Melissa Delgado, Javier Zapien'],
+        ['Portafolio', 'Zita Arcq'],
+        ['Photography', 'Zita Arcq'],
+      ],
+    },
   },
   {
     slug: 'compa',
@@ -217,6 +254,14 @@ export const projects = [
     thumb: 'koelleza/thumb',
     hero: 'koelleza/hero',
     gallery: [],
+    credits: {
+      team: 'Anagrama',
+      roles: [
+        ['Creative Direction', 'Carolina Ortiz / Daniela Garza'],
+        ['Art Direction', 'Mike Herrera'],
+        ['Graphic Design', 'Mike Herrera, Javier Zapien'],
+      ],
+    },
   },
   {
     slug: 'blum',
