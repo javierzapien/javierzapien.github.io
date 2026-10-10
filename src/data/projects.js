@@ -236,10 +236,10 @@ export const projects = [
 export const about = {
   label: 'About me',
   bio: [
-    'I am a graphic designer based in Dubai, United Arab Emirates, with ten years of experience working in design studios.',
-    'My expertise spans branding, typography, illustration, and design direction, always with a focus on delivering strong, original, and impactful concepts.',
-    'I am passionate about taking on projects that present creative challenges and generate value through thoughtful, strategic solutions.',
-    'Over the course of my career, I have collaborated with design studios across the globe, an experience that has broadened my perspective and allowed me to approach each project with versatility and a well-rounded vision.',
+    'I’m a Mexican graphic designer based in Dubai, with over a decade of experience in branding, typography, illustration, and design direction.',
+    'I like building things, whether a visual identity, an idea, or something made by hand. I’m drawn to projects that invite curiosity, experimentation, and finding the right visual language.',
+    'I’ve collaborated with studios across countries and cultures, which has shaped a versatile, culturally aware approach to design.',
+    'Outside work, I enjoy bicycles, long walks, and exploring without a destination. I notice overlooked details, and that curiosity finds its way into my work.',
   ],
   portrait: 'about/portrait',
   portraitAlt: 'Javier Zapien outside a Coffee and Bikes storefront',
