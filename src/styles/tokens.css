@@ -166,8 +166,10 @@
     --nav-gap: clamp(24px, 2.2vw, 52px);
     --flower-size: 124px;
 
-    --hero-height: clamp(560px, 55.5vw, 1200px);
-    --hero-gap-top: clamp(64px, 6.25vw, 140px);
+    /* Figma Desktop_Home_1440: hero window is 1440x620, flush under the header
+       (header block 166 -> hero at y=180) and flush against the footer. */
+    --hero-height: clamp(440px, 43.06vw, 1100px);
+    --hero-gap-top: clamp(10px, 0.97vw, 32px);
     --card-image-height: 220px;
     --gallery-gap: clamp(24px, 2.4vw, 44px);
 
