@@ -1,5 +1,6 @@
 ---
 import Img from './Img.astro';
+import { video } from '../lib/assets.js';
 
 interface Props {
   project: {
@@ -14,20 +15,27 @@ interface Props {
 
 const { project, headingLevel = 'h2', loading = 'lazy' } = Astro.props;
 const Heading = headingLevel;
+
+// Optional animated cover: drop `thumb.mp4` in the project folder (3:2).
+const thumbVideo = video(`projects/${project.slug}/thumb`);
 ---
 
 <a class="card" href={`/work/${project.slug}`}>
   <span class="card__media">
-    <Img
-      id={`projects/${project.slug}/thumb`}
-      fallbackId={`projects/${project.slug}/hero`}
-      alt={project.title}
-      ratio="3 / 2"
-      class="card__img"
-      sizes="(min-width: 1024px) 24vw, (min-width: 768px) 48vw, 100vw"
-      widths={[400, 680, 900]}
-      loading={loading}
-    />
+    {thumbVideo ? (
+      <video class="card__img" src={thumbVideo} aria-label={project.title} autoplay loop muted playsinline preload="metadata" />
+    ) : (
+      <Img
+        id={`projects/${project.slug}/thumb`}
+        fallbackId={`projects/${project.slug}/hero`}
+        alt={project.title}
+        ratio="3 / 2"
+        class="card__img"
+        sizes="(min-width: 1024px) 24vw, (min-width: 768px) 48vw, 100vw"
+        widths={[400, 680, 900]}
+        loading={loading}
+      />
+    )}
   </span>
   <Heading class="card__title t-meta">{project.title}</Heading>
   <p class="card__excerpt t-body">{project.excerpt}</p>
