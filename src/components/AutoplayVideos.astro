@@ -1,0 +1,65 @@
+---
+/**
+ * Keeps every <video> on the site playing without the visitor pressing play.
+ * The markup already has autoplay/loop/muted/playsinline; this script covers the
+ * cases where a browser still leaves a video paused (iOS Low Power Mode, a video
+ * that never started because it was off-screen at load, a tab that was hidden):
+ *  - plays each video as it scrolls into view, pauses it when it leaves
+ *  - re-plays if something paused it while visible
+ *  - retries on the first tap / click / key press (some browsers only allow it then)
+ * Muted + playsinline are re-asserted so Safari never promotes it to fullscreen.
+ */
+---
+
+<script>
+  const videos = Array.from(document.querySelectorAll<HTMLVideoElement>('video'));
+
+  if (videos.length) {
+    const visible = new Set<HTMLVideoElement>();
+
+    const play = (v: HTMLVideoElement) => {
+      v.muted = true;
+      v.playsInline = true;
+      const p = v.play();
+      if (p) p.catch(() => {}); // blocked: wait for the next gesture
+    };
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          const v = e.target as HTMLVideoElement;
+          if (e.isIntersecting) {
+            visible.add(v);
+            play(v);
+          } else {
+            visible.delete(v);
+            v.pause();
+          }
+        }
+      },
+      { rootMargin: '200px 0px' }
+    );
+
+    for (const v of videos) {
+      v.muted = true;
+      v.defaultMuted = true;
+      v.setAttribute('muted', '');
+      v.controls = false;
+      v.disablePictureInPicture = true;
+      v.disableRemotePlayback = true;
+      io.observe(v);
+      // paused by the browser while on screen -> start it again
+      v.addEventListener('pause', () => {
+        if (!visible.has(v) || v.ended || document.visibilityState !== 'visible') return;
+        setTimeout(() => visible.has(v) && v.paused && play(v), 150);
+      });
+      v.addEventListener('loadeddata', () => visible.has(v) && v.paused && play(v));
+    }
+
+    const kick = () => visible.forEach((v) => v.paused && play(v));
+    for (const t of ['pointerdown', 'touchstart', 'touchend', 'click', 'keydown']) {
+      addEventListener(t, kick, { passive: true, capture: true });
+    }
+    document.addEventListener('visibilitychange', () => document.visibilityState === 'visible' && kick());
+  }
+</script>
