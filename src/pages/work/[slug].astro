@@ -59,6 +59,7 @@ if (project.gallery?.length) {
   };
   let run = [];
   const flushRun = () => {
+    if (!run.length) return; // two landscape items in a row: nothing to flush
     let i = 0;
     for (const size of splitRun(run.length)) {
       rows.push({ kind: kindFor(size), items: run.slice(i, i + size) });
